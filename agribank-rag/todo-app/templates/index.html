@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Công việc KTNB — Agribank To-Do</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="brand-wrapper">
+                <div class="brand-logo">
+                    <span class="logo-text">AGRIBANK</span>
+                    <span class="logo-sub">KTNB</span>
+                </div>
+                <div class="header-titles">
+                    <h1>Hệ Thống Quản Lý Công Việc</h1>
+                    <p class="subtitle">Ứng dụng theo dõi tiến độ công tác Kiểm toán Nội bộ</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="pulse-dot"></span>
+                <span>Bộ nhớ tạm thời (In-Memory)</span>
+            </div>
+        </header>
+
+        <!-- DASHBOARD STATS -->
+        <section class="stats-grid">
+            <div class="stat-card total" onclick="filterBy('all')">
+                <div class="stat-icon">📋</div>
+                <div class="stat-info">
+                    <span class="stat-label">Tổng công việc</span>
+                    <span class="stat-value" id="stat-total">0</span>
+                </div>
+            </div>
+            <div class="stat-card pending" onclick="filterBy('dang_lam')">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <span class="stat-label">Đang thực hiện</span>
+                    <span class="stat-value" id="stat-pending">0</span>
+                </div>
+            </div>
+            <div class="stat-card completed" onclick="filterBy('xong')">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <span class="stat-label">Đã hoàn thành</span>
+                    <span class="stat-value" id="stat-completed">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-layout">
+            <!-- FORM THÊM CÔNG VIỆC -->
+            <section class="card form-card">
+                <h2 class="card-title">
+                    <span class="icon">➕</span> Thêm công việc mới
+                </h2>
+                <form id="add-task-form">
+                    <div class="form-group">
+                        <label for="task-name">Tên công việc <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="task-name" 
+                            placeholder="Ví dụ: Rà soát Thông tư 41/2016..." 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="task-assignee">Người phụ trách <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="task-assignee" 
+                            placeholder="Ví dụ: Nguyễn Văn A" 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-task">
+                        <span>Lưu công việc</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- DANH SÁCH CÔNG VIỆC -->
+            <section class="card list-card">
+                <div class="list-header">
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" data-filter="all" onclick="filterBy('all')">
+                            Tất cả (<span id="count-all">0</span>)
+                        </button>
+                        <button class="tab-btn" data-filter="dang_lam" onclick="filterBy('dang_lam')">
+                            Đang làm (<span id="count-dang-lam">0</span>)
+                        </button>
+                        <button class="tab-btn" data-filter="xong" onclick="filterBy('xong')">
+                            Đã xong (<span id="count-xong">0</span>)
+                        </button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="🔍 Tìm kiếm nhanh..." oninput="renderTasks()">
+                    </div>
+                </div>
+
+                <!-- TASK LIST CONTAINER -->
+                <div class="task-list" id="task-list-container">
+                    <!-- Các mục công việc sẽ được sinh tự động bằng JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL SỬA CÔNG VIỆC -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chỉnh sửa công việc</h3>
+                <button class="btn-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="edit-task-form">
+                <input type="hidden" id="edit-task-id">
+                <div class="form-group">
+                    <label for="edit-task-name">Tên công việc <span class="required">*</span></label>
+                    <input type="text" id="edit-task-name" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-assignee">Người phụ trách <span class="required">*</span></label>
+                    <input type="text" id="edit-task-assignee" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-status">Trạng thái</label>
+                    <select id="edit-task-status">
+                        <option value="dang_lam">Đang làm</option>
+                        <option value="xong">Đã xong</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Hủy bỏ</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST THÔNG BÁO -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

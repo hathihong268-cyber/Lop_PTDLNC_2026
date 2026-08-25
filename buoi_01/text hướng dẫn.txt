@@ -1,0 +1,64 @@
+text hướng dẫn
+xin chào anh chị hôm nay em sẽ hướng dẫn cài đặt môi trường cách đơn giản nhất cho mọi người dễ hiểu bằng vibe setup.
+
+đầu tiên em sẽ để link drive ở dưới mô tả để anh chị vào tham khảo các thao tác
+ 
+anh chị chắc chắn cần phải cài đặt môi trường nhóm 1 là quan trọng nhất còn nhóm IDE nữa 1 trong 3 cái đó nhưng nếu mọi người được điều kiện cho phép thì có thể tải A và C
+
+nhóm 3 là tiện ích anh chị có thể tải cho đỡ tốn thời gian về sau
+
+đầu tiên anh chị cần tải vscode để có thể vibe setup 
+anh chị mở mục 3 ở trang 5 pdf
+
+anh chị ấn chương tải ở trong link pdf đó thì nó sẽ hiện ra phần download for window hoặc hệ điều hành thích hợp của anh chị thì mình tải về và cài đặt cứ chọn next cái mà app đã đề cử chứ mình không cần làm gì ngoài đó.
+
+sau khi cài đặt xong thì anh chị đăng nhập bằng github bây giờ em sẽ hướng dẫn thao tác đăng ký bằng github 
+
+vậy là đã đăng ký một tài khoản github xong về sau thì đây sẽ là tài khoản lưu trữ code của anh chị
+
+sau đó anh chị tạo một folder rồi mở nó trong phần app này 
+
+
+đã tạo xong
+
+
+anh chị theo tác trên cái chat AI này có thể anh chị đã sử dụng AI trên web nhiều thì đây cũng như thế em sẽ thao tác thử xem nó chạy có ok không nhé bây giờ em sẽ bảo nó cài cho em những phần khác còn thiếu mình có 9 mục cần cài nhưng anh chị có thể đọc file pdf này để chọn cái nào nhẹ hợp lý hoặc hỏi nó tôi nên cài cái nào cũng được
+
+còn em sẽ hướng dẫn cài hết 
+anh chị chiến copy phần mình muốn cài là được
+
+copy hết các đoạn này gửi cho AI là được 
+sau đó em sẽ ghi thêm lệnh để AI thực hiện
+
+trong lúc đợi AI làm thì ae chị có thể tìm hiểu trong app này có gì anh chị hãy click kiểu mở chat tắt chat bằng các nút ở trên này 
+trong lúc AI chạy thì anh chị cần phải chấp thuận nó chạy để AI có thể có quyền thao tác nếu anh chị biết tiếng anh thì có thể hiểu được là chúng ta nên làm gì.  đó anh chị có thể thầy tự động hiện ứng dụng lên cài và anh chị chỉ cần chấp nhận là xong. cái này cài tải nhiều có thể hơi lâu nên anh chị cố gắng đợi
+sau đó nó sẽ tự tạo 1 file py để anh chị có thể kiểm tra môi trường
+
+
+
+{--------------------------
+Hãy giúp tôi tự động cấu hình định danh Git và kết nối tài khoản GitHub trên máy tính này.
+
+[THÔNG TIN TÀI KHOẢN]
+- GitHub https://github.com/hathihong268-cyber/Lop_PTDLNC_2026
+- Email: hathihong268@gmail.com
+
+[QUY TRÌNH THỰC HIỆN DÀNH CHO AGENT]
+1. Cấu hình Git Global Identity (user.name và user.email) theo thông tin trên.
+2. Kiểm tra công cụ GitHub CLI (`gh`). Nếu chưa có, hãy tự động cài đặt bằng trình quản lý gói phù hợp (winget trên Windows, brew trên macOS, hoặc apt trên Linux).
+3. Chạy lệnh xác thực GitHub CLI: `gh auth login --web -p https` dưới dạng background process.
+4. Trích xuất mã Device Code 8 ký tự từ output, tự động lưu mã đó vào Clipboard hệ thống, đồng thời mở tự động URL `https://github.com/login/device` trên trình duyệt.
+5. Sau khi tôi xác thực xong trên trình duyệt, hãy chạy lệnh `gh auth setup-git` để liên kết hoàn tất thông tin đăng nhập cho mọi lệnh Git (git push/pull).
+6. Kiểm tra lại bằng `gh auth status` và báo kết quả thành công cho tôi.
+-----------------}}
+
+chỉ cần AI bảo là đã xong anh chị nên hỏi lại cho chắc chắn hơn
+
+sau đó thì em sẽ hướng dẫn mình cách kết nối github của mình vừa tạo với máy tính cá nhân này 
+đây là trang vừa rồi github mình vừa đăng ký anh chị vào phần profile
+copy đoạn mã link profile trang đó của mình vào và ghi mail của mình rồi sau đó gửi cho AI để nó setup tiếp cho anh chị
+anh chị đợi một lát để AI tạo lệnh có thể có một số app hiện lên lúc đang cài đặt mọi thứ đã xong AI sẽ tự động mở trình duyệt kiểm tra tất cả anh chị chỉ cần ấn chấp thuần các nút màu xanh là xong nếu không đúng thì anh chị hãy miêu tả bước của em hiện ra để AI của anh chị có ngữ cảnh hiểu hơn
+
+đây là toàn bộ các bước cài đặt bây giờ anh chị có thể bảo AI viết một vài chương trình py hoặc web để chạy thử
+
+các nút trong đây anh chị có thể tự chụp ảnh gửi cho AI giải thích nhá, để cho video không dài nên em sẽ kết thúc ở đây.

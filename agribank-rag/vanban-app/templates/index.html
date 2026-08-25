@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Danh mục Văn bản Nội bộ — KTNB Agribank</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="brand-wrapper">
+                <div class="brand-logo">
+                    <span class="logo-text">AGRIBANK</span>
+                    <span class="logo-sub">KTNB</span>
+                </div>
+                <div class="header-titles">
+                    <h1>Hệ Thống Quản Lý Văn Bản Nội Bộ</h1>
+                    <p class="subtitle">Cơ sở dữ liệu danh mục quy chế, thông tư phục vụ tra cứu Kiểm toán & RAG</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="pulse-dot"></span>
+                <span>Dữ liệu: Bộ nhớ tạm (In-Memory)</span>
+            </div>
+        </header>
+
+        <!-- DASHBOARD STATS -->
+        <section class="stats-grid">
+            <div class="stat-card total" onclick="filterBy('all')">
+                <div class="stat-icon">📚</div>
+                <div class="stat-info">
+                    <span class="stat-label">Tổng số văn bản</span>
+                    <span class="stat-value" id="stat-total">0</span>
+                </div>
+            </div>
+            <div class="stat-card active-valid" onclick="filterBy('con_hieu_luc')">
+                <div class="stat-icon">🟢</div>
+                <div class="stat-info">
+                    <span class="stat-label">Còn hiệu lực</span>
+                    <span class="stat-value" id="stat-valid">0</span>
+                </div>
+            </div>
+            <div class="stat-card expired" onclick="filterBy('het_hieu_luc')">
+                <div class="stat-icon">🔴</div>
+                <div class="stat-info">
+                    <span class="stat-label">Hết hiệu lực</span>
+                    <span class="stat-value" id="stat-expired">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-layout">
+            <!-- FORM THÊM VĂN BẢN MỚI -->
+            <section class="card form-card">
+                <h2 class="card-title">
+                    <span class="icon">📑</span> Thêm văn bản mới
+                </h2>
+                <form id="add-vb-form">
+                    <div class="form-group">
+                        <label for="vb-so-hieu">Số hiệu văn bản <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="vb-so-hieu" 
+                            placeholder="Ví dụ: 41/2016/TT-NHNN..." 
+                            required 
+                            autocomplete="off"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="vb-tieu-de">Tiêu đề văn bản <span class="required">*</span></label>
+                        <textarea 
+                            id="vb-tieu-de" 
+                            rows="3" 
+                            placeholder="Nhập tiêu đề hoặc trích yếu văn bản..." 
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="vb-ngay-ban-hanh">Ngày ban hành <span class="required">*</span></label>
+                        <input 
+                            type="date" 
+                            id="vb-ngay-ban-hanh" 
+                            required
+                        >
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="vb-con-hieu-luc" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">Còn hiệu lực áp dụng</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-vb">
+                        <span>Lưu vào danh mục</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- DANH MỤC VĂN BẢN -->
+            <section class="card list-card">
+                <div class="list-header">
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" data-filter="all" onclick="filterBy('all')">
+                            Tất cả (<span id="count-all">0</span>)
+                        </button>
+                        <button class="tab-btn" data-filter="con_hieu_luc" onclick="filterBy('con_hieu_luc')">
+                            Còn hiệu lực (<span id="count-valid">0</span>)
+                        </button>
+                        <button class="tab-btn" data-filter="het_hieu_luc" onclick="filterBy('het_hieu_luc')">
+                            Hết hiệu lực (<span id="count-expired">0</span>)
+                        </button>
+                    </div>
+                    <div class="search-box">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="🔍 Tìm theo số hiệu / tiêu đề..." 
+                            oninput="handleSearch()"
+                            autocomplete="off"
+                        >
+                    </div>
+                </div>
+
+                <!-- TABLE / CARD LIST -->
+                <div class="table-responsive">
+                    <table class="vb-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 140px;">Số hiệu</th>
+                                <th>Tiêu đề văn bản</th>
+                                <th style="width: 110px;">Ngày ban hành</th>
+                                <th style="width: 130px; text-align: center;">Trạng thái</th>
+                                <th style="width: 100px; text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vb-list-body">
+                            <!-- Dữ liệu văn bản sẽ được render bằng JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <div class="empty-icon">📭</div>
+                    <p id="empty-message">Chưa có văn bản nào trong danh mục.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL SỬA VĂN BẢN -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chỉnh sửa thông tin văn bản</h3>
+                <button class="btn-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="edit-vb-form">
+                <input type="hidden" id="edit-vb-id">
+                <div class="form-group">
+                    <label for="edit-vb-so-hieu">Số hiệu văn bản <span class="required">*</span></label>
+                    <input type="text" id="edit-vb-so-hieu" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vb-tieu-de">Tiêu đề văn bản <span class="required">*</span></label>
+                    <textarea id="edit-vb-tieu-de" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-vb-ngay-ban-hanh">Ngày ban hành <span class="required">*</span></label>
+                    <input type="date" id="edit-vb-ngay-ban-hanh" required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="edit-vb-con-hieu-luc">
+                        <span class="checkmark"></span>
+                        <span class="label-text">Còn hiệu lực áp dụng</span>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Hủy bỏ</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST THÔNG BÁO -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

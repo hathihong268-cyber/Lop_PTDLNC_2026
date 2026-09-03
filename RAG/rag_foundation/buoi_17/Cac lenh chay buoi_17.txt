@@ -1,0 +1,49 @@
+================================================================================
+HƯỚNG DẪN CÁC LỆNH CHẠY DỰ ÁN BUỔI 17
+SECURE RAG, RBAC DATA GOVERNANCE, AUDIT TRAIL & AI COMPLIANCE GAP ANALYSIS
+================================================================================
+
+1. DI CHUYỂN VÀO THƯ MỤC BUỔI 17
+   cd "c:\Users\admins\Desktop\05_mẫu\Rag_thuchanh\RAG\rag_foundation\buoi_17"
+
+2. KÍCH HOẠT MÔI TRƯỜNG ẢO PYTHON (VIRTUAL ENVIRONMENT)
+   - PowerShell:
+     ..\..\..\.venv\Scripts\Activate.ps1
+   - Command Prompt (CMD):
+     ..\..\..\.venv\Scripts\activate.bat
+
+3. CHẠY GIAO DIỆN WEB STREAMLIT UI (3 TABS: LOOKUP, GAP CHECKER, AUDIT LOG)
+   streamlit run app.py --server.port 8501
+   (Truy cập trình duyệt web tại địa chỉ: http://localhost:8501)
+
+4. CHẠY USE CASE 1: AI TRA CỨU QUY ĐỊNH NỘI BỘ (INTERNAL POLICY LOOKUP)
+   python scripts/internal_lookup.py
+
+5. CHẠY USE CASE 2: AI COMPLIANCE GAP CHECKER & DATA GAP ANALYSIS
+   python scripts/compliance_gap.py
+
+6. CHẠY DEMO MÃ HÓA DỮ LIỆU LƯU TRỮ (DATA-AT-REST ENCRYPTION DEMO)
+   python scripts/encryption_demo.py
+
+7. CHẠY BỘ KIỂM THỬ AN TOÀN THÔNG TIN 10 TIÊU CHÍ (SECURITY TESTS)
+   python scripts/security_tests.py
+
+8. CHẠY AUDIT VÀ XÁC NHẬN TOÀN BỘ DỰ ÁN BUỔI 17 (FINAL PROJECT VALIDATION)
+   python scripts/final_validation.py
+
+================================================================================
+TỔNG HỢP DANH MỤC OUTPUTS BÁO CÁO TRONG buoi_17/outputs/
+- outputs/dependency_report.md
+- outputs/rbac_reuse_report.md
+- outputs/rbac_test_report.md
+- outputs/secure_retrieval_test.md
+- outputs/audit_log.jsonl
+- outputs/encryption_demo_report.md
+- outputs/internal_lookup_demo.md
+- outputs/gap_input_catalog.md
+- outputs/compliance_gap_results.csv
+- outputs/compliance_gap_report.md
+- outputs/graph_gap_integration_report.md
+- outputs/security_test_report.md
+- outputs/final_validation_report.md
+================================================================================

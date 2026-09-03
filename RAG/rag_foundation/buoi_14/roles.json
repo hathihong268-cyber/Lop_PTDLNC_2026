@@ -1,0 +1,42 @@
+{
+  "roles": [
+    {
+      "id": "Admin",
+      "name": "Quản trị viên hệ thống (Admin)",
+      "description": "Toàn quyền truy cập tất cả tài liệu, bao gồm tài liệu tối mật, nhân sự, rủi ro tín dụng và quy định chung.",
+      "level": 100
+    },
+    {
+      "id": "HR_Manager",
+      "name": "Trưởng phòng / Cán bộ Nhân sự (HR Manager)",
+      "description": "Có quyền truy cập tài liệu nhân sự, lương thưởng, bổ nhiệm, kỷ luật, quy chế nội bộ và tài liệu chung.",
+      "level": 80
+    },
+    {
+      "id": "Risk_Officer",
+      "name": "Cán bộ Quản trị Rủi ro / Tín dụng (Risk Officer)",
+      "description": "Có quyền truy cập tài liệu quản trị rủi ro, hạn mức tín dụng, phê duyệt vay, quy trình nghiệp vụ và tài liệu chung.",
+      "level": 80
+    },
+    {
+      "id": "Employee",
+      "name": "Nhân viên chính thức (Employee / Staff)",
+      "description": "Có quyền truy cập quy trình nghiệp vụ thông thường, nội quy lao động, quy chế làm việc và tài liệu chung.",
+      "level": 50
+    },
+    {
+      "id": "Guest",
+      "name": "Khách vãng lai / Người dùng ngoài (Guest)",
+      "description": "Chỉ có quyền truy cập các văn bản pháp luật công khai, thông tin phổ biến chung.",
+      "level": 10
+    }
+  ],
+  "valid_roles": [
+    "Admin",
+    "HR_Manager",
+    "Risk_Officer",
+    "Employee",
+    "Guest"
+  ],
+  "default_role": "Guest"
+}

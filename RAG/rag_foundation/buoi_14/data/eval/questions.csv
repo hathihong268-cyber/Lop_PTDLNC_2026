@@ -1,0 +1,13 @@
+question_id,question,expected_chunk_id,query_type,note
+Q01,Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?,doc_163441_dieu_73,EXACT_KEYWORD,Truy vấn chứa đích danh số hiệu văn bản 46/2023/NĐ-CP và Điều 73
+Q02,Quy định tại Điều 50 Thông tư 01/2014/TT-NHNN về phương tiện vận chuyển tiền mặt,doc_44209_dieu_50,EXACT_KEYWORD,Truy vấn chứa chính xác Điều 50 và Thông tư 01/2014/TT-NHNN
+Q03,Điều 1 Thông tư 41/2016/TT-NHNN quy định về phạm vi điều chỉnh và đối tượng áp dụng,doc_117310_dieu_1,EXACT_KEYWORD,Truy vấn chứa chính xác Điều 1 và Thông tư 41/2016/TT-NHNN
+Q04,Nguyên tắc tham gia bảo hiểm theo Điều 3 Nghị định 73/2016/NĐ-CP,doc_112025_dieu_3,EXACT_KEYWORD,Truy vấn chứa chính xác Điều 3 và Nghị định 73/2016/NĐ-CP
+Q05,Quy định về bảo quản và nhiệm vụ nhân viên an toàn kho tiền ngân hàng,doc_44209_dieu_23,SEMANTIC,Diễn đạt bằng ngôn ngữ nghiệp vụ an toàn kho tiền không kèm mã số hiệu
+Q06,Tiêu chuẩn và điều kiện bổ nhiệm Tổng giám đốc doanh nghiệp bảo hiểm,doc_163441_dieu_73,SEMANTIC,Diễn đạt nghiệp vụ bổ nhiệm nhân sự cấp cao ngành bảo hiểm
+Q07,Các loại tài sản được chấp nhận sử dụng để góp vốn thành lập hợp tác xã,doc_166269_dieu_73,SEMANTIC,Diễn đạt nghiệp vụ góp vốn Luật HTX (Đồng VN ngoại tệ quyền sử dụng đất)
+Q08,Biện pháp đảm bảo an toàn và bảo vệ xe chuyên dùng trên đường vận chuyển tiền mặt,doc_44209_dieu_52,SEMANTIC,Diễn đạt quy chuẩn an toàn trên đường vận chuyển tiền mặt tài sản quý
+Q09,Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?,doc_44209_dieu_55,MIXED,Kết hợp mã Thông tư 01/2014/TT-NHNN và ngữ nghĩa trách nhiệm áp tải
+Q10,Hồ sơ đề nghị chấp thuận nguyên tắc hợp nhất ngân hàng theo Thông tư 62/2024/TT-NHNN,doc_174218_dieu_11,MIXED,Kết hợp Thông tư 62/2024/TT-NHNN và hồ sơ chấp thuận hợp nhất (Điều 11)
+Q11,Nghị định 46/2023/NĐ-CP quy định các loại nghiệp vụ bảo hiểm sức khỏe nào?,doc_163441_dieu_5,MIXED,Kết hợp Nghị định 46/2023/NĐ-CP và nghiệp vụ bảo hiểm sức khỏe (Điều 5)
+Q12,Thông tư 01/2025/TT-NHNN quy định đối tượng áp dụng là các tổ chức nào?,doc_177271_dieu_2,MIXED,Kết hợp Thông tư 01/2025/TT-NHNN và đối tượng áp dụng quỹ TDND (Điều 2)

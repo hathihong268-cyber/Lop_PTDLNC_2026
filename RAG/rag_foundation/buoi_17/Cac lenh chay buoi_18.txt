@@ -1,0 +1,53 @@
+================================================================================
+HƯỚNG DẪN CÁC LỆNH CHẠY DỰ ÁN BUỔI 18
+AI COMPLIANCE CHECKER & AI AUDIT CHECKLIST GENERATOR - AGRIBANK
+================================================================================
+
+1. DI CHUYỂN VÀO THƯ MỤC DỰ ÁN BUỔI 18 (HOẶC BUỔI 17):
+   cd "c:\Users\admins\Desktop\05_mẫu\Rag_thuchanh\RAG\rag_foundation\buoi_17"
+
+2. KÍCH HOẠT MÔI TRƯỜNG ẢO PYTHON & THIẾT LẬP ENCODING UTF-8:
+   - PowerShell:
+     $env:PYTHONUTF8=1
+     ..\..\..\.venv\Scripts\Activate.ps1
+   - Command Prompt (CMD):
+     set PYTHONUTF8=1
+     ..\..\..\.venv\Scripts\activate.bat
+
+3. CHẠY GIAO DIỆN WEB STREAMLIT UI (UC3, UC4, AUDIT TRAIL):
+   streamlit run app.py --server.port 8501
+   (Truy cập ứng dụng trên trình duyệt web tại địa chỉ: http://localhost:8501)
+
+4. CHẠY CORE ENGINE UC3: AI COMPLIANCE CHECKER (SO SÁNH CHÉO QUY ĐỊNH)
+   python scripts/compliance_checker.py
+   (Phát hiện mâu thuẫn/chồng chéo quy định, gán Severity và review_status)
+
+5. CHẠY CORE ENGINE UC4: AI AUDIT CHECKLIST GENERATOR (SINH CHECKLIST KIỂM TOÁN)
+   python scripts/audit_checklist_gen.py
+   (Sinh danh mục mục kiểm tra theo Domain & Unit, đính kèm Citation thật)
+
+6. CHẠY BỘ KIỂM THỬ BẢO MẬT & GUARDRAIL 7 BÀI TEST (SECURITY TESTS B18)
+   python scripts/security_tests_b18.py
+   (Kiểm thử RBAC, Citation Integrity, Anti-Hallucination, Audit Privacy,...)
+
+7. CHẠY NGHIỆM THU TOÀN BỘ DỰ ÁN BUỔI 18 (FINAL PROJECT VALIDATION)
+   python scripts/final_validation_b18.py
+   (Xác nhận 8 tiêu chí nghiệm thu và xuất báo cáo nghiệm thu cuối cùng)
+
+8. LỆNH ĐỒNG BỘ MÃ NGUỒN VÀ BÁO CÁO LÊN GITHUB:
+   git add .
+   git commit -m "Hoan thanh va nghiem thu Buoi 18: AI Compliance Checker & AI Audit Checklist Generator"
+   git push origin main
+
+================================================================================
+TỔNG HỢP DANH MỤC TỆP KẾT XUẤT (OUTPUTS) TRONG buoi_17/outputs/
+================================================================================
+- outputs/b18_data_catalog.md              : Báo cáo cataloging dữ liệu 10 domain
+- outputs/compliance_conflicts.csv         : Dữ liệu mâu thuẫn quy định UC3 (14 cột)
+- outputs/compliance_conflict_report.md    : Báo cáo phân tích mâu thuẫn UC3
+- outputs/audit_checklist_results.csv      : Báo cáo danh mục Checklist UC4 (11 cột)
+- outputs/audit_checklist_report.md       : Báo cáo chi tiết Checklist UC4
+- outputs/security_test_b18_report.md      : Báo cáo 7 bài kiểm thử bảo mật (7/7 PASS)
+- outputs/final_validation_b18_report.md   : Báo cáo nghiệm thu (SYSTEM READY FOR DEMO: YES)
+- outputs/audit_log.jsonl                  : Nhật ký kiểm toán hệ thống JSON Lines
+================================================================================

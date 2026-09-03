@@ -1,0 +1,34 @@
+{
+  "project": "Buoi_17_RBAC_Governance",
+  "version": "1.0.0",
+  "valid_roles": ["Admin", "HR_Manager", "Risk_Officer", "Employee", "Guest"],
+  "default_role": "Guest",
+  "default_policy": "DEFAULT_DENY",
+  "role_permissions": {
+    "Admin": {
+      "access_scope": ["*"],
+      "allowed_categories": ["ALL"],
+      "description": "Toàn quyền quản trị và xem 100% dữ liệu/chunks"
+    },
+    "HR_Manager": {
+      "access_scope": ["HR", "Public", "Employee", "Risk"],
+      "allowed_categories": ["HR_DOCS", "PUBLIC_DOCS", "GENERAL_REGULATIONS"],
+      "description": "Quản lý nhân sự - Xem được quy định nhân sự nhạy cảm (doc_44209_dieu_24)"
+    },
+    "Risk_Officer": {
+      "access_scope": ["Risk", "Public", "Employee"],
+      "allowed_categories": ["RISK_DOCS", "PUBLIC_DOCS", "GENERAL_REGULATIONS"],
+      "description": "Quản lý rủi ro - Xem được tài liệu an toàn vốn và rủi ro"
+    },
+    "Employee": {
+      "access_scope": ["Employee", "Public"],
+      "allowed_categories": ["EMPLOYEE_DOCS", "PUBLIC_DOCS", "GENERAL_REGULATIONS"],
+      "description": "Cán bộ nhân viên - Tra cứu quy định nghiệp vụ vận chuyển/giao nhận tiền"
+    },
+    "Guest": {
+      "access_scope": ["Public"],
+      "allowed_categories": ["PUBLIC_DOCS"],
+      "description": "Khách vãng lai - Chỉ truy cập các tài liệu công khai toàn hệ thống"
+    }
+  }
+}

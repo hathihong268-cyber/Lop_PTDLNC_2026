@@ -1,0 +1,25 @@
+# ==============================================================================
+# REQUIREMENTS — BUỔI 14 & 15: HYBRID SEARCH + RERANKING + RBAC SECURITY + NEO4J
+# ==============================================================================
+
+# 1. Xử lý Dữ liệu & Chuẩn hóa Corpus
+pandas>=2.2.0
+beautifulsoup4>=4.12.0
+python-dotenv>=1.0.0
+
+# 2. Truy xuất Lexical Search (BM25)
+rank-bm25>=0.2.2
+
+# 3. Dense Embedding & Cross-Encoder Neural Reranking
+torch>=2.2.0
+transformers>=4.40.0
+tokenizers>=0.19.0
+sentence-transformers>=3.0.0
+scikit-learn>=1.4.0
+tqdm>=4.66.0
+
+# 4. Cơ sở Dữ liệu Đồ thị Tri thức (Knowledge Graph & RBAC Security)
+neo4j>=5.18.0
+
+# 5. Giao diện Người dùng Trực quan (Web Dashboard & Multi-Role Simulation)
+streamlit>=1.35.0

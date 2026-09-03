@@ -1,0 +1,66 @@
+Tổng Hợp Các Lệnh Chạy Toàn Bộ Buổi 15: Cài Đặt Kiểm Soát Truy Cập Dựa Trên Vai Trò (RBAC)
+Mở PowerShell tại thư mục buoi_14/:
+
+# ==============================================================================
+# BƯỚC 1: KÍCH HOẠT MÔI TRƯỜNG ẢO
+# ==============================================================================
+.venv\Scripts\activate
+
+# Cài đặt / cập nhật thư viện (nếu cần):
+pip install -r requirements.txt
+
+
+# ==============================================================================
+# BƯỚC 2: KIỂM TRA MÔI TRƯỜNG & CẤU HÌNH RBAC ROLES
+# ==============================================================================
+python scripts/check_env.py
+
+
+# ==============================================================================
+# BƯỚC 3: PHÂN LOẠI DỮ LIỆU & GÁN THẺ BẢO MẬT (SECURITY TAGGING)
+# ==============================================================================
+# Tạo file data/processed/chunks_secure.csv với 720 chunks được gán allowed_roles
+python scripts/assign_security_tags.py
+
+
+# ==============================================================================
+# BƯỚC 4: NẠP THUỘC TÍNH PHÂN QUYỀN VÀO NEO4J KNOWLEDGE GRAPH
+# ==============================================================================
+# Cập nhật allowed_roles lên các node (:VanBan) và (:DieuKhoan) bằng Cypher MERGE
+python scripts/load_secure_kg.py
+
+
+# ==============================================================================
+# BƯỚC 5: THỬ NGHIỆM TRUY VẤN AN TOÀN QUA DÒNG LỆNH CLI (SECURE RETRIEVAL DEMO)
+# ==============================================================================
+
+# 5.1. Thử nghiệm với vai trò GUEST (Khách vãng lai - Bị chặn tài liệu nội bộ):
+python scripts/secure_search_demo.py --query "Tiêu chuẩn bổ nhiệm chức danh thủ kho tiền, thủ quỹ, kiểm ngân" --roles Guest --method bm25 --top-k 3
+
+# 5.2. Thử nghiệm với vai trò HR_MANAGER (Nhân sự - Được phép xem Điều 24):
+python scripts/secure_search_demo.py --query "Tiêu chuẩn bổ nhiệm chức danh thủ kho tiền, thủ quỹ, kiểm ngân" --roles HR_Manager --method hybrid_rerank --top-k 3
+
+# 5.3. Thử nghiệm với vai trò RISK_OFFICER (Quản trị rủi ro & Tín dụng):
+python scripts/secure_search_demo.py --query "Quy trình áp tải và vận chuyển tiền mặt trong ngành Ngân hàng" --roles Risk_Officer --method hybrid_rerank --top-k 3
+
+# 5.4. Thử nghiệm với vai trò ADMIN (Toàn quyền hệ thống):
+python scripts/secure_search_demo.py --query "Quy định về tỷ lệ an toàn vốn đối với ngân hàng" --roles Admin --method hybrid_rerank --top-k 5
+
+
+# ==============================================================================
+# BƯỚC 6: CHẠY BỘ KIỂM ĐỊNH BẢO MẬT TỰ ĐỘNG (SECURITY AUDIT & DATA LEAKAGE TEST)
+# ==============================================================================
+# Chạy 6 Test Cases tự động và xuất báo cáo ra outputs/security_audit_report.md
+python scripts/security_audit.py
+
+
+# ==============================================================================
+# BƯỚC 7: KHỞI CHẠY GIAO DIỆN WEB TRỰC QUAN STREAMLIT RBAC
+# ==============================================================================
+streamlit run app_secure.py
+
+👉 Sau khi chạy lệnh ở Bước 7, mở trình duyệt tại http://localhost:8501 để trải nghiệm giao diện phân quyền 4 Tabs:
+   - Tab 1: Truy Xuất An Toàn & Graph Hints (Kèm cảnh báo số kết quả bị lọc do cấm)
+   - Tab 2: Mô Phỏng So Sánh Giữa Các Vai Trò (Side-by-Side Role Simulation)
+   - Tab 3: So Sánh 4 Phương Pháp Truy Xuất (BM25, Dense, Hybrid, Rerank)
+   - Tab 4: Neo4j Knowledge Graph & RBAC Audit Dashboard

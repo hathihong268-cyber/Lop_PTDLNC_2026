@@ -1,0 +1,27 @@
+{
+  "source": "TT_02_2023_NHNN.pdf",
+  "ocr_used": true,
+  "statistics": {
+    "fixed-size": {
+      "chunk_count": 37,
+      "length_min": 658,
+      "length_max": 1200,
+      "length_avg": 1184.03
+    },
+    "semantic": {
+      "chunk_count": 39,
+      "length_min": 176,
+      "length_max": 1199,
+      "length_avg": 983.38
+    },
+    "hierarchical": {
+      "chunk_count": 60,
+      "length_min": 23,
+      "length_max": 1199,
+      "length_avg": 605.18
+    }
+  },
+  "warnings": [
+    "LlamaParse markdown_full không bảo đảm ranh giới từng trang; page_start/page_end dùng 1..N."
+  ]
+}

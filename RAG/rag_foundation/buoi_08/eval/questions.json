@@ -1,0 +1,58 @@
+[
+  {
+    "query_id": "Q01",
+    "question": "Tổ chức tín dụng cơ cấu lại thời hạn trả nợ cho khách hàng gặp khó khăn trong những trường hợp nào?",
+    "relevant_chunk_ids": ["adv_chunk_001", "adv_chunk_002"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q02",
+    "question": "Quy định về thời gian gia hạn nợ và kéo dài kỳ hạn trả nợ theo Thông tư 02/2023/TT-NHNN?",
+    "relevant_chunk_ids": ["adv_chunk_001", "adv_chunk_003"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q03",
+    "question": "Tổ chức tín dụng không được cho vay đối với những nhu cầu vốn nào theo Điều 8 Thông tư 39/2016/TT-NHNN?",
+    "relevant_chunk_ids": ["adv_chunk_004"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q04",
+    "question": "Điều kiện vay vốn để đảo nợ hoặc thanh toán tiền vay tại tổ chức tín dụng khác được quy định thế nào?",
+    "relevant_chunk_ids": ["adv_chunk_005"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q05",
+    "question": "Quy định về trích lập dự phòng rủi ro đối với các khoản nợ được giữ nguyên nhóm nợ theo Thông tư 02?",
+    "relevant_chunk_ids": ["adv_chunk_002", "adv_chunk_006"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q06",
+    "question": "Mức lãi suất cho vay tối đa đối với các lĩnh vực ưu tiên phát triển nông nghiệp nông thôn là bao nhiêu?",
+    "relevant_chunk_ids": ["adv_chunk_007"],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q07",
+    "question": "Thủ tục và hồ sơ cấp giấy phép thành lập chi nhánh ngân hàng nước ngoài tại Việt Nam?",
+    "relevant_chunk_ids": [],
+    "scope": "out_of_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q08",
+    "question": "Quy định về khai báo hải quan điện tử đối với hàng hóa tạm nhập tái xuất qua cửa khẩu quốc tế?",
+    "relevant_chunk_ids": ["adv_chunk_008"],
+    "scope": "out_of_scope",
+    "needs_human_review": true
+  }
+]

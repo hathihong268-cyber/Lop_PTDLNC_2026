@@ -1,0 +1,49 @@
+question_id,query_type,question,expected_chunk_id,method,found_rank,hit@1,hit@3,hit@5,reciprocal_rank,top1_chunk_id,top1_citation,top1_score
+Q01,EXACT_KEYWORD,Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?,doc_163441_dieu_73,bm25,1,1,1,1,1.0,doc_163441_dieu_73,[46/2023/NĐ-CP | Điều 73 | doc_163441_dieu_73],19.4784
+Q01,EXACT_KEYWORD,Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?,doc_163441_dieu_73,dense,-,0,0,0,0.0,doc_163441_dieu_2_3,[46/2023/NĐ-CP | Điều 2 | doc_163441_dieu_2_3],0.935
+Q01,EXACT_KEYWORD,Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?,doc_163441_dieu_73,hybrid,1,1,1,1,1.0,doc_163441_dieu_73,[46/2023/NĐ-CP | Điều 73 | doc_163441_dieu_73],0.016393
+Q01,EXACT_KEYWORD,Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?,doc_163441_dieu_73,hybrid_rerank,1,1,1,1,1.0,doc_163441_dieu_73,[46/2023/NĐ-CP | Điều 73 | doc_163441_dieu_73],0.9957
+Q02,EXACT_KEYWORD,Quy định tại Điều 50 Thông tư 01/2014/TT-NHNN về phương tiện vận chuyển tiền mặt,doc_44209_dieu_50,bm25,1,1,1,1,1.0,doc_44209_dieu_50,[01/2014/TT-NHNN | Điều 50 | doc_44209_dieu_50],37.7371
+Q02,EXACT_KEYWORD,Quy định tại Điều 50 Thông tư 01/2014/TT-NHNN về phương tiện vận chuyển tiền mặt,doc_44209_dieu_50,dense,-,0,0,0,0.0,doc_44209_dieu_46,[01/2014/TT-NHNN | Điều 46 | doc_44209_dieu_46],0.8706
+Q02,EXACT_KEYWORD,Quy định tại Điều 50 Thông tư 01/2014/TT-NHNN về phương tiện vận chuyển tiền mặt,doc_44209_dieu_50,hybrid,4,0,0,1,0.25,doc_44209_dieu_57,[01/2014/TT-NHNN | Điều 57 | doc_44209_dieu_57],0.031754
+Q02,EXACT_KEYWORD,Quy định tại Điều 50 Thông tư 01/2014/TT-NHNN về phương tiện vận chuyển tiền mặt,doc_44209_dieu_50,hybrid_rerank,1,1,1,1,1.0,doc_44209_dieu_50,[01/2014/TT-NHNN | Điều 50 | doc_44209_dieu_50],0.9998
+Q03,EXACT_KEYWORD,Điều 1 Thông tư 41/2016/TT-NHNN quy định về phạm vi điều chỉnh và đối tượng áp dụng,doc_117310_dieu_1,bm25,1,1,1,1,1.0,doc_117310_dieu_1,[41/2016/TT-NHNN | Điều 1 | doc_117310_dieu_1],36.9602
+Q03,EXACT_KEYWORD,Điều 1 Thông tư 41/2016/TT-NHNN quy định về phạm vi điều chỉnh và đối tượng áp dụng,doc_117310_dieu_1,dense,-,0,0,0,0.0,doc_112924_dieu_20,[105/2016/TT-BTC | Điều 20 | doc_112924_dieu_20],0.8938
+Q03,EXACT_KEYWORD,Điều 1 Thông tư 41/2016/TT-NHNN quy định về phạm vi điều chỉnh và đối tượng áp dụng,doc_117310_dieu_1,hybrid,2,0,1,1,0.5,doc_112924_dieu_1,[105/2016/TT-BTC | Điều 1 | doc_112924_dieu_1],0.029857
+Q03,EXACT_KEYWORD,Điều 1 Thông tư 41/2016/TT-NHNN quy định về phạm vi điều chỉnh và đối tượng áp dụng,doc_117310_dieu_1,hybrid_rerank,1,1,1,1,1.0,doc_117310_dieu_1,[41/2016/TT-NHNN | Điều 1 | doc_117310_dieu_1],0.9999
+Q04,EXACT_KEYWORD,Nguyên tắc tham gia bảo hiểm theo Điều 3 Nghị định 73/2016/NĐ-CP,doc_112025_dieu_3,bm25,1,1,1,1,1.0,doc_112025_dieu_3,[73/2016/NĐ-CP | Điều 3 | doc_112025_dieu_3],23.295
+Q04,EXACT_KEYWORD,Nguyên tắc tham gia bảo hiểm theo Điều 3 Nghị định 73/2016/NĐ-CP,doc_112025_dieu_3,dense,-,0,0,0,0.0,doc_112025_dieu_41,[73/2016/NĐ-CP | Điều 41 | doc_112025_dieu_41],0.9055
+Q04,EXACT_KEYWORD,Nguyên tắc tham gia bảo hiểm theo Điều 3 Nghị định 73/2016/NĐ-CP,doc_112025_dieu_3,hybrid,2,0,1,1,0.5,doc_112025_dieu_5,[73/2016/NĐ-CP | Điều 5 | doc_112025_dieu_5],0.029287
+Q04,EXACT_KEYWORD,Nguyên tắc tham gia bảo hiểm theo Điều 3 Nghị định 73/2016/NĐ-CP,doc_112025_dieu_3,hybrid_rerank,1,1,1,1,1.0,doc_112025_dieu_3,[73/2016/NĐ-CP | Điều 3 | doc_112025_dieu_3],0.9988
+Q05,SEMANTIC,Quy định về bảo quản và nhiệm vụ nhân viên an toàn kho tiền ngân hàng,doc_44209_dieu_23,bm25,1,1,1,1,1.0,doc_44209_dieu_23,[01/2014/TT-NHNN | Điều 23 | doc_44209_dieu_23],25.0755
+Q05,SEMANTIC,Quy định về bảo quản và nhiệm vụ nhân viên an toàn kho tiền ngân hàng,doc_44209_dieu_23,dense,-,0,0,0,0.0,doc_6e689cd0-6f81-11f1-94d6-fd5d6d5ff793_dieu_2_1,[52/VBHN-NHNN | Điều 2 | doc_6e689cd0-6f81-11f1-94d6-fd5d6d5ff793_dieu_2_1],0.8752
+Q05,SEMANTIC,Quy định về bảo quản và nhiệm vụ nhân viên an toàn kho tiền ngân hàng,doc_44209_dieu_23,hybrid,1,1,1,1,1.0,doc_44209_dieu_23,[01/2014/TT-NHNN | Điều 23 | doc_44209_dieu_23],0.016393
+Q05,SEMANTIC,Quy định về bảo quản và nhiệm vụ nhân viên an toàn kho tiền ngân hàng,doc_44209_dieu_23,hybrid_rerank,1,1,1,1,1.0,doc_44209_dieu_23,[01/2014/TT-NHNN | Điều 23 | doc_44209_dieu_23],0.9993
+Q06,SEMANTIC,Tiêu chuẩn và điều kiện bổ nhiệm Tổng giám đốc doanh nghiệp bảo hiểm,doc_163441_dieu_73,bm25,-,0,0,0,0.0,doc_168220_dieu_9,[27/2024/TT-NHNN | Điều 9 | doc_168220_dieu_9],23.9039
+Q06,SEMANTIC,Tiêu chuẩn và điều kiện bổ nhiệm Tổng giám đốc doanh nghiệp bảo hiểm,doc_163441_dieu_73,dense,-,0,0,0,0.0,doc_168220_dieu_1,[27/2024/TT-NHNN | Điều 1 | doc_168220_dieu_1],0.8101
+Q06,SEMANTIC,Tiêu chuẩn và điều kiện bổ nhiệm Tổng giám đốc doanh nghiệp bảo hiểm,doc_163441_dieu_73,hybrid,-,0,0,0,0.0,doc_168220_dieu_9,[27/2024/TT-NHNN | Điều 9 | doc_168220_dieu_9],0.016393
+Q06,SEMANTIC,Tiêu chuẩn và điều kiện bổ nhiệm Tổng giám đốc doanh nghiệp bảo hiểm,doc_163441_dieu_73,hybrid_rerank,-,0,0,0,0.0,doc_112025_dieu_28,[73/2016/NĐ-CP | Điều 28 | doc_112025_dieu_28],0.9985
+Q07,SEMANTIC,Các loại tài sản được chấp nhận sử dụng để góp vốn thành lập hợp tác xã,doc_166269_dieu_73,bm25,-,0,0,0,0.0,doc_166269_dieu_76,[17/2023/QH15 | Điều 76 | doc_166269_dieu_76],27.1353
+Q07,SEMANTIC,Các loại tài sản được chấp nhận sử dụng để góp vốn thành lập hợp tác xã,doc_166269_dieu_73,dense,-,0,0,0,0.0,doc_173695_dieu_17,[56/2024/TT-NHNN | Điều 17 | doc_173695_dieu_17],0.8645
+Q07,SEMANTIC,Các loại tài sản được chấp nhận sử dụng để góp vốn thành lập hợp tác xã,doc_166269_dieu_73,hybrid,-,0,0,0,0.0,doc_166269_dieu_76,[17/2023/QH15 | Điều 76 | doc_166269_dieu_76],0.016393
+Q07,SEMANTIC,Các loại tài sản được chấp nhận sử dụng để góp vốn thành lập hợp tác xã,doc_166269_dieu_73,hybrid_rerank,1,1,1,1,1.0,doc_166269_dieu_73,[17/2023/QH15 | Điều 73 | doc_166269_dieu_73],0.9242
+Q08,SEMANTIC,Biện pháp đảm bảo an toàn và bảo vệ xe chuyên dùng trên đường vận chuyển tiền mặt,doc_44209_dieu_52,bm25,3,0,1,1,0.3333,doc_44209_dieu_53,[01/2014/TT-NHNN | Điều 53 | doc_44209_dieu_53],50.1689
+Q08,SEMANTIC,Biện pháp đảm bảo an toàn và bảo vệ xe chuyên dùng trên đường vận chuyển tiền mặt,doc_44209_dieu_52,dense,-,0,0,0,0.0,doc_168220_dieu_1,[27/2024/TT-NHNN | Điều 1 | doc_168220_dieu_1],0.8297
+Q08,SEMANTIC,Biện pháp đảm bảo an toàn và bảo vệ xe chuyên dùng trên đường vận chuyển tiền mặt,doc_44209_dieu_52,hybrid,5,0,0,1,0.2,doc_44209_dieu_53,[01/2014/TT-NHNN | Điều 53 | doc_44209_dieu_53],0.016393
+Q08,SEMANTIC,Biện pháp đảm bảo an toàn và bảo vệ xe chuyên dùng trên đường vận chuyển tiền mặt,doc_44209_dieu_52,hybrid_rerank,2,0,1,1,0.5,doc_44209_dieu_53,[01/2014/TT-NHNN | Điều 53 | doc_44209_dieu_53],0.9947
+Q09,MIXED,Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?,doc_44209_dieu_55,bm25,1,1,1,1,1.0,doc_44209_dieu_55,[01/2014/TT-NHNN | Điều 55 | doc_44209_dieu_55],33.2071
+Q09,MIXED,Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?,doc_44209_dieu_55,dense,-,0,0,0,0.0,doc_44209_dieu_46,[01/2014/TT-NHNN | Điều 46 | doc_44209_dieu_46],0.8648
+Q09,MIXED,Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?,doc_44209_dieu_55,hybrid,4,0,0,1,0.25,doc_44209_dieu_49,[01/2014/TT-NHNN | Điều 49 | doc_44209_dieu_49],0.029287
+Q09,MIXED,Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?,doc_44209_dieu_55,hybrid_rerank,1,1,1,1,1.0,doc_44209_dieu_55,[01/2014/TT-NHNN | Điều 55 | doc_44209_dieu_55],0.9988
+Q10,MIXED,Hồ sơ đề nghị chấp thuận nguyên tắc hợp nhất ngân hàng theo Thông tư 62/2024/TT-NHNN,doc_174218_dieu_11,bm25,2,0,1,1,0.5,doc_174218_dieu_14,[62/2024/TT-NHNN | Điều 14 | doc_174218_dieu_14],30.0807
+Q10,MIXED,Hồ sơ đề nghị chấp thuận nguyên tắc hợp nhất ngân hàng theo Thông tư 62/2024/TT-NHNN,doc_174218_dieu_11,dense,-,0,0,0,0.0,doc_6e689cd0-6f81-11f1-94d6-fd5d6d5ff793_dieu_1,[52/VBHN-NHNN | Điều 1 | doc_6e689cd0-6f81-11f1-94d6-fd5d6d5ff793_dieu_1],0.8962
+Q10,MIXED,Hồ sơ đề nghị chấp thuận nguyên tắc hợp nhất ngân hàng theo Thông tư 62/2024/TT-NHNN,doc_174218_dieu_11,hybrid,3,0,1,1,0.3333,doc_174218_dieu_14,[62/2024/TT-NHNN | Điều 14 | doc_174218_dieu_14],0.016393
+Q10,MIXED,Hồ sơ đề nghị chấp thuận nguyên tắc hợp nhất ngân hàng theo Thông tư 62/2024/TT-NHNN,doc_174218_dieu_11,hybrid_rerank,5,0,0,1,0.2,doc_174218_dieu_14,[62/2024/TT-NHNN | Điều 14 | doc_174218_dieu_14],0.9988
+Q11,MIXED,Nghị định 46/2023/NĐ-CP quy định các loại nghiệp vụ bảo hiểm sức khỏe nào?,doc_163441_dieu_5,bm25,1,1,1,1,1.0,doc_163441_dieu_5,[46/2023/NĐ-CP | Điều 5 | doc_163441_dieu_5],28.4051
+Q11,MIXED,Nghị định 46/2023/NĐ-CP quy định các loại nghiệp vụ bảo hiểm sức khỏe nào?,doc_163441_dieu_5,dense,4,0,0,1,0.25,doc_163441_dieu_2_3,[46/2023/NĐ-CP | Điều 2 | doc_163441_dieu_2_3],0.9316
+Q11,MIXED,Nghị định 46/2023/NĐ-CP quy định các loại nghiệp vụ bảo hiểm sức khỏe nào?,doc_163441_dieu_5,hybrid,1,1,1,1,1.0,doc_163441_dieu_5,[46/2023/NĐ-CP | Điều 5 | doc_163441_dieu_5],0.032018
+Q11,MIXED,Nghị định 46/2023/NĐ-CP quy định các loại nghiệp vụ bảo hiểm sức khỏe nào?,doc_163441_dieu_5,hybrid_rerank,1,1,1,1,1.0,doc_163441_dieu_5,[46/2023/NĐ-CP | Điều 5 | doc_163441_dieu_5],0.9987
+Q12,MIXED,Thông tư 01/2025/TT-NHNN quy định đối tượng áp dụng là các tổ chức nào?,doc_177271_dieu_2,bm25,-,0,0,0,0.0,doc_95652_dieu_2,[135/2015/NĐ-CP | Điều 2 | doc_95652_dieu_2],22.3796
+Q12,MIXED,Thông tư 01/2025/TT-NHNN quy định đối tượng áp dụng là các tổ chức nào?,doc_177271_dieu_2,dense,3,0,1,1,0.3333,doc_177271_dieu_20,[01/2025/TT-NHNN | Điều 20 | doc_177271_dieu_20],0.8975
+Q12,MIXED,Thông tư 01/2025/TT-NHNN quy định đối tượng áp dụng là các tổ chức nào?,doc_177271_dieu_2,hybrid,2,0,1,1,0.5,doc_112924_dieu_2,[105/2016/TT-BTC | Điều 2 | doc_112924_dieu_2],0.030415
+Q12,MIXED,Thông tư 01/2025/TT-NHNN quy định đối tượng áp dụng là các tổ chức nào?,doc_177271_dieu_2,hybrid_rerank,1,1,1,1,1.0,doc_177271_dieu_2,[01/2025/TT-NHNN | Điều 2 | doc_177271_dieu_2],0.9912

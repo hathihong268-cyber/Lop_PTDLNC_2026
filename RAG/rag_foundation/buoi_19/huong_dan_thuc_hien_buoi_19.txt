@@ -1,0 +1,146 @@
+================================================================================
+          HƯỚNG DẪN THỰC THI VÀ DEMO DỰ ÁN BÀI THỰC HÀNH BUỔI 19
+   Đóng gói Local AI System với Docker, Ollama (Qwen3:0.6B) & Streamlit Dashboard
+================================================================================
+
+MỤC TIÊU:
+- Chuyển đổi hệ thống RAG Bảo mật & Kiểm toán Agribank sang mô hình Local Offline hoàn toàn (Air-gapped).
+- Đóng gói toàn bộ ứng dụng bằng Docker Compose (Ollama Server Container + Streamlit App Container).
+- Hỗ trợ chuyển đổi Dual-Provider Switch giữa Ollama (Local SLM) và Gemini (Cloud API).
+
+================================================================================
+PHẦN 1: CẤU TRÚC THƯ MỤC THỰC THI (BUỔI 19)
+================================================================================
+
+buoi_19/
+├── .env                              # Cấu hình LLM_PROVIDER=ollama, OLLAMA_MODEL=qwen3:0.6b
+├── Dockerfile                        # Đóng gói ứng dụng Streamlit & RAG Engines
+├── docker-compose.yml                # Orchestrate Ollama & Streamlit App containers
+├── requirements.txt                  # Python dependencies trong container
+├── Buoi_19.md                        # Tài liệu hướng dẫn & Prompt bài thực hành
+├── app.py                           # Web UI Streamlit tương thích Local Model & Docker
+├── data/
+│   ├── agribank_internal_policies.csv
+│   └── chunks_combined_secure.csv
+├── scripts/
+│   ├── ollama_adapter.py             # Ollama REST API Adapter Client (/api/generate, /api/tags)
+│   ├── compliance_checker.py        # Core Engine UC3 (phân tích xung đột quy định)
+│   ├── audit_checklist_gen.py       # Core Engine UC4 (sinh danh mục checklist kiểm toán)
+│   ├── internal_lookup.py           # Core Engine UC1 (tra cứu quy định nội bộ RBAC)
+│   ├── compliance_gap.py            # Core Engine UC2 (phân tích khoảng trống tuân thủ)
+│   ├── security_tests_b19.py         # Kịch bản kiểm thử 6 hạng mục an toàn & bảo mật
+│   └── verify_b19_docker.py          # Kịch bản audit & nghiệm thu đóng gói Docker Buổi 19
+└── outputs/
+    ├── compliance_conflicts.csv
+    ├── audit_checklist_results.csv
+    ├── audit_log.jsonl
+    ├── b19_security_test_report.md
+    └── b19_docker_acceptance_report.md
+
+================================================================================
+PHẦN 2: TRÌNH TỰ CÁC LỆNH THỰC THI THEO CÁC BƯỚC
+================================================================================
+
+BƯỚC 1: KIỂM TRA MÔI TRƯỜNG DOCKER & TỆP DỮ LIỆU
+--------------------------------------------------------------------------------
+Mở Terminal tại thư mục buoi_19/ và kiểm tra:
+  docker --version
+  docker compose version
+  python scripts/ollama_adapter.py
+
+Kết quả kỳ vọng:
+  DOCKER READY: YES
+  DATA READY: YES
+  ENV CONFIG READY: YES
+
+
+BƯỚC 2: KIỂM THỬ MODULE OLLAMA ADAPTER CLIENT
+--------------------------------------------------------------------------------
+Chạy lệnh thử nghiệm adapter:
+  python scripts/ollama_adapter.py
+
+Kết quả kỳ vọng:
+  OLLAMA ADAPTER: PASS
+  OLLAMA SERVER ONLINE: YES (khi container đang chạy) hoặc NO (nếu chạy trước khi up container).
+
+
+BƯỚC 3: KIỂM THỬ THÍ ĐIỂM CÁC CORE ENGINES BACKEND (UC3 & UC4)
+--------------------------------------------------------------------------------
+Chạy kiểm thử 2 engine phát hiện mâu thuẫn quy định và sinh checklist:
+  python scripts/compliance_checker.py
+  python scripts/audit_checklist_gen.py
+
+Kết quả kỳ vọng:
+  - Sinh thành công file CSV: outputs/compliance_conflicts.csv
+  - Sinh thành công file CSV: outputs/audit_checklist_results.csv
+  - 100% kết quả có review_status = "NEEDS_HUMAN_REVIEW" và đính kèm Citation.
+
+
+BƯỚC 4: KIỂM TRA CẤU HÌNH ĐÓNG GÓI DOCKER
+--------------------------------------------------------------------------------
+Kiểm tra cú pháp tệp docker-compose.yml và Dockerfile:
+  docker compose config
+
+Kết quả kỳ vọng: Hiển thị cấu hình dịch vụ 'ollama' và 'app' hợp lệ, exit code 0.
+
+
+BƯỚC 5: KHỞI CHẠY DOCKER CONTAINERS & TẢI MODEL LOCAL QWEN3:0.6B
+--------------------------------------------------------------------------------
+1. Khởi chạy 2 containers dưới dạng background service:
+   docker compose up -d --build
+
+2. Tải mô hình Qwen3:0.6b vào Ollama container:
+   docker exec agribank-ollama-server ollama run qwen3:0.6b "Xin chào"
+
+3. Kiểm tra trạng thái hoạt động của các container:
+   docker compose ps
+
+4. Truy cập giao diện ứng dụng Web Streamlit trên trình duyệt:
+   http://localhost:8501
+
+
+BƯỚC 6: CHẠY KIỂM THỬ 6 HẠNG MỤC AN TOÀN BẢO MẬT & GUARDRAIL
+--------------------------------------------------------------------------------
+Chạy kịch bản Security Tester:
+  python scripts/security_tests_b19.py
+
+Kết quả kỳ vọng:
+  - Xuất báo cáo tại: outputs/b19_security_test_report.md
+  - Đạt 6/6 tiêu chí bảo mật (Local Privacy, RBAC, Citation, Human Review, Audit Privacy, Resilience).
+  - SECURITY AUDIT STATUS: PASS
+
+
+BƯỚC 7: AUDIT TOÀN BỘ HỆ THỐNG & XUẤT BÁO CÁO NGHIỆM THU CUỐI CÙNG
+--------------------------------------------------------------------------------
+Chạy kịch bản nghiệm thu chính thức:
+  python scripts/verify_b19_docker.py
+
+Kết quả kỳ vọng:
+  - Xuất báo cáo tại: outputs/b19_docker_acceptance_report.md
+  - Đánh giá tổng thể:
+    OLLAMA SERVER STATUS: PASS
+    LOCAL MODEL QWEN3: PASS
+    DOCKER CONTAINERIZATION: PASS
+    LOCAL COMPLIANCE ENGINES: PASS
+
+    LOCAL AI SYSTEM READY: YES
+
+================================================================================
+PHẦN 3: KỊCH BẢN DEMO BÁO CÁO CUỐI BUỔI 19 (DEMO SẢN PHẨM)
+================================================================================
+
+1. Trình bày Kiến trúc Local AI & Docker Compose:
+   - Mở Terminal chạy lệnh: docker compose ps
+   - Minh chứng 2 containers agribank-ollama-server (port 11434) và agribank-ai-app (port 8501) đang ONLINE.
+
+2. Demo Chế độ Local Offline với Qwen3:0.6B:
+   - Truy cập giao diện Web Streamlit tại http://localhost:8501
+   - Chọn vai trò 'Kiểm toán viên' -> Thực hiện phát hiện xung đột UC3 và sinh checklist kiểm toán UC4 bằng Local Model Qwen3:0.6b.
+
+3. Demo Ngắt Kết Nối Internet (Air-gapped Demo):
+   - Tắt Wifi / Ngắt cáp mạng LAN -> Hệ thống vẫn phản hồi và sinh checklist bình thường, chứng minh 100% dữ liệu không rời khỏi mạng nội bộ.
+
+4. Trình bày Báo cáo Nghiệm thu:
+   - Mở tệp outputs/b19_docker_acceptance_report.md minh chứng đạt chuẩn LOCAL AI SYSTEM READY: YES.
+
+================================================================================

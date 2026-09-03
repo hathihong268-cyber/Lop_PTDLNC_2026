@@ -1,0 +1,84 @@
+[
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0001",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "text": "THÔNG TƯ QUY ĐỊNH VỀ HOẠT ĐỘNG CHO VAY CỦA TỔ CHỨC TÍN DỤNG",
+    "structure": {
+      "chapter": "Chương I"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0002",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "text": "Chương I. QUY ĐỊNH CHUNG\nĐiều 1. Phạm vi điều chỉnh\nThông tư này quy định về hoạt động cho vay của tổ chức tín dụng đối với khách hàng.",
+    "structure": {
+      "chapter": "Chương I",
+      "article": "Điều 1"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0003",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 1,
+    "page_end": 2,
+    "text": "Điều 2. Giải thích từ ngữ\n1. Cho vay là hình thức cấp tín dụng theo đó bên cho vay giao hoặc cam kết giao cho khách hàng một khoản tiền.",
+    "structure": {
+      "chapter": "Chương I",
+      "article": "Điều 2",
+      "clause": "Khoản 1"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0004",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "text": "2. Cơ cấu lại thời hạn trả nợ là việc tổ chức tín dụng chấp thuận điều chỉnh kỳ hạn trả nợ hoặc gia hạn nợ.",
+    "structure": {
+      "clause": "Khoản 2"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0005",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "text": "a) Điều chỉnh kỳ hạn trả nợ là việc tổ chức tín dụng chấp thuận kéo dài thêm một khoảng thời gian trả nợ trong phạm vi thời hạn cho vay.",
+    "structure": {
+      "point": "Điểm a"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0006",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 2,
+    "page_end": 2,
+    "text": "b) Gia hạn nợ là việc tổ chức tín dụng chấp thuận kéo dài thêm một khoảng thời gian trả nợ vượt quá thời hạn cho vay đã thỏa thuận ban đầu.",
+    "structure": {
+      "point": "Điểm b"
+    }
+  },
+  {
+    "chunk_id": "TEST_TT_01:hierarchical:0007",
+    "strategy": "hierarchical",
+    "source": "TEST_TT_01.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "text": "Điều 3. Nguyên tắc cho vay\n1. Hoạt động cho vay của tổ chức tín dụng đối với khách hàng được thực hiện theo thỏa thuận giữa tổ chức tín dụng và khách hàng.",
+    "structure": {
+      "chapter": "Chương I",
+      "article": "Điều 3",
+      "clause": "Khoản 1"
+    }
+  }
+]

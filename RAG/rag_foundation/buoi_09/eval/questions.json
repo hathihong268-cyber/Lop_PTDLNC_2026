@@ -1,0 +1,80 @@
+[
+  {
+    "question_id": "Q01",
+    "question": "Điều 8 quy định những nhu cầu vốn nào không được cho vay?",
+    "question_type": "exact",
+    "relevant_child_ids": [
+      "TT_39_2016_NHNN:hierarchical:0050",
+      "TT_39_2016_NHNN:hierarchical:0051",
+      "TT_39_2016_NHNN:hierarchical:0052",
+      "TT_06_2023_NHNN:hierarchical:0006",
+      "TT_06_2023_NHNN:hierarchical:0031"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN:d08:w01",
+      "TT_06_2023_NHNN:d08:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi exact tra cứu trực tiếp Điều 8 của Thông tư 39/2016 và sửa đổi tại Thông tư 06/2023."
+  },
+  {
+    "question_id": "Q02",
+    "question": "Khách hàng cần đáp ứng những yêu cầu gì để được tổ chức tín dụng xem xét cho vay?",
+    "question_type": "paraphrase",
+    "relevant_child_ids": [
+      "TT_39_2016_NHNN:hierarchical:0047",
+      "TT_39_2016_NHNN:hierarchical:0048",
+      "TT_39_2016_NHNN:hierarchical:0049"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN:d07:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi diễn đạt lại (paraphrase) cho Điều 7 Thông tư 39/2016/TT-NHNN về Điều kiện vay vốn."
+  },
+  {
+    "question_id": "Q03",
+    "question": "Điều kiện vay vốn và những nhu cầu vốn không được cho vay được quy định như thế nào?",
+    "question_type": "multi_aspect",
+    "relevant_child_ids": [
+      "TT_39_2016_NHNN:hierarchical:0047",
+      "TT_39_2016_NHNN:hierarchical:0050",
+      "TT_06_2023_NHNN:hierarchical:0006",
+      "TT_06_2023_NHNN:hierarchical:0031"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN:d07:w01",
+      "TT_39_2016_NHNN:d08:w01",
+      "TT_06_2023_NHNN:d08:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi đa khía cạnh (multi-aspect) bao gồm cả Điều kiện vay vốn (Điều 7) và Nhu cầu không được cho vay (Điều 8)."
+  },
+  {
+    "question_id": "Q04",
+    "question": "Quy định về cơ cấu lại thời hạn trả nợ gồm điều kiện, thời gian và trách nhiệm nào?",
+    "question_type": "hierarchy_context",
+    "relevant_child_ids": [
+      "TT_02_2023_NHNN:hierarchical:0006",
+      "TT_02_2023_NHNN:hierarchical:0007",
+      "TT_02_2023_NHNN:hierarchical:0008",
+      "TT_02_2023_NHNN:hierarchical:0030",
+      "TT_02_2023_NHNN:hierarchical:0031"
+    ],
+    "relevant_parent_ids": [
+      "TT_02_2023_NHNN:d02:w01",
+      "TT_02_2023_NHNN:d02:w02"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi cần ngữ cảnh phân cấp rộng (hierarchy context) trải dài Điều 4, Điều 5, Điều 7 của Thông tư 02/2023."
+  },
+  {
+    "question_id": "Q05",
+    "question": "Lãi suất tiết kiệm cao nhất trên thị trường hôm nay là bao nhiêu?",
+    "question_type": "out_of_scope",
+    "relevant_child_ids": [],
+    "relevant_parent_ids": [],
+    "needs_human_review": true,
+    "notes": "Câu hỏi nằm ngoài phạm vi tài liệu (out-of-scope), hệ thống phải từ chối hoặc trả về rỗng."
+  }
+]

@@ -1,0 +1,33 @@
+# ==============================================================================
+# CÁC LỆNH CHẠY BÀI THỰC HÀNH BUỔI 19 (LOCAL OLLAMA & DOCKER CONTAINERIZATION)
+# ==============================================================================
+
+# 1. Kiểm tra môi trường Docker & Ollama Adapter
+docker --version
+docker compose version
+python scripts/ollama_adapter.py
+
+# 2. Kiểm thử các Core Backend Engines (UC3 & UC4)
+python scripts/compliance_checker.py
+python scripts/audit_checklist_gen.py
+
+# 3. Kiểm tra cú pháp Docker Compose configuration
+docker compose config
+
+# 4. Khởi chạy Docker Containers (Ollama & Streamlit App)
+docker compose up -d --build
+
+# 5. Tải model Qwen3:0.6B vào Ollama Container
+docker exec agribank-ollama-server ollama run qwen3:0.6b "Xin chào"
+
+# 6. Kiểm tra trạng thái các Containers đang chạy
+docker compose ps
+
+# 7. Truy cập Web Application Dashboard (Streamlit)
+# http://localhost:8501
+
+# 8. Chạy Kiểm thử 6 hạng mục An toàn Bảo mật & Guardrail
+python scripts/security_tests_b19.py
+
+# 9. Audit toàn bộ hệ thống & Xuất Báo cáo Nghiệm thu Docker Buổi 19
+python scripts/verify_b19_docker.py

@@ -1,0 +1,42 @@
+[
+  {
+    "chunk_id": "hier_001",
+    "strategy": "hierarchical",
+    "source": "data/sample_doc.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "text": "Chương 1: Tổng quan về kiến trúc RAG Foundation và mô hình dữ liệu."
+  },
+  {
+    "chunk_id": "hier_002",
+    "strategy": "hierarchical",
+    "source": "data/sample_doc.pdf",
+    "page_start": 1,
+    "page_end": 2,
+    "text": "Mục 1.1: Quản lý bộ nhớ vector ChromaDB và cách tối ưu hóa embedding."
+  },
+  {
+    "chunk_id": "hier_003",
+    "strategy": "hierarchical",
+    "source": "data/sample_doc.pdf",
+    "page_start": 2,
+    "page_end": 3,
+    "text": "Mục 1.2: Xử lý Confidence Gate và lọc ngữ cảnh trước khi sinh câu trả lời."
+  },
+  {
+    "chunk_id": "sem_001",
+    "strategy": "semantic",
+    "source": "data/sample_doc.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "text": "Phân tích ngữ nghĩa của tài liệu cho phép trích xuất các thông tin có tính liên kết cao."
+  },
+  {
+    "chunk_id": "fixed_001",
+    "strategy": "fixed-size",
+    "source": "data/sample_doc.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "Đây là đoạn văn bản mẫu được chia nhỏ theo kích thước cố định 500 ký tự."
+  }
+]

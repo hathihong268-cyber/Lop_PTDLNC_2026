@@ -16,3 +16,10 @@ __pycache__/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Environment variables & secrets
+.env
+*.env
+
+# Vector databases / storage
+storage/chroma/

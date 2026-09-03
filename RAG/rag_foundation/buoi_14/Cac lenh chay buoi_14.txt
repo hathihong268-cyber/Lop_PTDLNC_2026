@@ -1,0 +1,64 @@
+Tổng Hợp Các Lệnh Chạy Toàn Bộ Buổi 14 (Copy & Paste)
+Mở PowerShell tại thư mục buoi_14/:
+
+# ==============================================================================
+# BƯỚC 1: KÍCH HOẠT MÔI TRƯỜNG ẢO
+# ==============================================================================
+.venv\Scripts\activate
+
+# Cài đặt thư viện (nếu môi trường mới):
+pip install -r requirements.txt
+
+
+# ==============================================================================
+# BƯỚC 2: CHUẨN HÓA CORPUS (720 CHUNKS TỪ 15 VĂN BẢN)
+# ==============================================================================
+python scripts/prepare_corpus.py
+
+
+# ==============================================================================
+# BƯỚC 3: NẠP MINI KNOWLEDGE GRAPH VÀO NEO4J
+# ==============================================================================
+python scripts/load_mini_kg.py
+
+
+# ==============================================================================
+# BƯỚC 4: THỬ NGHIỆM BASELINE RETRIEVAL (BM25 vs DENSE)
+# ==============================================================================
+python scripts/baseline_retrieval.py --query "Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?" --top-k 5
+
+
+# ==============================================================================
+# BƯỚC 5: THỬ NGHIỆM HYBRID SEARCH (RRF FUSION)
+# ==============================================================================
+python scripts/hybrid_search.py --query "Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?" --candidate-k 20 --top-k 5
+
+
+# ==============================================================================
+# BƯỚC 6: THỬ NGHIỆM PIPELINE ĐẦY ĐỦ (HYBRID -> CROSS-ENCODER RERANKER)
+# ==============================================================================
+python scripts/rerank.py --query "Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?" --candidate-k 20 --top-k 5
+
+
+# ==============================================================================
+# BƯỚC 7: CHẠY BENCHMARK ĐÁNH GIÁ ĐỊNH LƯỢNG (Hit@1, Hit@3, Hit@5, MRR)
+# ==============================================================================
+python scripts/compare_retrieval.py --candidate-k 20 --top-k 5
+
+
+# ==============================================================================
+# BƯỚC 8: TRUY VẤN THỐNG NHẤT KÈM GỢI Ý ĐỒ THỊ (GRAPH HINTS)
+# ==============================================================================
+# Mặc định (Hybrid + Rerank)
+python scripts/query_demo.py --query "Theo Thông tư 01/2014/TT-NHNN thì trách nhiệm của người áp tải tiền mặt là gì?" --method hybrid_rerank --top-k 5
+
+# Tùy chọn BM25-only
+python scripts/query_demo.py --query "Điều 73 Nghị định 46/2023/NĐ-CP quy định về chức danh nào?" --method bm25 --top-k 3
+
+
+# ==============================================================================
+# BƯỚC 9: KHỞI CHẠY GIAO DIỆN WEB TRỰC QUAN (STREAMLIT DASHBOARD)
+# ==============================================================================
+streamlit run app.py
+
+👉 Sau khi chạy lệnh ở Bước 9, mở trình duyệt tại http://localhost:8501 để trải nghiệm giao diện đầy đủ 4 Tabs!

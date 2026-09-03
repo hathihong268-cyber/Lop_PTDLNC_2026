@@ -1,0 +1,358 @@
+﻿source,target,relationship_type,source_type,target_type,method,confidence,evidence
+32/2024/QH15,47/2010/QH12,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"3. Luật Các tổ chức tín dụng số 47/2010/QH12 đã được sửa đổi, bổ sung một số điều theo Luật số 17/2017/QH14 hết hiệu lực kể từ ngày Luật này có hiệu lực thi hành, trừ quy định tại các khoản 1, 2, 3, 4, 8, 9, 12 và 14 Điều 210 của Luật này."
+32/2024/QH15,17/2017/QH14,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"3. Luật Các tổ chức tín dụng số 47/2010/QH12 đã được sửa đổi, bổ sung một số điều theo Luật số 17/2017/QH14 hết hiệu lực kể từ ngày Luật này có hiệu lực thi hành, trừ quy định tại các khoản 1, 2, 3, 4, 8, 9, 12 và 14 Điều 210 của Luật này."
+47/2010/QH12,32/2024/QH15,THAY_THE_BOI,Document,Document,rule,0.95,"...ố lượng thành viên Ban kiểm soát theo quy định tại khoản 2 Điều 44 của Luật Các tổ chức tín dụng số 47/2010/QH12 đã được sửa đổi, bổ sung một số điều theo Luật số 17/2017/QH14 cho đến hết nhiệm kỳ của Ban kiểm so..."
+17/2017/QH14,32/2024/QH15,THAY_THE_BOI,Document,Document,rule,0.95,"... 44 của Luật Các tổ chức tín dụng số 47/2010/QH12 đã được sửa đổi, bổ sung một số điều theo Luật số 17/2017/QH14 cho đến hết nhiệm kỳ của Ban kiểm soát, thành viên Ban kiểm soát, trừ trường hợp ngân hàng thương m..."
+23/2009/TT-NHNN,37/2014/TT-NHNN,THAY_THE_BOI,Document,Document,rule,0.95,"Thông tư này có hiệu lực thi hành từ ngày 12 tháng 01 năm 2015 và thay thế Thông tư số 23/2009/TT-NHNN ngày 02/12/2009 quy định việc thiết kế mẫu, chế bản và quản lý in, đúc tiền Việt Nam."
+67/2011/QH12,51/2001/QH10,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam năm 1992 đã được sửa đổi, bổ sung một số điều theo Nghị quyết số 51/2001/QH10;"
+67/2011/QH12,51/2001/QH10,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam năm 1992 đã được sửa đổi, bổ sung một số điều theo Nghị quyết số 51/2001/QH10;"
+46/2023/NĐ-CP,73/2016/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,a) Nghị định số 73/2016/NĐ-CP ngày 01 tháng 7 năm 2016 của Chính phủ quy định chi tiết thi hành Luật Kinh doanh bảo hiểm và Luật ...
+46/2023/NĐ-CP,151/2018/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Chương III Nghị định số 151/2018/NĐ-CP ngày 07 tháng 11 năm 2018 của Chính phủ sửa đổi, bổ sung một số Nghị định quy định về điều kiện đầu tư, kinh doanh thuộc phạm vi quản lý nhà nước của Bộ Tài chính;"
+46/2023/NĐ-CP,80/2019/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"c) Điều 1 Nghị định số 80/2019/NĐ-CP ngày 01 tháng 11 năm 2019 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 73/2016/NĐ-CP..."
+46/2023/NĐ-CP,98/2013/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...Kinh doanh bảo hiểm và Luật sửa đổi, bổ sung một số điều của Luật Kinh doanh bảo hiểm, Nghị định số 98/2013/NĐ-CP ngày 28 tháng 8 năm 2013 của Chính phủ quy định về xử phạt vi phạm hành chính trong lĩnh vực kinh d..."
+46/2023/NĐ-CP,48/2018/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...nh vực kinh doanh bảo hiểm, kinh doanh xổ số đã được sửa đổi, bổ sung một số điều theo Nghị định số 48/2018/NĐ-CP ngày 21 tháng 3 năm 2018 của Chính phủ."
+46/2023/NĐ-CP,08/2022/QH15,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Kinh doanh bảo hiểm số 08/2022/QH15 ngày 16/6/2022 và các văn bản hướng dẫn thi hành;
+46/2023/NĐ-CP,14/2023/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 14/2023/NĐ-CP ngày 20/4/2023 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính;"
+46/2023/NĐ-CP,16/2022/QH15,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Kinh doanh bảo hiểm số 16/2022/QH15 ngày 16/6/2022;
+156/2020/NĐ-CP,108/2013/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,2. Nghị định số 108/2013/NĐ-CP ngày 23 tháng 9 năm 2013 của Chính phủ quy định xử phạt vi phạm hành chính trong lĩnh vực chứng kho...
+156/2020/NĐ-CP,145/2016/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...ịnh xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán và Nghị định số 145/2016/NĐ-CP ngày 01 tháng 11 năm 2016 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 108/2013/NĐ-C..."
+27/2024/TT-NHNN,102/2022/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 102/2022/NĐ-CP ngày 12 tháng 12 năm 2022 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+27/2024/TT-NHNN,09/2016/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Thông tư số 09/2016/TT-NHNN ngày 17 tháng 6 năm 2016 sửa đổi, bổ sung một số điều của Thông tư số 31/2012/TT-NHNN ngày 26/11/2012 của Thống đốc Ngân hàng Nhà nước quy định về ngân hàng hợp tác xã;"
+27/2024/TT-NHNN,31/2012/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Thông tư số 09/2016/TT-NHNN ngày 17 tháng 6 năm 2016 sửa đổi, bổ sung một số điều của Thông tư số 31/2012/TT-NHNN ngày 26/11/2012 của Thống đốc Ngân hàng Nhà nước quy định về ngân hàng hợp tác xã;"
+27/2024/TT-NHNN,21/2019/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"d) Điều 1 và Điều 5 Thông tư số 21/2019/TT-NHNN ngày 14 tháng 11 năm 2019 sửa đổi, bổ sung một số điều của các Thông tư quy định về ngân hàng hợp tác xã, quỹ tín dụng nhân dân và quỹ bảo đảm an toàn hệ thống quỹ tín dụng nhân dân;"
+27/2024/TT-NHNN,24/2023/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"đ) Điều 1 Thông tư số 24/2023/TT-NHNN ngày 30 tháng 12 năm 2023 sửa đổi, bổ sung một số điều của các Thông tư liên quan đến việc nộp, xuất trình, cung cấp thông tin, giấy tờ về dân cư khi thực hiện thủ tục hành chính trong lĩnh vực thành lập và hoạt động ngân hàng."
+27/2024/TT-NHNN,21/2023/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"đ) Điều 2 Thông tư 21/2023/TT-NHNN sửa đổi, bổ sung một số điều của các Thông tư liên quan đến hoạt động kinh doanh thuộc phạm vi, chức năng quản lý của Ngân hàng Nhà nước Việt Nam."
+43/2024/TT-NHNN,01/2014/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Sửa đổi, bổ sung một số điều của Thông tư số 01/2014/TT-NHNN ngày 10"
+43/2024/TT-NHNN,50/2014/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Nghị định số 50/2014/NĐ-CP ngày 20 tháng 5 năm 2014 của Chính phủ về quản lý dự trữ ngoại hối nhà nước;
+43/2024/TT-NHNN,102/2022/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 102/2022/NĐ-CP ngày 12 tháng 12 năm 2022 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+43/2024/TT-NHNN,12/2023/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...a đổi, bổ sung khoản 1 và khoản 5 Điều 14 (đã được sửa đổi, bổ sung bởi khoản 11 Điều 1 Thông tư số 12/2023/TT-NHNN ngày 12/10/2023 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của các văn ..."
+43/2024/TT-NHNN,01/2020/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"... bổ sung điểm a và điểm c khoản 2 Điều 30 (đã được sửa đổi, bổ sung bởi khoản 13 Điều 1 Thông tư số 01/2020/TT-NHNN ngày 31/12/2020 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của Thông tư..."
+43/2024/TT-NHNN,01/2014/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"Điều 2. Thay thế, bổ sung và bãi bỏ một số quy định của Thông tư số 01/2014/TT-NHNN"
+01/2014/TT-NHNN,43/2024/TT-NHNN,THAY_THE_BOI,Document,Document,rule,0.95,"Điều 2. Thay thế, bổ sung và bãi bỏ một số quy định của Thông tư số 01/2014/TT-NHNN"
+12/2023/TT-NHNN,43/2024/TT-NHNN,THAY_THE_BOI,Document,Document,rule,0.95,"1. Thay thế Phụ lục số 01, Phụ lục số 03, Phụ lục số 04, Phụ lục số 06, Phụ lục số 07 và Phụ lục số 08 (đã được thay thế bởi Thông tư số 12/2023/TT-NHNN) bằng Phụ lục số 01, Phụ lục số 03, Phụ lục số 04, Phụ lục số 06, Phụ lục số 07 và Phụ lục số 08 tương ứng ban hành kèm theo Thông tư này."
+43/2024/TT-NHNN,01/2020/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"2. Thông tư này bãi bỏ khoản 3, khoản 4, khoản 5, khoản 9, khoản 16 Điều 1, khoản 3, khoản 4 Điều 2 Thông tư số 01/2020/TT-NHNN."
+43/2024/TT-NHNN,12/2023/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"3. Thông tư này bãi bỏ điểm a khoản 2, điểm b khoản 3, khoản 4, khoản 5, khoản 6, khoản 8, khoản 12 và khoản 16, điểm b khoản 20 Điều 1 và Phụ lục số 09 Thông tư số 12/2023/TT-NHNN."
+17/VBHN-BTC,156/2020/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Nghị định số 156/2020/NĐ-CP ngày 31 tháng 12 năm 2020 của Chính phủ quy định xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán, có hiệu lực thi hành kể từ ngày 01 tháng 01 năm 2021, được sửa đổi, bổ sung bởi:"
+17/VBHN-BTC,128/2021/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Nghị định số 128/2021/NĐ-CP ngày 30 tháng 12 năm 2021 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 156/2020/NĐ-C..."
+17/VBHN-BTC,306/2025/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Nghị định số 306/2025/NĐ-CP ngày 25 tháng 11 năm 2025 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 156/2020/NĐ-C..."
+17/VBHN-BTC,158/2020/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,...t số điều theo Nghị định số 128/2021/NĐ-CP ngày 30 tháng 12 năm 2021 của Chính phủ) và Nghị định số 158/2020/NĐ-CP ngày 31 tháng 12 năm 2020 của Chính phủ về chứng khoán phái sinh và thị trường chứng khoán phái sin...
+17/VBHN-BTC,108/2013/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,2. Nghị định số 108/2013/NĐ-CP ngày 23 tháng 9 năm 2013 của Chính phủ quy định xử phạt vi phạm hành chính trong lĩnh vực chứng kho...
+17/VBHN-BTC,145/2016/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...ịnh xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán và Nghị định số 145/2016/NĐ-CP ngày 01 tháng 11 năm 2016 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 108/2013/NĐ-C..."
+57/2024/TT-NHNN,102/2022/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 102/2022/NĐ-CP ngày 12 tháng 12 năm 2022 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+57/2024/TT-NHNN,162/2024/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Nghị định số 162/2024/NĐ-CP ngày 20 tháng 12 năm 2024 của Chính phủ quy định điều kiện cấp Giấy phép đối với quỹ tín dụng nhân ...
+44/2011/TT-NHNN,46/2010/QH12,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Ngân hàng Nhà nước Việt Nam số 46/2010/QH12 ngày 16 tháng 6 năm 2010;
+44/2011/TT-NHNN,47/2010/QH12,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Các tổ chức tín dụng số 47/2010/QH12 ngày 16 tháng 6 năm 2010;
+44/2011/TT-NHNN,96/2008/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 96/2008/NĐ-CP ngày 26/8/2008 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+66/2020/TT-BTC,88/2015/QH,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật kế toán số 88/2015/QH 13 ngày 20 tháng 11 năm 2015;
+66/2020/TT-BTC,05/2019/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Nghị định số 05/2019/NĐ-CP ngày 22 thảng 01 năm 2019 của Chính phủ về kiếm toán nội bộ;
+29/2024/TT-NHNN,102/2022/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 102/2022/NĐ-CP ngày 12 tháng 12 năm 2022 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+29/2024/TT-NHNN,06/2007/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...eo ngành nghề, quỹ tín dụng nhân dân hoạt động theo từng doanh nghiệp được quy định tại Thông tư số 06/2007/TT-NHNN ngày 06 tháng 11 năm 2007 của Thống đốc Ngân hàng Nhà nước sửa đổi, bổ sung Thông tư số 08/2005/TT-..."
+29/2024/TT-NHNN,08/2005/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...007/TT-NHNN ngày 06 tháng 11 năm 2007 của Thống đốc Ngân hàng Nhà nước sửa đổi, bổ sung Thông tư số 08/2005/TT-NHNN ngày 30 tháng 12 năm 2005 của Ngân hàng Nhà nước hướng dẫn thực hiện Nghị định số 48/2001/NĐ-CP ngà..."
+29/2024/TT-NHNN,48/2001/NĐ-CP,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,...ố 08/2005/TT-NHNN ngày 30 tháng 12 năm 2005 của Ngân hàng Nhà nước hướng dẫn thực hiện Nghị định số 48/2001/NĐ-CP ngày 13/8/2001 về tổ chức và hoạt động của quỹ tín dụng nhân dân và Nghị định số
+29/2024/TT-NHNN,06/2017/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Thông tư số 06/2017/TT-NHNN ngày 05/7/2017 của Thống đốc Ngân hàng sửa đổi, bổ sung một số điều của Thông tư số 03/2014/TT-NHNN..."
+29/2024/TT-NHNN,03/2014/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...06/2017/TT-NHNN ngày 05/7/2017 của Thống đốc Ngân hàng sửa đổi, bổ sung một số điều của Thông tư số 03/2014/TT-NHNN ngày 23/01/2014 của Thống đốc Ngân hàng Nhà nước quy định về quỹ bảo đảm an toàn hệ thống quỹ tín d..."
+29/2024/TT-NHNN,04/2015/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,...ốc Ngân hàng Nhà nước quy định về quỹ bảo đảm an toàn hệ thống quỹ tín dụng nhân dân và Thông tư số 04/2015/TT-NHNN ngày 31/03/2015 của Thống đốc Ngân hàng Nhà nước quy định về quỹ tín dụng nhân dân;
+29/2024/TT-NHNN,21/2019/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"c) Điều 2, khoản 1 Điều 6 Thông tư 21/2019/TT-NHNN ngày 14/11/2019 của Thống đốc Ngân hàng Nhà nước sửa đổi, bổ sung một số điều của các Thông tư quy định về ngân hàng hợp tác xã, quỹ tín dụng nhân dân và quỹ bảo đảm an toàn hệ thống quỹ tín dụng nhân dân;"
+29/2024/TT-NHNN,01/2023/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"d) Thông tư số 01/2023/TT-NHNN ngày 01/3/2023 của Thống đốc Ngân hàng Nhà nước sửa đổi, bổ sung một số điều của Thông tư số 04/2015/TT-NHNN ngày 31/3/2015 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về quỹ tín dụng nhân dân;"
+29/2024/TT-NHNN,24/2023/TT,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"đ) Điều 2 Thông tư số 24/2023/TT- NHNN ngày 29/12/2023 của Thống đốc Ngân hàng Nhà nước sửa đổi, bổ sung một số điều của các Thông tư liên quan đến việc nộp. xuất trình, cung cấp thông tin, giấy tờ về dân cư khi thực hiện thủ tục hành chính trong lĩnh vực thành lập và hoạt động ngân hàng."
+08/2021/TT-BTC,88/2015/QH13,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật kế toán số 88/2015/QH13 ngày 20 tháng 11 năm 2015;
+08/2021/TT-BTC,05/2019/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Nghị định 05/2019/NĐ-CP ngày 22 tháng 01 năm 2019 của Chính phủ về kiểm toán nội bộ;
+08/2021/TT-BTC,87/2017/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 87/2017/NĐ-CP ngày 26 tháng 7 năm 2017 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính;"
+69/2025/TT-NHNN,46/2010/QH12,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Ngân hàng Nhà nước Việt Nam số 46/2010/QH12;
+69/2025/TT-NHNN,32/2024/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+69/2025/TT-NHNN,96/2025/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+69/2025/TT-NHNN,32/2024/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+69/2025/TT-NHNN,96/2025/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+69/2025/TT-NHNN,26/2025/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 26/2025/NĐ-CP của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+69/2025/TT-NHNN,19/2013/TT,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 19/2013/TT-"
+69/2025/TT-NHNN,43/2015/TT,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 43/2015/TT-"
+69/2025/TT-NHNN,53/2018/TT,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 53/2018/TT-"
+53/2018/TT-NHNN,69/2025/TT-NHNN,THAY_THE_BOI,Document,Document,rule,0.95,Điều 25. Thay thế Phụ lục ban hành kèm theo Thông tư 53/2018/TT-NHNN
+69/2025/TT-NHNN,14/2015/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"a) Khoản 8, khoản 14 Điều 1 Thông tư 14/2015/TT-NHNN sửa đổi bổ sung một số điều của Thông tư số 19/2013/TT-NHNN của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về việc mua, bán và xử lý nợ xấu của Công ty Quản lý tài sản của các tổ chức tín dụng Việt Nam;"
+69/2025/TT-NHNN,19/2013/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"a) Khoản 8, khoản 14 Điều 1 Thông tư 14/2015/TT-NHNN sửa đổi bổ sung một số điều của Thông tư số 19/2013/TT-NHNN của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về việc mua, bán và xử lý nợ xấu của Công ty Quản lý tài sản của các tổ chức tín dụng Việt Nam;"
+69/2025/TT-NHNN,03/2024/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...oản 1 Điều 2; cụm từ ""khoản 2 Điều 12"", cụm từ ""các khoản 5, 6 Điều 13"" tại khoản 2 Điều 2 Thông tư 03/2024/TT-NHNN của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số Điều của Thông tư số 19/2013/TT-N..."
+69/2025/TT-NHNN,27/2022/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"c) Cụm từ “điểm b khoản 3 Điều 10” tại điểm c khoản 5 Điều 1 Thông tư số 27/2022/TT-NHNN của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của các Thông tư quy định về phân cấp giải quyết thủ tục hành chính trong lĩnh vực thành lập và hoạt động ngân hàng;"
+69/2025/TT-NHNN,30/2024/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"d) Khoản 7, khoản 9, khoản 14, điểm c khoản 15 Điều 1 Thông tư 30/2024/TT-NHNN của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của các Thông tư quy định về hồ sơ, thủ tục chấp thuận những thay đổi và mạng lưới hoạt động của tổ chức tín dụng phi ngân hàng."
+105/2016/TT-BTC,28/2005/PL-UBTVQH,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Pháp lệnh Ngoại hối số 28/2005/PL-UBTVQH ngày 13 tháng 12 năm 2005;
+105/2016/TT-BTC,06/2013/PL-UBTVQH13,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Pháp lệnh số 06/2013/PL-UBTVQH13 ngày 18 tháng 03 năm 2013 sửa đổi, bổ sung một số điều của Pháp lệnh Ngoại hối;"
+105/2016/TT-BTC,06/2013/PL-UBTVQH13,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Pháp lệnh số 06/2013/PL-UBTVQH13 ngày 18 tháng 03 năm 2013 sửa đổi, bổ sung một số điều của Pháp lệnh Ngoại hối;"
+62/2025/TT-NHNN,46/2010/QH12,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Ngân hàng Nhà nước Việt Nam số 46/2010/QH12;
+62/2025/TT-NHNN,32/2024/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+62/2025/TT-NHNN,96/2025/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+62/2025/TT-NHNN,32/2024/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+62/2025/TT-NHNN,96/2025/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+62/2025/TT-NHNN,26/2025/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 26/2025/NĐ-CP của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+62/2025/TT-NHNN,44/2011/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"2. Thông tư này bãi bỏ Thông tư số 44/2011/TT-NHNN ngày 29 tháng 12 năm 2011 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+52/VBHN-NHNN,56/2024/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Thông tư số 56/2024/TT-NHNN ngày 24 tháng 12 năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định hồ sơ, thủ tục cấp Giấ..."
+52/VBHN-NHNN,12/2025/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"1. Thông tư số 12/2025/TT-NHNN ngày 30 tháng 6 năm 2025 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của..."
+52/VBHN-NHNN,11/2026/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,2. Thông tư số 11/2026/TT-NHNN ngày 19 tháng 5 năm 2026 của Thống đốc Ngân hàng Nhà nước Việt Nam phân cấp thực hiện thủ tục hành ...
+52/VBHN-NHNN,102/2022/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 102/2022/NĐ-CP ngày 12 tháng 12 năm 2022 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+52/VBHN-NHNN,162/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 162/NĐ-CP ngày 20 tháng 12 năm 2024 của Chính phủ quy định điều kiện cấp Giấy phép đối với quỹ tín dụng nhân dân, tổ chức tài chính vi mô và điều kiện đối với chủ sở hữu của tổ chức tín dụng là công ty trách nhiệm hữu hạn một thành viên, cổ đông sáng lập, thành viên sáng lập;"
+52/VBHN-NHNN,2024/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Thông tư số .../2024/TT-NHNN ngày .. tháng ... năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài, văn phòng đại diện nước ngoài;"
+52/VBHN-NHNN,162/2024/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Nghị định số 162/2024/NĐ-CP ngày 20 tháng 12 năm 2024 của Chính phủ quy định điều kiện cấp Giấy phép đối với quỹ tín dụng nhân ...
+63/2025/TT-NHNN,46/2010/QH12,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Ngân hàng Nhà nước Việt Nam số 46/2010/QH12;
+63/2025/TT-NHNN,32/2024/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+63/2025/TT-NHNN,96/2025/QH15,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+63/2025/TT-NHNN,32/2024/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+63/2025/TT-NHNN,96/2025/QH15,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Luật Các tổ chức tín dụng số 32/2024/QH15 được sửa đổi, bổ sung bởi Luật số 96/2025/QH15;"
+63/2025/TT-NHNN,17/2023/QH15,THAM_CHIEU,Document,Document,rule,0.95,Căn cứ Luật Hợp tác xã số 17/2023/QH15;
+63/2025/TT-NHNN,26/2025/NĐ-CP,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Nghị định số 26/2025/NĐ-CP của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Ngân hàng Nhà nước Việt Nam;"
+63/2025/TT-NHNN,29/2024/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 29/2024/TT-NHNN QUY ĐỊNH VỀ QUỸ TÍN DỤNG NHÂN DÂN"
+63/2025/TT-NHNN,01/2025/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 01/2025/TT-NHNN QUY ĐỊNH VỀ CẤP GIẤY PHÉP LẦN ĐẦU, CẤP ĐỔI GIẤY PHÉP"
+63/2025/TT-NHNN,10/2025/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"SỬA ĐỔI, BỔ SUNG MỘT SỐ ĐIỀU CỦA THÔNG TƯ SỐ 10/2025/TT-NHNN"
+63/2025/TT-NHNN,08/2025/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"2. Thông tư này bãi bỏ quy định tại khoản 1 Điều 2 Thông tư số 08/2025/TT-NHNN ngày 06 tháng 6 năm 2025 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của..."
+63/2025/TT-NHNN,43/2015/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"...g 6 năm 2025 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của Thông tư số 43/2015/TT-NHNN ngày 31 tháng 12 năm 2015 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về tổ chức và hoạt độn..."
+63/2025/TT-NHNN,32/2024/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,...năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về quỹ tín dụng nhân dân và Thông tư số 32/2024/TT-NHNN ngày 30 tháng 6 năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về mạng lưới hoạt động ...
+63/2025/TT-NHNN,08/2025/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"2. Thông tư này bãi bỏ quy định tại khoản 1 Điều 2 Thông tư số 08/2025/TT-NHNN ngày 06 tháng 6 năm 2025 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của..."
+63/2025/TT-NHNN,43/2015/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"...g 6 năm 2025 của Thống đốc Ngân hàng Nhà nước Việt Nam sửa đổi, bổ sung một số điều của Thông tư số 43/2015/TT-NHNN ngày 31 tháng 12 năm 2015 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về tổ chức và hoạt độn..."
+63/2025/TT-NHNN,29/2024/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,"...ủa phòng giao dịch bưu điện trực thuộc Ngân hàng thương mại cổ phần Bưu điện Liên Việt, Thông tư số 29/2024/TT-NHNN ngày 28 tháng 6 năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về quỹ tín dụng nhân dâ..."
+63/2025/TT-NHNN,32/2024/TT-NHNN,THAM_CHIEU,Document,Document,rule,0.95,...năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về quỹ tín dụng nhân dân và Thông tư số 32/2024/TT-NHNN ngày 30 tháng 6 năm 2024 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về mạng lưới hoạt động ...
+01/2014/TT-NHNN,27/2007/QĐ-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Quyết định số 27/2007/QĐ-NHNN ngày 21/6/2007 sửa đổi, bổ sung một số Điều của Chế độ giao nhận, bảo quản, vận chuyển tiền mặt, tài sản quý, giấy tờ có giá ban hành theo Quyết định số 60/2006/QĐ-NHNN;"
+01/2014/TT-NHNN,60/2006/QĐ-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"b) Quyết định số 27/2007/QĐ-NHNN ngày 21/6/2007 sửa đổi, bổ sung một số Điều của Chế độ giao nhận, bảo quản, vận chuyển tiền mặt, tài sản quý, giấy tờ có giá ban hành theo Quyết định số 60/2006/QĐ-NHNN;"
+01/2014/TT-NHNN,21/2011/TT-NHNN,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"c) Thông tư số 21/2011/TT-NHNN ngày 30/8/2011 sửa đổi, bổ sung Khoản 5 Điều 3 Chế độ giao nhận, bảo quản, vận chuyển tiền mặt, tài sản quý, giấy tờ có giá ban hành theo Quyết định số 60/2006/QĐ-NHNN."
+46/2010/QH12,51/2001/QH10,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"Căn cứ Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 1992 đã được sửa đổi, bổ sung một số điều theo Nghị quyết số 51/2001/QH10;"
+46/2010/QH12,51/2001/QH10,THAM_CHIEU,Document,Document,rule,0.95,"Căn cứ Hiến pháp nước Cộng hoà xã hội chủ nghĩa Việt Nam năm 1992 đã được sửa đổi, bổ sung một số điều theo Nghị quyết số 51/2001/QH10;"
+46/2010/QH12,01/1997/QH10,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"2. Luật Ngân hàng Nhà nước Việt Nam số 01/1997/QH10 và Luật sửa đổi, bổ sung một số điều của Luật Ngân hàng Nhà nước Việt Nam số 10/2003/QH11 hết hiệu lực kể từ ngày Luật này có hiệu lực."
+46/2010/QH12,10/2003/QH11,SUA_DOI_BO_SUNG,Document,Document,rule,0.95,"2. Luật Ngân hàng Nhà nước Việt Nam số 01/1997/QH10 và Luật sửa đổi, bổ sung một số điều của Luật Ngân hàng Nhà nước Việt Nam số 10/2003/QH11 hết hiệu lực kể từ ngày Luật này có hiệu lực."
+44/2011/TT-NHNN,62/2025/TT-NHNN,THAY_THE_BOI,Document,Document,rule_context,0.95,"2. Thông tư này bãi bỏ Thông tư số 44/2011/TT-NHNN ngày 29 tháng 12 năm 2011 của Thống đốc Ngân hàng Nhà nước Việt Nam quy định về hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+32/2024/QH15,Quốc hội,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Quốc hội'
+32/2024/QH15,Vương Đình Huệ,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Vương Đình Huệ', chuc_danh='Chủ tịch Quốc hội'"
+32/2024/QH15,Tín dụng,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Tín dụng'
+32/2024/QH15,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,1. Tổ chức tín dụng.
+32/2024/QH15,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,2. Chi nhánh ngân hàng nước ngoài.
+32/2024/QH15,Văn phòng đại diện của tổ chức tín dụng nước ngoài tại Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"3. Văn phòng đại diện tại Việt Nam của tổ chức tín dụng nước ngoài, tổ chức nước ngoài khác có hoạt động ngân hàng (sau đây gọi là văn phòng đại diện nước ngoài)."
+32/2024/QH15,"Tổ chức mà Nhà nước sở hữu 100% vốn điều lệ có chức năng mua, bán, xử lý nợ",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"4. Tổ chức mà Nhà nước sở hữu 100% vốn điều lệ có chức năng mua, bán, xử lý nợ (sau đây gọi là tổ chức mua bán, xử lý nợ)."
+32/2024/QH15,"Cơ quan, tổ chức, cá nhân có liên quan đến việc thành lập, tổ chức, hoạt động, can thiệp sớm, kiểm soát đặc biệt, tổ chức lại, giải thể, phá sản tổ chức tín dụng; việc thành lập, tổ chức, hoạt động, can thiệp sớm, giải thể, chấm dứt hoạt động của chi nhánh ngân hàng nước ngoài; việc thành lập, hoạt động của văn phòng đại diện nước ngoài; việc xử lý nợ xấu, tài sản bảo đảm của khoản nợ xấu của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, tổ chức mua bán, xử lý nợ",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"5. Cơ quan, tổ chức, cá nhân có liên quan đến việc thành lập, tổ chức, hoạt động, can thiệp sớm, kiểm soát đặc biệt, tổ chức lại, giải thể, phá sản tổ chức tín dụng; việc thành lập, tổ chức, hoạt động, can thiệp sớm, giải thể, chấm dứt hoạt động của chi nhánh ngân hàng nước ngoài; việc thành lập, hoạt động của văn phòng đại diện nước ngoài; việc xử lý nợ xấu, tài sản bảo đảm của khoản nợ xấu của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, tổ chức mua bán, xử lý nợ."
+32/2024/QH15,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,tổ chức nước ngoài khác có hoạt động ngân hàng
+73/2016/NĐ-CP,Chính phủ,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Chính phủ'
+73/2016/NĐ-CP,Nguyễn Xuân Phúc,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Xuân Phúc', chuc_danh='Thủ tướng'"
+73/2016/NĐ-CP,Doanh nghiệp bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,a) Doanh nghiệp bảo hiểm;
+73/2016/NĐ-CP,Chi nhánh doanh nghiệp bảo hiểm phi nhân thọ nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,b) Chi nhánh nước ngoài;
+73/2016/NĐ-CP,Doanh nghiệp môi giới bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"c) Doanh nghiệp môi giới bảo hiểm, đại lý bảo hiểm;"
+73/2016/NĐ-CP,Đại lý bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"c) Doanh nghiệp môi giới bảo hiểm, đại lý bảo hiểm;"
+73/2016/NĐ-CP,"Tổ chức, cá nhân có liên quan",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.9,"d) Các tổ chức, cá nhân khác có liên quan."
+73/2016/NĐ-CP,Bảo hiểm,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.98,"Nghị định quy định chi tiết thi hành Luật kinh doanh bảo hiểm và Luật sửa đổi, bổ sung một số điều của Luật kinh doanh bảo hiểm"
+37/2014/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+37/2014/TT-NHNN,Đào Minh Tú,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đào Minh Tú', chuc_danh='Phó Thống đốc'"
+37/2014/TT-NHNN,Phát hành và kho quỹ,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Phát hành và kho quỹ'
+37/2014/TT-NHNN,Các đơn vị thuộc Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,1. Các đơn vị có liên quan thuộc Ngân hàng Nhà nước.
+37/2014/TT-NHNN,Nhà máy in tiền Quốc gia,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,2. Nhà máy in tiền Quốc gia.
+37/2014/TT-NHNN,"Tổ chức, cá nhân khác có liên quan đến công việc thiết kế mẫu tiền, chế tạo bản in, khuôn đúc và in, đúc tiền",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Tổ chức, cá nhân khác có liên quan đến công việc thiết kế mẫu tiền, chế tạo bản in, khuôn đúc và in, đúc tiền."
+67/2011/QH12,Quốc hội,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Quốc hội'
+67/2011/QH12,Nguyễn Phú Trọng,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Phú Trọng', chuc_danh='Chủ tịch Quốc hội'"
+67/2011/QH12,Kiểm toán viên,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Kiểm toán viên hành nghề,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Doanh nghiệp kiểm toán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Đơn vị được kiểm toán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Tổ chức nghề nghiệp về kiểm toán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,"Tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Luật này áp dụng đối với kiểm toán viên, kiểm toán viên hành nghề, doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam, đơn vị được kiểm toán, tổ chức nghề nghiệp về kiểm toán và tổ chức, cá nhân khác có liên quan đến hoạt động kiểm toán độc lập."
+67/2011/QH12,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.98,Luật Kiểm toán độc lập
+46/2023/NĐ-CP,Chính phủ,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Chính phủ'
+46/2023/NĐ-CP,Lê Minh Khái,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Lê Minh Khái', chuc_danh='Phó Thủ tướng Chính phủ'"
+46/2023/NĐ-CP,Bảo hiểm,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Bảo hiểm'
+46/2023/NĐ-CP,Doanh nghiệp bảo hiểm phi nhân thọ,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Doanh nghiệp bảo hiểm phi nhân thọ, doanh nghiệp bảo hiểm nhân thọ, doanh nghiệp bảo hiểm sức khỏe"
+46/2023/NĐ-CP,Doanh nghiệp bảo hiểm nhân thọ,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Doanh nghiệp bảo hiểm phi nhân thọ, doanh nghiệp bảo hiểm nhân thọ, doanh nghiệp bảo hiểm sức khỏe"
+46/2023/NĐ-CP,Doanh nghiệp bảo hiểm sức khỏe,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Doanh nghiệp bảo hiểm phi nhân thọ, doanh nghiệp bảo hiểm nhân thọ, doanh nghiệp bảo hiểm sức khỏe"
+46/2023/NĐ-CP,Doanh nghiệp tái bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"doanh nghiệp tái bảo hiểm, đại lý bảo hiểm, doanh nghiệp môi giới bảo hiểm"
+46/2023/NĐ-CP,Đại lý bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"doanh nghiệp tái bảo hiểm, đại lý bảo hiểm, doanh nghiệp môi giới bảo hiểm"
+46/2023/NĐ-CP,Doanh nghiệp môi giới bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"doanh nghiệp tái bảo hiểm, đại lý bảo hiểm, doanh nghiệp môi giới bảo hiểm"
+46/2023/NĐ-CP,"Tổ chức, cá nhân cung cấp dịch vụ phụ trợ bảo hiểm",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"tổ chức, cá nhân cung cấp dịch vụ phụ trợ bảo hiểm"
+46/2023/NĐ-CP,Tổ chức tương hỗ cung cấp bảo hiểm vi mô,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,tổ chức tương hỗ cung cấp bảo hiểm vi mô
+46/2023/NĐ-CP,Chi nhánh doanh nghiệp bảo hiểm phi nhân thọ nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Chi nhánh doanh nghiệp bảo hiểm phi nhân thọ nước ngoài, chi nhánh doanh nghiệp tái bảo hiểm nước ngoài"
+46/2023/NĐ-CP,Chi nhánh doanh nghiệp tái bảo hiểm nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Chi nhánh doanh nghiệp bảo hiểm phi nhân thọ nước ngoài, chi nhánh doanh nghiệp tái bảo hiểm nước ngoài"
+46/2023/NĐ-CP,Văn phòng đại diện của tổ chức tín dụng nước ngoài tại Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Văn phòng đại diện của doanh nghiệp bảo hiểm nước ngoài, doanh nghiệp tái bảo hiểm nước ngoài, doanh nghiệp môi giới bảo hiểm nước ngoài, tập đoàn tài chính, bảo hiểm nước ngoài tại Việt Nam (sau đây gọi là văn phòng đại diện nước ngoài tại Việt Nam)"
+46/2023/NĐ-CP,Bên mua bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Bên mua bảo hiểm, người được bảo hiểm, người thụ hưởng"
+46/2023/NĐ-CP,Người được bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Bên mua bảo hiểm, người được bảo hiểm, người thụ hưởng"
+46/2023/NĐ-CP,Người thụ hưởng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Bên mua bảo hiểm, người được bảo hiểm, người thụ hưởng"
+46/2023/NĐ-CP,Cơ quan quản lý nhà nước về hoạt động kinh doanh bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,Cơ quan quản lý nhà nước về hoạt động kinh doanh bảo hiểm.
+46/2023/NĐ-CP,Tổ chức và cá nhân có liên quan đến hoạt động kinh doanh bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,Tổ chức và cá nhân có liên quan đến hoạt động kinh doanh bảo hiểm.
+156/2020/NĐ-CP,Chính phủ,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Chính phủ'
+156/2020/NĐ-CP,Nguyễn Xuân Phúc,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Xuân Phúc', chuc_danh='Thủ tướng'"
+156/2020/NĐ-CP,Chứng khoán,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Chứng khoán'
+156/2020/NĐ-CP,"Tổ chức, cá nhân có liên quan",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,"Bộ trưởng Bộ Tài chính, Bộ trưởng, Thủ trưởng cơ quan ngang bộ, Thủ trưởng cơ quan thuộc Chính phủ, Chủ tịch Ủy ban nhân dân tỉnh, thành phố trực thuộc trung ương và các tổ chức, cá nhân liên quan chịu trách nhiệm thi hành Nghị định này."
+156/2020/NĐ-CP,"Cá nhân, tổ chức bị xử phạt vi phạm hành chính",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.9,"ban hành trước ngày Nghị định này có hiệu lực thi hành mà cá nhân, tổ chức bị xử phạt vi phạm hành chính còn khiếu nại"
+156/2020/NĐ-CP,Xử phạt vi phạm hành chính,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,Quy định xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán
+27/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+27/2024/TT-NHNN,Đào Minh Tú,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đào Minh Tú', chuc_danh='Phó Thống đốc'"
+27/2024/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+27/2024/TT-NHNN,Ngân hàng hợp tác xã,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,1. Ngân hàng hợp tác xã.
+27/2024/TT-NHNN,Quỹ tín dụng nhân dân,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,2. Quỹ tín dụng nhân dân.
+27/2024/TT-NHNN,"Tổ chức, cá nhân có liên quan đến phạm vi điều chỉnh quy định tại Điều 1 Thông tư này",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Tổ chức, cá nhân có liên quan đến phạm vi điều chỉnh quy định tại Điều 1 Thông tư này."
+27/2024/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"hoạt động trong lĩnh vực ngân hàng với mục tiêu chủ yếu là liên kết, bảo đảm an toàn của hệ thống"
+05/2019/NĐ-CP,Chính phủ,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Chính phủ'
+05/2019/NĐ-CP,Nguyễn Xuân Phúc,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Xuân Phúc', chuc_danh='Thủ tướng'"
+05/2019/NĐ-CP,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,gemini,0.99,Theo đề nghị của Bộ trưởng Bộ Tài chính;
+05/2019/NĐ-CP,"Ủy ban nhân dân các tỉnh, thành phố trực thuộc trung ương",BAN_HANH_BOI,Document,CoQuan,gemini,0.95,"Ủy ban nhân dân các tỉnh, thành phố trực thuộc trung ương;"
+05/2019/NĐ-CP,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,gemini,0.95,do Ngân hàng Nhà nước ban hành.
+05/2019/NĐ-CP,"Các bộ, cơ quan ngang bộ, cơ quan thuộc Chính phủ",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"a) Các bộ, cơ quan ngang bộ, cơ quan thuộc Chính phủ;"
+05/2019/NĐ-CP,"Ủy ban nhân dân các tỉnh, thành phố trực thuộc trung ương",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"b) Ủy ban nhân dân các tỉnh, thành phố trực thuộc trung ương;"
+05/2019/NĐ-CP,Các đơn vị sự nghiệp công lập,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,c) Các đơn vị sự nghiệp công lập;
+05/2019/NĐ-CP,Các doanh nghiệp,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,d) Các doanh nghiệp;
+05/2019/NĐ-CP,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,3. Công tác kiểm toán nội bộ của tổ chức tín dụng thực hiện theo Luật các tổ chức tín dụng
+05/2019/NĐ-CP,Ngân hàng Nhà nước,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,4. Công tác kiểm toán nội bộ của Ngân hàng Nhà nước thực hiện theo Luật Ngân hàng Nhà nước
+05/2019/NĐ-CP,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,Chính phủ ban hành Nghị định về kiểm toán nội bộ.
+43/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+43/2024/TT-NHNN,Phạm Thanh Hà,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Phạm Thanh Hà', chuc_danh='Phó Thống đốc'"
+43/2024/TT-NHNN,Quản lý ngoại hối,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Quản lý ngoại hối'
+43/2024/TT-NHNN,Chánh Văn phòng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chánh Văn phòng, Cục trưởng Cục Quản lý dự trữ ngoại hối nhà nước và Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam chịu trách nhiệm tổ chức thực hiện Thông tư này."
+43/2024/TT-NHNN,Cục trưởng Cục Quản lý dự trữ ngoại hối nhà nước,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chánh Văn phòng, Cục trưởng Cục Quản lý dự trữ ngoại hối nhà nước và Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam chịu trách nhiệm tổ chức thực hiện Thông tư này."
+43/2024/TT-NHNN,Các đơn vị thuộc Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chánh Văn phòng, Cục trưởng Cục Quản lý dự trữ ngoại hối nhà nước và Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam chịu trách nhiệm tổ chức thực hiện Thông tư này."
+135/2015/NĐ-CP,Chính phủ,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Chính phủ'
+135/2015/NĐ-CP,Nguyễn Tấn Dũng,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Tấn Dũng', chuc_danh='Thủ tướng Chính phủ'"
+135/2015/NĐ-CP,"Nhà đầu tư (Tổ chức kinh tế, cá nhân có quốc tịch Việt Nam thuộc đối tượng được tham gia chương trình thưởng cổ phiếu phát hành ở nước ngoài)",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"1. Nhà đầu tư gồm các đối tượng sau:
+a) Tổ chức kinh tế theo quy định tại Khoản 16 Điều 3 Luật Đầu tư;
+b) Cá nhân có quốc tịch Việt Nam thuộc đối tượng được tham gia chương trình thưởng cổ phiếu phát hành ở nước ngoài."
+135/2015/NĐ-CP,Các cơ quan quản lý nhà nước tham gia quản lý hoạt động đầu tư gián tiếp ra nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,2. Các cơ quan quản lý nhà nước tham gia quản lý hoạt động đầu tư gián tiếp ra nước ngoài theo quy định tại Nghị định này.
+135/2015/NĐ-CP,"Tổ chức, cá nhân có liên quan đến hoạt động đầu tư gián tiếp ra nước ngoài",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Các tổ chức, cá nhân khác có liên quan đến hoạt động đầu tư gián tiếp ra nước ngoài."
+135/2015/NĐ-CP,Quản lý ngoại hối,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.92,"Căn cứ Pháp lệnh Ngoại hối ngày 13 tháng 12 năm 2005 và Pháp lệnh sửa đổi, bổ sung một số điều của Pháp lệnh Ngoại hối ngày 18 tháng 3 năm 2013"
+135/2015/NĐ-CP,Chứng khoán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.9,"Nghị định này quy định chi tiết về hoạt động đầu tư ra nước ngoài dưới hình thức mua, bán chứng khoán, các giấy tờ có giá khác hoặc đầu tư thông qua các quỹ đầu tư chứng khoán"
+135/2015/NĐ-CP,Đầu tư,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,Nghị định quy định về đầu tư gián tiếp ra nước ngoài.
+17/VBHN-BTC,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Bộ Tài chính'
+17/VBHN-BTC,Nguyễn Đức Chi,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Đức Chi', chuc_danh='Thứ trưởng'"
+17/VBHN-BTC,Chính phủ,BAN_HANH_BOI,Document,CoQuan,gemini,0.95,Nghị định số 156/2020/NĐ-CP ngày 31 tháng 12 năm 2020 của Chính phủ quy định xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán
+17/VBHN-BTC,"Tổ chức, cá nhân có liên quan",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.9,"các tổ chức, cá nhân liên quan chịu trách nhiệm thi hành Nghị định này"
+17/VBHN-BTC,Chứng khoán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.98,Quy định xử phạt vi phạm hành chính trong lĩnh vực chứng khoán và thị trường chứng khoán
+202/2012/TT-BTC,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Bộ Tài chính'
+202/2012/TT-BTC,Trần Xuân Hà,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Trần Xuân Hà', chuc_danh='Thứ trưởng'"
+202/2012/TT-BTC,Quản lý dịch vụ tài chính và các quỹ tài chính,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Quản lý dịch vụ tài chính và các quỹ tài chính'
+202/2012/TT-BTC,"Kiểm toán viên đăng ký hành nghề tại doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Kiểm toán viên đăng ký hành nghề tại doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam."
+202/2012/TT-BTC,"Doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Doanh nghiệp kiểm toán, chi nhánh doanh nghiệp kiểm toán nước ngoài tại Việt Nam (sau đây gọi chung là doanh nghiệp kiểm toán)."
+202/2012/TT-BTC,"Tổ chức, cá nhân có liên quan đến việc đăng ký, quản lý và công khai danh sách kiểm toán viên hành nghề kiểm toán",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Tổ chức, cá nhân có liên quan đến việc đăng ký, quản lý và công khai danh sách kiểm toán viên hành nghề kiểm toán."
+202/2012/TT-BTC,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Thông tư hướng dẫn về đăng ký, quản lý và công khai danh sách kiểm toán viên hành nghề kiểm toán."
+57/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+57/2024/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+57/2024/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+57/2024/TT-NHNN,Công ty tài chính tổng hợp,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,1. Công ty tài chính tổng hợp.
+57/2024/TT-NHNN,Công ty tài chính chuyên ngành,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,2. Công ty tài chính chuyên ngành.
+57/2024/TT-NHNN,"Các tổ chức, cá nhân có liên quan đến việc cấp Giấy phép lần đầu của tổ chức tín dụng phi ngân hàng",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Các tổ chức, cá nhân có liên quan đến việc cấp Giấy phép lần đầu của tổ chức tín dụng phi ngân hàng."
+57/2024/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.9,"Thống đốc Ngân hàng Nhà nước Việt Nam ban hành Thông tư quy định hồ sơ, thủ tục cấp Giấy phép lần đầu của tổ chức tín dụng phi ngân hàng."
+44/2011/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+44/2011/TT-NHNN,Trần Minh Tuấn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Trần Minh Tuấn', chuc_danh='Phó Thống đốc'"
+44/2011/TT-NHNN,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,1. Tổ chức tín dụng;
+44/2011/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,2. Chi nhánh ngân hàng nước ngoài;
+44/2011/TT-NHNN,"Tổ chức, cá nhân có liên quan đến hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Tổ chức, cá nhân có liên quan đến hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+44/2011/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Quy định về hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài"
+44/2011/TT-NHNN,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.92,"Quy định về hệ thống kiểm soát nội bộ và kiểm toán nội bộ của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài"
+66/2020/TT-BTC,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Bộ Tài chính'
+66/2020/TT-BTC,Đỗ Hoàng Anh Tuấn,KY_BOI,Document,NguoiKy,gemini,0.98,"KT. BỘ TRƯỞNG
+THỨ TRƯỞNG
+(Đã ký)
+Đỗ Hoàng Anh Tuấn"
+66/2020/TT-BTC,Các doanh nghiệp quy định tại khoản 1 Điều 10 Nghị định số 05/2019/NĐ-CP,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,Thông tư này áp dụng đối với các doanh nghiệp quy định tại khoản 1 Điều 10 Nghị định số 05/2019/NĐ-CP ngày 22 tháng 01 năm 2019 của Chính phủ về kiếm toán nội bộ.
+66/2020/TT-BTC,Các doanh nghiệp không thuộc quy định tại khoản 1 Điều 10 Nghị định số 05/2019/NĐ-CP,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.9,Các doanh nghiệp không thuộc quy định tại khoản 1 Điều này được khuyến khích xây dựng Quy chế kiểm toán nội bộ trên cơ sở tham chiếu mẫu Quy chế kiểm toán nội bộ ban hành kèm theo Thông tư này.
+66/2020/TT-BTC,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,Thông tư ban hành Quy chế mẫu về kiếm toán nội bộ áp dụng cho doanh nghiệp.
+29/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+29/2024/TT-NHNN,Đào Minh Tú,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đào Minh Tú', chuc_danh='Phó Thống đốc'"
+29/2024/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+29/2024/TT-NHNN,Quỹ tín dụng nhân dân,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,1. Quỹ tín dụng nhân dân.
+29/2024/TT-NHNN,Ngân hàng hợp tác xã,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,2. Ngân hàng hợp tác xã.
+29/2024/TT-NHNN,"Tổ chức, cá nhân có liên quan đến quản trị, điều hành, tổ chức và hoạt động của quỹ tín dụng nhân dân",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Tổ chức, cá nhân có liên quan đến quản trị, điều hành, tổ chức và hoạt động của quỹ tín dụng nhân dân."
+29/2024/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.9,Thông tư quy định về quỹ tín dụng nhân dân.
+08/2021/TT-BTC,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Bộ Tài chính'
+08/2021/TT-BTC,Tạ Anh Tuấn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Tạ Anh Tuấn', chuc_danh='Thứ trưởng'"
+08/2021/TT-BTC,Kế toán - Kiểm toán,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Kế toán, kiểm toán'"
+08/2021/TT-BTC,Doanh nghiệp,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chuẩn mực kiểm toán nội bộ Việt Nam và các nguyên tắc đạo đức nghề nghiệp kiểm toán nội bộ áp dụng đối với các doanh nghiệp, cơ quan nhà nước, đơn vị sự nghiệp công lập quy định tại Điều 8, Điều 9, Điều 10 Nghị định số 05/2019/NĐ-CP"
+08/2021/TT-BTC,Cơ quan nhà nước,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chuẩn mực kiểm toán nội bộ Việt Nam và các nguyên tắc đạo đức nghề nghiệp kiểm toán nội bộ áp dụng đối với các doanh nghiệp, cơ quan nhà nước, đơn vị sự nghiệp công lập quy định tại Điều 8, Điều 9, Điều 10 Nghị định số 05/2019/NĐ-CP"
+08/2021/TT-BTC,Đơn vị sự nghiệp công lập,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Chuẩn mực kiểm toán nội bộ Việt Nam và các nguyên tắc đạo đức nghề nghiệp kiểm toán nội bộ áp dụng đối với các doanh nghiệp, cơ quan nhà nước, đơn vị sự nghiệp công lập quy định tại Điều 8, Điều 9, Điều 10 Nghị định số 05/2019/NĐ-CP"
+08/2021/TT-BTC,Tổ chức cá nhân có liên quan trong hoạt động kiểm toán nội bộ,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,và các tổ chức cá nhân có liên quan trong hoạt động kiểm toán nội bộ của các đơn vị này.
+22/2023/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+22/2023/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc Ngân hàng Nhà nước Việt Nam'"
+22/2023/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+22/2023/TT-NHNN,Ngân hàng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"quy định tỷ lệ an toàn vốn đối với ngân hàng, chi nhánh ngân hàng nước ngoài"
+22/2023/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"quy định tỷ lệ an toàn vốn đối với ngân hàng, chi nhánh ngân hàng nước ngoài"
+22/2023/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"quy định tỷ lệ an toàn vốn đối với ngân hàng, chi nhánh ngân hàng nước ngoài"
+56/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+56/2024/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+56/2024/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+56/2024/TT-NHNN,Ngân hàng thương mại,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,1. Ngân hàng thương mại.
+56/2024/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,2. Chi nhánh ngân hàng nước ngoài.
+56/2024/TT-NHNN,Văn phòng đại diện của tổ chức tín dụng nước ngoài tại Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"3. Văn phòng đại diện tại Việt Nam của tổ chức tín dụng nước ngoài, tổ chức nước ngoài khác có hoạt động ngân hàng (sau đây gọi là văn phòng đại diện nước ngoài)."
+56/2024/TT-NHNN,"Các tổ chức, cá nhân có liên quan đến hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài và văn phòng đại diện nước ngoài",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"4. Các tổ chức, cá nhân có liên quan đến hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài và văn phòng đại diện nước ngoài."
+56/2024/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Thống đốc Ngân hàng Nhà nước Việt Nam ban hành Thông tư quy định hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài, văn phòng đại diện nước ngoài."
+69/2025/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+69/2025/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+69/2025/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Cục An toàn hệ thống các tổ chức tín dụng'
+69/2025/TT-NHNN,Các đơn vị thuộc Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, Công ty quản lý tài sản của các tổ chức tín dụng Việt Nam chịu trách nhiệm thực hiện Thông tư này."
+69/2025/TT-NHNN,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, Công ty quản lý tài sản của các tổ chức tín dụng Việt Nam chịu trách nhiệm thực hiện Thông tư này."
+69/2025/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, Công ty quản lý tài sản của các tổ chức tín dụng Việt Nam chịu trách nhiệm thực hiện Thông tư này."
+69/2025/TT-NHNN,Công ty quản lý tài sản của các tổ chức tín dụng Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài, Công ty quản lý tài sản của các tổ chức tín dụng Việt Nam chịu trách nhiệm thực hiện Thông tư này."
+69/2025/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.9,"trong lĩnh vực quản lý, giám sát ngân hàng liên quan đến cắt giảm điều kiện kinh doanh, đơn giản hóa thủ tục hành chính"
+105/2016/TT-BTC,Bộ Tài chính,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Bộ Tài chính'
+105/2016/TT-BTC,Trần Xuân Hà,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Trần Xuân Hà', chuc_danh='Thứ trưởng'"
+105/2016/TT-BTC,Tổ chức kinh doanh chứng khoán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thông tư này áp dụng đối với tổ chức kinh doanh chứng khoán, quỹ đầu tư chứng khoán, công ty đầu tư chứng khoán, doanh nghiệp kinh doanh bảo hiểm"
+105/2016/TT-BTC,Quỹ đầu tư chứng khoán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thông tư này áp dụng đối với tổ chức kinh doanh chứng khoán, quỹ đầu tư chứng khoán, công ty đầu tư chứng khoán, doanh nghiệp kinh doanh bảo hiểm"
+105/2016/TT-BTC,Công ty đầu tư chứng khoán,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thông tư này áp dụng đối với tổ chức kinh doanh chứng khoán, quỹ đầu tư chứng khoán, công ty đầu tư chứng khoán, doanh nghiệp kinh doanh bảo hiểm"
+105/2016/TT-BTC,Doanh nghiệp kinh doanh bảo hiểm,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thông tư này áp dụng đối với tổ chức kinh doanh chứng khoán, quỹ đầu tư chứng khoán, công ty đầu tư chứng khoán, doanh nghiệp kinh doanh bảo hiểm"
+105/2016/TT-BTC,"Các cơ quan, tổ chức, cá nhân có liên quan đến hoạt động đầu tư gián tiếp ra nước ngoài",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,"và các cơ quan, tổ chức, cá nhân có liên quan đến hoạt động đầu tư gián tiếp ra nước ngoài."
+105/2016/TT-BTC,Chứng khoán,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"THÔNG TƯ HƯỚNG DẪN HOẠT ĐỘNG ĐẦU TƯ GIÁN TIẾP RA NƯỚC NGOÀI CỦA TỔ CHỨC KINH DOANH CHỨNG KHOÁN, QUỸ ĐẦU TƯ CHỨNG KHOÁN, CÔNG TY ĐẦU TƯ CHỨNG KHOÁN"
+105/2016/TT-BTC,Bảo hiểm,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,VÀ DOANH NGHIỆP KINH DOANH BẢO HIỂM
+105/2016/TT-BTC,Quản lý ngoại hối,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.9,Căn cứ Nghị định số 135/2015/NĐ-CP ngày 31 tháng 12 năm 2015 của Chính phủ quy định về đầu tư gián tiếp ra nước ngoài;
+62/2024/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+62/2024/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+62/2024/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+62/2024/TT-NHNN,Ngân hàng thương mại,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,a) Ngân hàng thương mại;
+62/2024/TT-NHNN,Tổ chức tín dụng phi ngân hàng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,b) Tổ chức tín dụng phi ngân hàng bao gồm công ty tài chính tổng hợp và công ty tài chính chuyên ngành.
+62/2024/TT-NHNN,"Tổ chức, cá nhân có liên quan đến việc tổ chức lại tổ chức tín dụng",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,"2. Tổ chức, cá nhân có liên quan đến việc tổ chức lại tổ chức tín dụng."
+62/2024/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Thống đốc Ngân hàng Nhà nước Việt Nam ban hành Thông tư quy định điều kiện, hồ sơ, thủ tục chấp thuận việc tổ chức lại ngân hàng thương mại, tổ chức tín dụng phi ngân hàng."
+62/2025/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+62/2025/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+62/2025/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Cục An toàn hệ thống các tổ chức tín dụng'
+62/2025/TT-NHNN,Tổ chức tín dụng là hợp tác xã,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"1. Tổ chức tín dụng là hợp tác xã bao gồm ngân hàng hợp tác xã, quỹ tín dụng nhân dân."
+62/2025/TT-NHNN,Tổ chức tài chính vi mô,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,2. Tổ chức tài chính vi mô.
+62/2025/TT-NHNN,"Tổ chức, cá nhân có liên quan đến hệ thống kiểm soát nội bộ của tổ chức tín dụng",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,"3. Tổ chức, cá nhân có liên quan đến hệ thống kiểm soát nội bộ của tổ chức tín dụng."
+62/2025/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Quy định về hệ thống kiểm soát nội bộ của tổ chức tín dụng là hợp tác xã, tổ chức tài chính vi mô"
+52/VBHN-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+52/VBHN-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+52/VBHN-NHNN,Ngân hàng thương mại,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"Điều 2. Đối tượng áp dụng
+Thông tư này áp dụng đối với:
+1. Ngân hàng thương mại."
+52/VBHN-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Quy định hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài, văn phòng đại diện nước ngoài"
+52/VBHN-NHNN,Văn phòng đại diện của tổ chức tín dụng nước ngoài tại Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Quy định hồ sơ, thủ tục cấp Giấy phép lần đầu của ngân hàng thương mại, chi nhánh ngân hàng nước ngoài, văn phòng đại diện nước ngoài"
+52/VBHN-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,thực hiện thủ tục hành chính trong lĩnh vực thành lập và hoạt động ngân hàng
+63/2025/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+63/2025/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+63/2025/TT-NHNN,"Lao động, tiền lương, tiền công",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Lao động, tiền lương, tiền công'"
+63/2025/TT-NHNN,Các đơn vị thuộc Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, ngân hàng hợp tác xã, quỹ tín dụng nhân dân có trách nhiệm tổ chức thực hiện Thông tư này."
+63/2025/TT-NHNN,Ngân hàng hợp tác xã,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, ngân hàng hợp tác xã, quỹ tín dụng nhân dân có trách nhiệm tổ chức thực hiện Thông tư này."
+63/2025/TT-NHNN,Quỹ tín dụng nhân dân,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"Thủ trưởng các đơn vị thuộc Ngân hàng Nhà nước Việt Nam, ngân hàng hợp tác xã, quỹ tín dụng nhân dân có trách nhiệm tổ chức thực hiện Thông tư này."
+63/2025/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.96,"Sửa đổi, bổ sung một số điều của một số Thông tư về quỹ tín dụng nhân dân"
+63/2025/TT-NHNN,Tín dụng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Sửa đổi, bổ sung một số điều của một số Thông tư về quỹ tín dụng nhân dân"
+41/2016/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+41/2016/TT-NHNN,Nguyễn Đồng Tiến,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Đồng Tiến', chuc_danh='Phó Thống đốc'"
+41/2016/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,"Trích từ metadata.csv: linh_vuc='Thanh tra, giám sát ngân hàng'"
+41/2016/TT-NHNN,Ngân hàng thương mại nhà nước,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"a) Ngân hàng: Ngân hàng thương mại nhà nước, ngân hàng thương mại cổ phần, ngân hàng liên doanh, ngân hàng 100% vốn nước ngoài;"
+41/2016/TT-NHNN,Ngân hàng thương mại cổ phần,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"a) Ngân hàng: Ngân hàng thương mại nhà nước, ngân hàng thương mại cổ phần, ngân hàng liên doanh, ngân hàng 100% vốn nước ngoài;"
+41/2016/TT-NHNN,Ngân hàng liên doanh,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"a) Ngân hàng: Ngân hàng thương mại nhà nước, ngân hàng thương mại cổ phần, ngân hàng liên doanh, ngân hàng 100% vốn nước ngoài;"
+41/2016/TT-NHNN,Ngân hàng 100% vốn nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"a) Ngân hàng: Ngân hàng thương mại nhà nước, ngân hàng thương mại cổ phần, ngân hàng liên doanh, ngân hàng 100% vốn nước ngoài;"
+41/2016/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,b) Chi nhánh ngân hàng nước ngoài.
+41/2016/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Quy định tỷ lệ an toàn vốn đối với ngân hàng, chi nhánh ngân hàng nước ngoài"
+17/2023/QH15,Quốc hội,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Quốc hội'
+17/2023/QH15,Vương Đình Huệ,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Vương Đình Huệ', chuc_danh='Chủ tịch Quốc hội'"
+17/2023/QH15,"Tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"1. Tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã."
+17/2023/QH15,"Thành viên của tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,"2. Thành viên của tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã."
+17/2023/QH15,"Cơ quan, tổ chức, cá nhân có liên quan đến thành lập, tổ chức quản lý, tổ chức lại, giải thể, phá sản và hoạt động có liên quan của tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"3. Cơ quan, tổ chức, cá nhân có liên quan đến thành lập, tổ chức quản lý, tổ chức lại, giải thể, phá sản và hoạt động có liên quan của tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã."
+17/2023/QH15,Hợp tác xã,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Luật này quy định về thành lập, tổ chức quản lý, tổ chức lại, giải thể, phá sản và hoạt động có liên quan của tổ hợp tác, hợp tác xã, liên hiệp hợp tác xã"
+01/2025/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+01/2025/TT-NHNN,Đoàn Thái Sơn,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đoàn Thái Sơn', chuc_danh='Phó Thống đốc'"
+01/2025/TT-NHNN,"Thanh tra, giám sát ngân hàng",THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Cục An toàn hệ thống các tổ chức tín dụng'
+01/2025/TT-NHNN,Quỹ tín dụng nhân dân,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,1. Quỹ tín dụng nhân dân.
+01/2025/TT-NHNN,"Tổ chức, cá nhân có liên quan đến việc cấp Giấy phép lần đầu, cấp đổi Giấy phép của quỹ tín dụng nhân dân, cấp bản sao Giấy phép từ sổ gốc",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"2. Tổ chức, cá nhân có liên quan đến việc cấp Giấy phép lần đầu, cấp đổi Giấy phép của quỹ tín dụng nhân dân, cấp bản sao Giấy phép từ sổ gốc."
+01/2025/TT-NHNN,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Thống đốc Ngân hàng Nhà nước Việt Nam ban hành Thông tư quy định về cấp Giấy phép lần đầu, cấp đổi Giấy phép của quỹ tín dụng nhân dân."
+01/2025/TT-NHNN,Tín dụng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.92,"Quy định về cấp Giấy phép lần đầu, cấp đổi Giấy phép của quỹ tín dụng nhân dân"
+01/2014/TT-NHNN,Ngân hàng Nhà nước Việt Nam,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Ngân hàng Nhà nước Việt Nam'
+01/2014/TT-NHNN,Đào Minh Tú,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Đào Minh Tú', chuc_danh='Phó Thống đốc'"
+01/2014/TT-NHNN,Phát hành và kho quỹ,THUOC_LINH_VUC,Document,LinhVuc,metadata,1.0,Trích từ metadata.csv: linh_vuc='Phát hành và kho quỹ'
+01/2014/TT-NHNN,Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,1. Ngân hàng Nhà nước Việt Nam (sau đây gọi tắt là Ngân hàng Nhà nước).
+01/2014/TT-NHNN,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"2. Tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+01/2014/TT-NHNN,Chi nhánh ngân hàng nước ngoài,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,"2. Tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+01/2014/TT-NHNN,"Khách hàng trong quan hệ giao dịch tiền mặt, tài sản quý, giấy tờ có giá với Ngân hàng Nhà nước, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài",AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,"3. Khách hàng trong quan hệ giao dịch tiền mặt, tài sản quý, giấy tờ có giá với Ngân hàng Nhà nước, tổ chức tín dụng, chi nhánh ngân hàng nước ngoài."
+46/2010/QH12,Quốc hội,BAN_HANH_BOI,Document,CoQuan,metadata,1.0,Trích từ metadata.csv: co_quan_ban_hanh='Quốc hội'
+46/2010/QH12,Nguyễn Phú Trọng,KY_BOI,Document,NguoiKy,metadata,1.0,"Trích từ metadata.csv: nguoi_ky='Nguyễn Phú Trọng', chuc_danh='Chủ tịch Quốc hội'"
+46/2010/QH12,Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.98,Luật này quy định về tổ chức và hoạt động của Ngân hàng Nhà nước Việt Nam.
+46/2010/QH12,Tổ chức tín dụng,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.95,bảo đảm an toàn hoạt động ngân hàng và hệ thống các tổ chức tín dụng
+46/2010/QH12,Chính phủ,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.92,cung ứng dịch vụ tiền tệ cho Chính phủ.
+46/2010/QH12,Các đơn vị thuộc Ngân hàng Nhà nước Việt Nam,AP_DUNG_CHO,Document,DoiTuongApDung,gemini,0.9,Thực hiện kiểm toán tất cả các đơn vị thuộc hệ thống Ngân hàng Nhà nước
+46/2010/QH12,Ngân hàng,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.98,"thực hiện chức năng quản lý nhà nước về tiền tệ, hoạt động ngân hàng và ngoại hối"
+46/2010/QH12,Quản lý ngoại hối,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"thực hiện chức năng quản lý nhà nước về tiền tệ, hoạt động ngân hàng và ngoại hối"
+46/2010/QH12,Tiền tệ,THUOC_LINH_VUC,Document,LinhVuc,gemini,0.95,"Thủ tướng Chính phủ, Thống đốc Ngân hàng Nhà nước quyết định việc sử dụng các công cụ và biện pháp điều hành để thực hiện mục tiêu chính sách tiền tệ quốc gia"

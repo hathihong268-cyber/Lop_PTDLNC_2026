@@ -1,0 +1,11 @@
+# Environment & Security Keys
+.env
+*.key
+*.pem
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Encryption demo output files
+*.enc

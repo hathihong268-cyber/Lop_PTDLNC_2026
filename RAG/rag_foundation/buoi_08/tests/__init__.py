@@ -1,1 +1,3 @@
-# Unit tests for Buoi 08 Advanced RAG
+"""
+Package tests cho Buổi 08: Advanced RAG.
+"""

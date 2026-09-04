@@ -1,368 +1,533 @@
-"""
-Module Đánh giá Hiệu năng Retrieval & Ranking (Evaluation Suite) cho Buổi 08:
-Hỗ trợ tính toán định lượng các chỉ số: Hit@K, MRR@K, Recall@K, nDCG@K cùng thống kê latency (mean, p50).
-Hoạt động độc lập, thuần túy đánh giá tầng Retrieval/Ranking và HOÀN TOÀN KHÔNG gọi LLM generation.
+﻿"""
+Module Evaluate - Buoi 08: Benchmark Retrieval Metrics cho Advanced RAG Pipeline.
+
+Chuc nang:
+1. Doc bo cau hoi danh gia tu `eval/questions.json` (co relevant_chunk_ids).
+2. Chay thu nghiem tren mot hoac nhieu retrieval mode: bm25, semantic, hybrid, hybrid_rerank.
+3. Do luong cac chi so IR:
+   - Recall@K   : Phan tram relevant docs duoc tim thay trong top-K
+   - MRR@K      : Mean Reciprocal Rank
+   - nDCG@K     : Normalized Discounted Cumulative Gain (binary relevance)
+   - Latency    : mean va p50 (ms) cua tung mode
+4. Xuat bao cao JSON trong `reports/` voi timestamp, config va model identity.
+
+Quy tac:
+- Khong goi generation.
+- Neu needs_human_review=true -> bao cao co WARNING, khong tuyen bo mode thang.
+- Loi tung query -> ghi ro FAIL, khong bo am tham.
+- Command offline (synthetic fixture) chay duoc trong test.
+
+Command real (nguoi dung chu dong):
+    <PYTHON> rag_foundation/buoi_08/evaluate.py --strategy hierarchical --k 5
+
+Command offline mock (test):
+    evaluate_retrieval_system(questions_file=..., custom_retriever_fn=..., ...)
 """
 
+from pathlib import Path
 import os
 import sys
 import json
-import time
 import math
+import time
 import statistics
-import datetime
 import argparse
-from pathlib import Path
-from typing import Any, Callable
+import traceback
+from datetime import datetime
+from typing import Dict, List, Any, Optional, Callable, Set
 
-# Đảm bảo import được module Buổi 08
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+if hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 BASE_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(BASE_DIR))
-
-from advanced_rag import (
-    load_advanced_config,
-    build_bm25_retriever,
-    retrieve_semantic_candidates,
-    retrieve_hybrid_candidates,
-    retrieve_and_rerank_candidates,
-    CrossEncoderReranker,
-    ALLOWED_STRATEGIES,
-    DEFAULT_INPUT_DIR,
-    CHROMA_STORAGE_DIR,
-    HF_STORAGE_DIR,
-)
-from rag import load_chunks
-
-EVAL_DIR = BASE_DIR / "eval"
-DEFAULT_QUESTIONS_FILE = EVAL_DIR / "questions.json"
-REPORTS_DIR = BASE_DIR / "reports"
+EVAL_FILE = (BASE_DIR / "eval" / "questions.json").resolve()
+REPORTS_DIR = (BASE_DIR / "reports").resolve()
 
 
-def hit_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+# ============================================================================
+# 1. METRIC FUNCTIONS
+# ============================================================================
+
+def hit_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính Hit@K: Trả về 1.0 nếu có ít nhất 1 chunk đúng nằm trong top-K, ngược lại 0.0.
+    Hit@K = 1.0 neu it nhat mot relevant doc nam trong top-K, nguoc lai = 0.0.
+
+    Vi du tinh tay:
+        retrieved = ["c1", "c2", "c3"], relevant = {"c2"}, k=2
+        top_2 = ["c1", "c2"] -> co c2 -> Hit@2 = 1.0
+        k=1 -> top_1 = ["c1"] -> khong co c2 -> Hit@1 = 0.0
     """
-    if k <= 0 or not relevant_ids or not retrieved_ids:
+    if k <= 0:
         return 0.0
-    top_k_ids = retrieved_ids[:k]
-    return 1.0 if any(cid in relevant_ids for cid in top_k_ids) else 0.0
+    return 1.0 if any(doc_id in relevant for doc_id in retrieved[:k]) else 0.0
 
 
-def reciprocal_rank_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+def reciprocal_rank_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính MRR@K (Mean Reciprocal Rank): 1 / rank của chunk đúng đầu tiên trong top-K.
+    Reciprocal Rank@K = 1 / rank_of_first_relevant trong top-K.
+
+    Vi du tinh tay:
+        retrieved = ["c1", "c2", "c3"], relevant = {"c2"}, k=3
+        c2 o vi tri rank=2 -> RR = 1/2 = 0.5
+        k=1 -> top_1 = ["c1"] -> khong co c2 -> RR@1 = 0.0
+        relevant = {"c1"} -> c1 o rank=1 -> RR = 1.0
     """
-    if k <= 0 or not relevant_ids or not retrieved_ids:
-        return 0.0
-    for rank, cid in enumerate(retrieved_ids[:k], start=1):
-        if cid in relevant_ids:
+    for rank, doc_id in enumerate(retrieved[:k], start=1):
+        if doc_id in relevant:
             return 1.0 / rank
     return 0.0
 
 
-def precision_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+def precision_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính Precision@K: Tỷ lệ chunk đúng trong số K chunk được truy xuất.
+    Precision@K = |hits in top-K| / K.
+
+    Vi du tinh tay:
+        retrieved = ["c1", "bad", "c2"], relevant = {"c1", "c2"}, k=2
+        top_2 hits = {c1} -> P@2 = 1/2 = 0.5
+        k=3 hits = {c1, c2} -> P@3 = 2/3 ~ 0.667
     """
-    if k <= 0 or not retrieved_ids:
+    if k <= 0:
         return 0.0
-    top_k_ids = retrieved_ids[:k]
-    hits = sum(1 for cid in top_k_ids if cid in relevant_ids)
+    hits = sum(1 for doc_id in retrieved[:k] if doc_id in relevant)
     return hits / k
 
 
-def recall_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+def recall_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính Recall@K: Tỷ lệ chunk đúng được truy xuất trên tổng số chunk đúng trong ground truth.
+    Recall@K = |hits in top-K| / |relevant|.
+
+    Vi du tinh tay:
+        retrieved = ["c1", "bad", "c2"], relevant = {"c1", "c2"}, k=1
+        top_1 hits = {c1} -> Recall@1 = 1/2 = 0.5
+        k=3 hits = {c1, c2} -> Recall@3 = 2/2 = 1.0
     """
-    if k <= 0 or not relevant_ids or not retrieved_ids:
+    if not relevant or k <= 0:
         return 0.0
-    top_k_ids = retrieved_ids[:k]
-    hits = sum(1 for cid in top_k_ids if cid in relevant_ids)
-    return hits / len(relevant_ids)
+    hits = sum(1 for doc_id in retrieved[:k] if doc_id in relevant)
+    return hits / len(relevant)
 
 
-def dcg_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+def dcg_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính Discounted Cumulative Gain (DCG@K) với binary relevance (rel = 1 nếu đúng, 0 nếu sai).
-    DCG@K = sum_{i=1}^K (rel_i / log2(i + 1))
+    DCG@K voi binary relevance = sum(rel_i / log2(i+1)), i=1..K.
+
+    Vi du tinh tay (log co so 2):
+        retrieved = ["bad", "c1", "c2"], relevant = {"c1", "c2"}, k=3
+        i=1: rel=0 -> 0
+        i=2: rel=1 -> 1/log2(3) ~ 0.631
+        i=3: rel=1 -> 1/log2(4) = 0.5
+        DCG@3 ~ 1.131
     """
-    if k <= 0 or not relevant_ids or not retrieved_ids:
-        return 0.0
     dcg = 0.0
-    for rank, cid in enumerate(retrieved_ids[:k], start=1):
-        rel = 1.0 if cid in relevant_ids else 0.0
-        if rel > 0:
-            dcg += rel / math.log2(rank + 1.0)
+    for i, doc_id in enumerate(retrieved[:k], start=1):
+        if doc_id in relevant:
+            dcg += 1.0 / math.log2(i + 1)
     return dcg
 
 
-def ndcg_at_k(retrieved_ids: list[str], relevant_ids: set[str], k: int) -> float:
+def ndcg_at_k(retrieved: List[str], relevant: Set[str], k: int) -> float:
     """
-    Tính Normalized Discounted Cumulative Gain (nDCG@K):
-    nDCG@K = DCG@K / IDCG@K (với IDCG là DCG lý tưởng khi toàn bộ relevant chunks nằm ở đầu danh sách).
+    nDCG@K = DCG@K / IDCG@K, IDCG la DCG ly tuong (relevant docs len dau).
+
+    Vi du tinh tay:
+        retrieved = ["bad", "c1", "c2"], relevant = {"c1", "c2"}, k=2
+        DCG@2 = 0 + 1/log2(3) ~ 0.631
+        IDCG@2 = 1/log2(2) + 1/log2(3) = 1.0 + 0.631 ~ 1.631
+        nDCG@2 = 0.631 / 1.631 ~ 0.387
     """
-    if k <= 0 or not relevant_ids or not retrieved_ids:
+    actual_dcg = dcg_at_k(retrieved, relevant, k)
+    n_relevant_in_top_k = min(len(relevant), k)
+    ideal_retrieved = list(relevant)[:n_relevant_in_top_k] + ["__pad__"] * (k - n_relevant_in_top_k)
+    ideal_dcg = dcg_at_k(ideal_retrieved, relevant, k)
+    if ideal_dcg == 0.0:
         return 0.0
+    return actual_dcg / ideal_dcg
 
-    actual_dcg = dcg_at_k(retrieved_ids, relevant_ids, k)
-    if actual_dcg == 0.0:
-        return 0.0
 
-    # IDCG@K: tối đa min(k, len(relevant_ids)) tài liệu đúng ở các vị trí đầu tiên
-    ideal_count = min(k, len(relevant_ids))
-    idcg = sum(1.0 / math.log2(rank + 1.0) for rank in range(1, ideal_count + 1))
+# ============================================================================
+# 2. LOAD EVAL QUESTIONS
+# ============================================================================
 
-    if idcg <= 0.0:
-        return 0.0
+def load_eval_questions(eval_path: Optional[Path] = None) -> List[Dict[str, Any]]:
+    """
+    Nap danh sach cau hoi benchmark tu file JSON.
+    Moi cau hoi can co: id/query_id, question, relevant_chunk_ids.
+    """
+    path = eval_path or EVAL_FILE
+    if not path.exists():
+        raise FileNotFoundError(f"Khong tim thay file cau hoi benchmark: {path}")
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
 
-    return actual_dcg / idcg
 
+# ============================================================================
+# 3. CORE EVALUATION ENGINE
+# ============================================================================
 
 def evaluate_retrieval_system(
-    questions_file: Path | str = DEFAULT_QUESTIONS_FILE,
+    questions_file: Optional[Path] = None,
     strategy: str = "hierarchical",
-    modes: list[str] = None,
-    k_list: list[int] = [1, 3, 5],
-    config: dict = None,
-    custom_chunks: list[dict] = None,
-    custom_retriever_fn: Callable[[str, str, int], list[str]] = None,
-    storage_path: Path = CHROMA_STORAGE_DIR
-) -> dict[str, Any]:
+    modes: Optional[List[str]] = None,
+    k_list: Optional[List[int]] = None,
+    config: Optional[Dict[str, Any]] = None,
+    custom_retriever_fn: Optional[Callable] = None,
+    save_report: bool = False,
+    report_dir: Optional[Path] = None,
+) -> Dict[str, Any]:
     """
-    Thực thi quy trình đánh giá định lượng retrieval/ranking trên bộ câu hỏi chuẩn:
-    - Không gọi LLM generation.
-    - Cùng một corpus, câu hỏi và top-k cho mọi mode.
-    - Tính toán: Recall@K, MRR@K, nDCG@K, Hit@K, Latency Mean & P50.
-    - Nếu questions còn cờ 'needs_human_review=true', report tự động ghi nhận cảnh báo.
-    """
-    if config is None:
-        config = load_advanced_config()
+    Chay evaluation retrieval tren toan bo bo cau hoi.
 
-    if modes is None:
+    Args:
+        questions_file: Duong dan file JSON cau hoi.
+        strategy: Chunking strategy.
+        modes: Danh sach retrieval mode can so sanh.
+        k_list: Danh sach K de tinh metric (e.g. [1, 3, 5]).
+        config: Config dict.
+        custom_retriever_fn: Mock retriever fn(question, mode, k) -> List[str] chunk_ids.
+            Khi None -> goi real retrieval.
+        save_report: Co luu bao cao JSON ra reports/ hay khong.
+        report_dir: Thu muc luu bao cao.
+
+    Returns:
+        report dict gom:
+            - config, metrics_summary, per_query_results
+            - warnings, unreviewed_questions, needs_human_review
+            - latency_stats, saved_report_path
+    """
+    questions = load_eval_questions(questions_file)
+    if not modes:
         modes = ["bm25", "semantic", "hybrid", "hybrid_rerank"]
-
-    q_path = Path(questions_file)
-    if not q_path.exists():
-        raise FileNotFoundError(f"Không tìm thấy file câu hỏi benchmark: {q_path}")
-
-    with open(q_path, "r", encoding="utf-8") as f:
-        questions_data = json.load(f)
-
-    if not questions_data:
-        raise ValueError("File câu hỏi benchmark rỗng (0 items).")
-
-    # Kiểm tra cảnh báo human review
-    unreviewed_count = sum(1 for q in questions_data if q.get("needs_human_review", False))
-    has_human_review_warning = unreviewed_count > 0
-
-    warnings = []
-    if has_human_review_warning:
-        warnings.append(
-            f"Bộ câu hỏi benchmark có {unreviewed_count}/{len(questions_data)} câu hỏi đang mang cờ 'needs_human_review=true'. "
-            "Kết quả đánh giá chỉ mang tính sơ bộ và KHÔNG tuyên bố mode chiến thắng chính thức cho đến khi được chuyên gia thẩm định."
-        )
-
-    # Nạp chunks và BM25 retriever nếu không dùng custom retriever function
-    cached_chunks = None
-    bm25_retriever = None
-    if custom_retriever_fn is None:
-        if custom_chunks is None:
-            cached_chunks, _ = load_chunks(DEFAULT_INPUT_DIR, strategy=strategy)
-        else:
-            cached_chunks = custom_chunks
-        bm25_retriever = build_bm25_retriever(cached_chunks)
+    if not k_list:
+        k_list = [1, 3, 5]
+    if not config:
+        config = {}
 
     max_k = max(k_list)
-    results_by_mode = {m: {"latencies": [], "per_query": []} for m in modes}
+    run_timestamp = datetime.now().isoformat()
 
-    for q_idx, q_item in enumerate(questions_data, start=1):
-        q_text = q_item["question"]
-        relevant_ids = set(q_item.get("relevant_chunk_ids", []))
+    unreviewed = [q for q in questions if q.get("needs_human_review", False)]
+    warnings_list: List[str] = []
+    if unreviewed:
+        warnings_list.append(
+            f"[WARNING] needs_human_review=true: {len(unreviewed)}/{len(questions)} cau hoi "
+            f"chua co gold labels duoc xac nhan. "
+            f"Khong tuyen bo mode chien thang chinh thuc dua tren bao cao nay."
+        )
 
-        for mode in modes:
-            t0 = time.perf_counter()
-            retrieved_ids = []
-            err_msg = None
+    def get_qid(q: Dict) -> str:
+        return q.get("query_id") or q.get("id") or "UNKNOWN"
 
-            try:
-                if custom_retriever_fn is not None:
-                    retrieved_ids = custom_retriever_fn(q_text, mode, max_k)
-                else:
-                    if mode == "bm25":
-                        res = bm25_retriever.search(query=q_text, top_k=max_k)
-                        retrieved_ids = [r["chunk_id"] for r in res]
-                    elif mode == "semantic":
-                        res = retrieve_semantic_candidates(
-                            question=q_text,
-                            strategy=strategy,
-                            candidate_k=max_k,
-                            config=config,
-                            storage_path=storage_path
-                        )
-                        retrieved_ids = [r["chunk_id"] for r in res]
-                    elif mode == "hybrid":
-                        res = retrieve_hybrid_candidates(
-                            question=q_text,
-                            strategy=strategy,
-                            config=config,
-                            chunks=cached_chunks,
-                            storage_path=storage_path,
-                            custom_retriever=bm25_retriever
-                        )
-                        retrieved_ids = [r["chunk_id"] for r in res["candidates"][:max_k]]
-                    elif mode == "hybrid_rerank":
-                        cfg_run = dict(config)
-                        cfg_run["final_top_k"] = max_k
-                        res = retrieve_and_rerank_candidates(
-                            question=q_text,
-                            strategy=strategy,
-                            config=cfg_run,
-                            chunks=cached_chunks,
-                            storage_path=storage_path,
-                            custom_retriever=bm25_retriever
-                        )
-                        retrieved_ids = [r["chunk_id"] for r in res["candidates"]]
-            except Exception as e:
-                err_msg = str(e)
-                retrieved_ids = []
+    per_query_results: Dict[str, List[Dict]] = {}
+    metrics_summary: Dict[str, Dict] = {}
+    latency_stats: Dict[str, Dict] = {}
 
-            lat_ms = round((time.perf_counter() - t0) * 1000, 2)
-            results_by_mode[mode]["latencies"].append(lat_ms)
+    for mode in modes:
+        mode_results = []
+        latencies_ms: List[float] = []
 
-            query_metrics = {
-                "question_id": q_item.get("id", f"q_{q_idx}"),
-                "question": q_text,
-                "error": err_msg,
-                "latency_ms": lat_ms,
-                "retrieved_count": len(retrieved_ids),
+        for q in questions:
+            qid = get_qid(q)
+            question_text = q.get("question", "")
+            relevant_ids: Set[str] = set(q.get("relevant_chunk_ids", []))
+
+            row: Dict[str, Any] = {
+                "query_id": qid,
+                "question": question_text,
+                "relevant_chunk_ids": list(relevant_ids),
+                "needs_human_review": q.get("needs_human_review", False),
+                "scope": q.get("scope", "in_scope"),
             }
 
-            for k in k_list:
-                query_metrics[f"hit@{k}"] = hit_at_k(retrieved_ids, relevant_ids, k)
-                query_metrics[f"mrr@{k}"] = round(reciprocal_rank_at_k(retrieved_ids, relevant_ids, k), 4)
-                query_metrics[f"recall@{k}"] = round(recall_at_k(retrieved_ids, relevant_ids, k), 4)
-                query_metrics[f"ndcg@{k}"] = round(ndcg_at_k(retrieved_ids, relevant_ids, k), 4)
+            try:
+                t_start = time.perf_counter()
 
-            results_by_mode[mode]["per_query"].append(query_metrics)
+                if custom_retriever_fn is not None:
+                    retrieved_ids = custom_retriever_fn(question_text, mode, max_k)
+                else:
+                    retrieved_ids = _real_retrieval(question_text, mode, max_k, strategy, config)
 
-    # Tính toán chỉ số trung bình (Aggregated Metrics)
-    aggregated_metrics = {}
-    for mode in modes:
-        mode_queries = results_by_mode[mode]["per_query"]
-        lats = results_by_mode[mode]["latencies"]
-        n_queries = len(mode_queries)
+                t_end = time.perf_counter()
+                latency = (t_end - t_start) * 1000.0
+                latencies_ms.append(latency)
+                row["latency_ms"] = round(latency, 2)
 
-        mode_agg = {
-            "query_count": n_queries,
-            "error_count": sum(1 for q in mode_queries if q["error"] is not None),
-            "latency_mean_ms": round(statistics.mean(lats), 2) if lats else 0.0,
-            "latency_p50_ms": round(statistics.median(lats), 2) if lats else 0.0,
+                for k in k_list:
+                    row[f"hit@{k}"] = hit_at_k(retrieved_ids, relevant_ids, k)
+                    row[f"recall@{k}"] = recall_at_k(retrieved_ids, relevant_ids, k)
+                    row[f"ndcg@{k}"] = round(ndcg_at_k(retrieved_ids, relevant_ids, k), 6)
+                    row[f"mrr@{k}"] = round(reciprocal_rank_at_k(retrieved_ids, relevant_ids, k), 6)
+
+                row["retrieved_ids"] = retrieved_ids[:max_k]
+                row["error"] = None
+
+            except Exception as exc:
+                row["error"] = f"FAIL [{type(exc).__name__}]: {str(exc)}"
+                row["latency_ms"] = None
+                for k in k_list:
+                    row[f"hit@{k}"] = None
+                    row[f"recall@{k}"] = None
+                    row[f"ndcg@{k}"] = None
+                    row[f"mrr@{k}"] = None
+                print(f"[EVAL ERROR] mode={mode} query_id={qid}: {exc}", file=sys.stderr)
+                traceback.print_exc(file=sys.stderr)
+
+            mode_results.append(row)
+
+        per_query_results[mode] = mode_results
+
+        valid_rows = [r for r in mode_results if r.get("error") is None]
+        n_valid = len(valid_rows)
+        n_failed = len(mode_results) - n_valid
+
+        summary: Dict[str, Any] = {
+            "n_queries": len(mode_results),
+            "n_valid": n_valid,
+            "n_failed": n_failed,
         }
 
         for k in k_list:
-            mode_agg[f"mean_hit@{k}"] = round(sum(q[f"hit@{k}"] for q in mode_queries) / n_queries, 4)
-            mode_agg[f"mean_mrr@{k}"] = round(sum(q[f"mrr@{k}"] for q in mode_queries) / n_queries, 4)
-            mode_agg[f"mean_recall@{k}"] = round(sum(q[f"recall@{k}"] for q in mode_queries) / n_queries, 4)
-            mode_agg[f"mean_ndcg@{k}"] = round(sum(q[f"ndcg@{k}"] for q in mode_queries) / n_queries, 4)
+            for metric in ["hit", "recall", "ndcg", "mrr"]:
+                vals = [r.get(f"{metric}@{k}") for r in valid_rows if r.get(f"{metric}@{k}") is not None]
+                summary[f"mean_{metric}@{k}"] = round(sum(vals) / len(vals), 6) if vals else None
 
-        aggregated_metrics[mode] = mode_agg
+        if latencies_ms:
+            summary["mean_latency_ms"] = round(statistics.mean(latencies_ms), 2)
+            summary["p50_latency_ms"] = round(statistics.median(latencies_ms), 2)
+        else:
+            summary["mean_latency_ms"] = None
+            summary["p50_latency_ms"] = None
 
-    report = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "strategy": strategy,
-        "eval_questions_file": str(q_path),
-        "total_questions": len(questions_data),
-        "unreviewed_questions": unreviewed_count,
-        "k_list": k_list,
-        "modes": modes,
+        metrics_summary[mode] = summary
+        latency_stats[mode] = {
+            "mean_ms": summary["mean_latency_ms"],
+            "p50_ms": summary["p50_latency_ms"],
+        }
+
+    has_unreviewed = len(unreviewed) > 0
+    report: Dict[str, Any] = {
+        "run_timestamp": run_timestamp,
         "config": {
-            "embedding_model": config["embedding_model"],
-            "embedding_dim": config["embedding_dim"],
-            "reranker_model": config["reranker_model"],
-            "rrf_k": config["rrf_k"],
-            "rrf_bm25_weight": config["rrf_bm25_weight"],
-            "rrf_semantic_weight": config["rrf_semantic_weight"],
+            "strategy": strategy,
+            "modes": modes,
+            "k_list": k_list,
+            "embedding_model": config.get("embedding_model", "UNKNOWN"),
+            "embedding_dim": config.get("embedding_dim", "UNKNOWN"),
+            "reranker_model": config.get("reranker_model", "UNKNOWN"),
+            "rrf_k": config.get("rrf_k", "UNKNOWN"),
+            "rrf_bm25_weight": config.get("rrf_bm25_weight", "UNKNOWN"),
+            "rrf_semantic_weight": config.get("rrf_semantic_weight", "UNKNOWN"),
         },
-        "warnings": warnings,
-        "metrics_summary": aggregated_metrics,
-        "detailed_results": results_by_mode,
+        "metrics_summary": metrics_summary,
+        "per_query_results": per_query_results,
+        "latency_stats": latency_stats,
+        "warnings": warnings_list,
+        "unreviewed_questions": len(unreviewed),
+        "needs_human_review": has_unreviewed,
+        "saved_report_path": None,
     }
 
-    # Lưu báo cáo vào reports/ nếu thư mục tồn tại
-    try:
-        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-        report_filename = f"eval_report_{strategy}_{int(time.time())}.json"
-        report_path = REPORTS_DIR / report_filename
-        with open(report_path, "w", encoding="utf-8") as rf:
-            json.dump(report, rf, ensure_ascii=False, indent=2)
-        report["saved_report_file"] = str(report_path)
-    except Exception as save_err:
-        warnings.append(f"Không thể lưu file báo cáo JSON: {save_err}")
+    if has_unreviewed:
+        report["winner_note"] = (
+            "KHONG tuyen bo mode chien thang chinh thuc vi co cau hoi can xac nhan "
+            "gold labels thu cong (needs_human_review=true). "
+            "Dung ket qua nay de dinh huong, khong lam bang chung cuoi cung."
+        )
+
+    if save_report:
+        out_dir = report_dir or REPORTS_DIR
+        out_dir.mkdir(parents=True, exist_ok=True)
+        ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        report_path = out_dir / f"eval_{strategy}_{ts_str}.json"
+        with open(report_path, "w", encoding="utf-8") as f:
+            json.dump(report, f, ensure_ascii=False, indent=2)
+        report["saved_report_path"] = str(report_path)
+        print(f"[EVAL] Bao cao da luu: {report_path}")
 
     return report
 
 
+def _real_retrieval(
+    question: str,
+    mode: str,
+    k: int,
+    strategy: str,
+    config: Dict[str, Any],
+) -> List[str]:
+    """
+    Goi real retrieval tu advanced_rag, tra ve danh sach chunk_id theo thu tu rank.
+    Chi duoc dung khi nguoi dung chu dong goi evaluate.py, khong goi generation.
+    """
+    from advanced_rag import (
+        build_bm25_retriever,
+        retrieve_semantic_candidates,
+        retrieve_hybrid_candidates,
+        CrossEncoderReranker,
+    )
+    from rag import load_chunks as rag_load_chunks, DEFAULT_INPUT_DIR, DEFAULT_CHROMA_DIR
+
+    storage_path = config.get("storage_path", DEFAULT_CHROMA_DIR)
+    input_dir = config.get("input_dir", DEFAULT_INPUT_DIR)
+
+    chunks = rag_load_chunks(input_dir, strategy)
+    if not chunks:
+        raise ValueError(f"Corpus trong cho strategy={strategy}")
+
+    if mode == "bm25":
+        retriever = build_bm25_retriever(chunks)
+        results = retriever.search(question, top_k=k)
+        return [r["chunk_id"] for r in results]
+
+    elif mode == "semantic":
+        results = retrieve_semantic_candidates(
+            question=question,
+            strategy=strategy,
+            candidate_k=k,
+            config=config,
+            storage_path=Path(storage_path),
+        )
+        return [r["chunk_id"] for r in results]
+
+    elif mode in ("hybrid", "hybrid_rerank"):
+        result = retrieve_hybrid_candidates(
+            question=question,
+            strategy=strategy,
+            config=config,
+            chunks=chunks,
+            storage_path=Path(storage_path),
+        )
+        fused = result.get("candidates", [])
+        if mode == "hybrid_rerank":
+            reranker = CrossEncoderReranker(
+                model_name=config.get("reranker_model", "BAAI/bge-reranker-v2-m3")
+            )
+            reranked = reranker.rerank(question, fused, top_k=k)
+            return [r["chunk_id"] for r in reranked]
+        else:
+            return [r["chunk_id"] for r in fused[:k]]
+    else:
+        raise ValueError(
+            f"Mode khong hop le: '{mode}'. Dung: bm25, semantic, hybrid, hybrid_rerank."
+        )
+
+
+# ============================================================================
+# 4. CLI ENTRY POINT
+# ============================================================================
+
+def _print_summary(report: Dict[str, Any]) -> None:
+    """In tom tat bao cao ra stdout."""
+    print("\n" + "=" * 70)
+    print("EVALUATION SUMMARY")
+    print("=" * 70)
+    print(f"Timestamp : {report['run_timestamp']}")
+    cfg = report.get("config", {})
+    print(f"Strategy  : {cfg.get('strategy', 'N/A')}")
+    print(f"Modes     : {cfg.get('modes', [])}")
+    print(f"K         : {cfg.get('k_list', [])}")
+    print(f"Embedding : {cfg.get('embedding_model', 'N/A')}")
+    print(f"Reranker  : {cfg.get('reranker_model', 'N/A')}")
+
+    if report.get("warnings"):
+        print("\n[CANH BAO]:")
+        for w in report["warnings"]:
+            print(f"   {w}")
+
+    print("\nMetrics Summary:")
+    header_parts = ["Mode".ljust(20)]
+    for k in cfg.get("k_list", [5]):
+        header_parts.append(f"Recall@{k}".rjust(10))
+        header_parts.append(f"MRR@{k}".rjust(8))
+        header_parts.append(f"nDCG@{k}".rjust(8))
+    header_parts.append("P50(ms)".rjust(10))
+    print("  " + "".join(header_parts))
+    print("  " + "-" * (sum(len(p) for p in header_parts) + 2))
+
+    for mode, summary in report.get("metrics_summary", {}).items():
+        row_parts = [mode.ljust(20)]
+        for k in cfg.get("k_list", [5]):
+            r = summary.get(f"mean_recall@{k}")
+            m = summary.get(f"mean_mrr@{k}")
+            n = summary.get(f"mean_ndcg@{k}")
+            row_parts.append((f"{r:.4f}" if r is not None else "N/A").rjust(10))
+            row_parts.append((f"{m:.4f}" if m is not None else "N/A").rjust(8))
+            row_parts.append((f"{n:.4f}" if n is not None else "N/A").rjust(8))
+        p50 = summary.get("p50_latency_ms")
+        row_parts.append((f"{p50:.1f}ms" if p50 is not None else "N/A").rjust(10))
+        print("  " + "".join(row_parts))
+        n_failed = summary.get("n_failed", 0)
+        if n_failed > 0:
+            print(f"    [WARN] {n_failed} queries FAILED cho mode={mode}")
+
+    if report.get("needs_human_review"):
+        print(f"\n[NOTE] {report['unreviewed_questions']} cau hoi chua xac nhan gold labels.")
+        print("   -> Khong tuyen bo mode chien thang chinh thuc.")
+
+    if report.get("saved_report_path"):
+        print(f"\n[SAVED] Bao cao: {report['saved_report_path']}")
+    print("=" * 70)
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Advanced RAG Buổi 08 - Evaluation Benchmark Suite")
-    parser.add_argument(
-        "--strategy",
-        type=str,
-        default="hierarchical",
-        choices=sorted(list(ALLOWED_STRATEGIES)),
-        help="Strategy chia chunk cần đánh giá (mặc định: hierarchical)",
+    """CLI chinh cho evaluate.py."""
+    parser = argparse.ArgumentParser(
+        description="Evaluate retrieval modes cho Advanced RAG - Buoi 08.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "--questions-file",
-        type=str,
-        default=str(DEFAULT_QUESTIONS_FILE),
-        help="Đường dẫn file JSON câu hỏi benchmark",
+        "--strategy", default="hierarchical",
+        choices=["hierarchical", "flat", "recursive", "semantic"],
+        help="Chunking strategy (default: hierarchical)"
     )
     parser.add_argument(
-        "--k",
-        type=int,
-        default=5,
-        help="Giá trị K cho Recall@K, MRR@K, nDCG@K (mặc định: 5)",
+        "--modes", nargs="+", default=["bm25", "semantic", "hybrid", "hybrid_rerank"],
+        help="Danh sach retrieval mode"
+    )
+    parser.add_argument(
+        "--k", nargs="+", type=int, default=[1, 3, 5],
+        help="Danh sach K de tinh metric (default: 1 3 5)"
+    )
+    parser.add_argument(
+        "--questions", type=str, default=None,
+        help="Duong dan file questions.json"
+    )
+    parser.add_argument(
+        "--save", action="store_true",
+        help="Luu bao cao JSON vao reports/"
     )
 
     args = parser.parse_args()
 
     try:
-        print(f"=== KHỞI ĐỘNG ĐÁNH GIÁ RETRIEVAL & RANKING (Strategy: {args.strategy}, K={args.k}) ===")
-        report = evaluate_retrieval_system(
-            questions_file=args.questions_file,
-            strategy=args.strategy,
-            k_list=[1, 3, args.k]
-        )
+        from advanced_rag import load_advanced_config
+        config = load_advanced_config()
+    except Exception:
+        config = {}
 
-        print("\n" + "=" * 90)
-        print("TỔNG HỢP CHỈ SỐ RETRIEVAL THEO TỪNG CHẾ ĐỘ:")
-        print("=" * 90)
-        print(f"{'Chế độ (Mode)':<16} | {'Recall@' + str(args.k):<10} | {'MRR@' + str(args.k):<10} | {'nDCG@' + str(args.k):<10} | {'Hit@' + str(args.k):<8} | {'Lat. Mean':<10} | {'Lat. P50':<8}")
-        print("-" * 90)
+    questions_file = Path(args.questions) if args.questions else None
 
-        for mode, m in report["metrics_summary"].items():
-            r_k = f"{m.get(f'mean_recall@{args.k}', 0):.4f}"
-            m_k = f"{m.get(f'mean_mrr@{args.k}', 0):.4f}"
-            n_k = f"{m.get(f'mean_ndcg@{args.k}', 0):.4f}"
-            h_k = f"{m.get(f'mean_hit@{args.k}', 0):.4f}"
-            lat_mean = f"{m.get('latency_mean_ms', 0):.1f} ms"
-            lat_p50 = f"{m.get('latency_p50_ms', 0):.1f} ms"
-            print(f"{mode:<16} | {r_k:<10} | {m_k:<10} | {n_k:<10} | {h_k:<8} | {lat_mean:<10} | {lat_p50:<8}")
+    print(f"[EVAL] Bat dau evaluation...")
+    print(f"[EVAL] Strategy: {args.strategy}, Modes: {args.modes}, K: {args.k}")
 
-        print("-" * 90)
+    report = evaluate_retrieval_system(
+        questions_file=questions_file,
+        strategy=args.strategy,
+        modes=args.modes,
+        k_list=args.k,
+        config=config,
+        save_report=args.save,
+    )
 
-        if report["warnings"]:
-            print("\n⚠️ CẢNH BÁO QUAN TRỌNG TỪ ĐÁNH GIÁ BENCHMARK:")
-            for w in report["warnings"]:
-                print(f"  [!] {w}")
-
-        if "saved_report_file" in report:
-            print(f"\n✅ Đã lưu file báo cáo chi tiết: {report['saved_report_file']}")
-
-    except Exception as e:
-        print(f"\n❌ LỖI ĐÁNH GIÁ: {e}", file=sys.stderr)
-        sys.exit(1)
+    _print_summary(report)
 
 
 if __name__ == "__main__":

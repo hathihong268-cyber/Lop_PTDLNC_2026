@@ -1,96 +1,111 @@
-# Agent Specification - Buổi 08: Advanced RAG (Hybrid Search, RRF & Cross-Encoder Reranking)
+# Agent Specification - Buổi 08: Advanced RAG (Hybrid Search & Reranking)
 
 ## 1. Workspace và Security
 - **Vùng được đọc**:
-  - `rag_foundation/buoi_05/output/chunks/`
-  - `rag_foundation/buoi_05/.venv/`
-  - `rag_foundation/buoi_07/`
-  - `rag_foundation/buoi_08/`
+  - `rag_foundation/buoi_05/output/chunks/` (dữ liệu chunks gốc)
+  - `rag_foundation/buoi_05/.venv/` (Python virtual environment)
+  - Toàn bộ `rag_foundation/buoi_08/`
 - **Vùng được ghi**:
-  - Chỉ ghi trong thư mục `rag_foundation/buoi_08/`
+  - Chỉ ghi bên trong `rag_foundation/buoi_08/`.
 - **Quy định tuyệt đối**:
-  - Không sửa bất kỳ file nào của Buổi 05, Buổi 06 hoặc Buổi 07.
-  - Không lưu, không hard-code hoặc in các giá trị secret/API key ra console, logs, hay commit vào git.
-  - Mọi cấu hình nhạy cảm được đọc qua biến môi trường hoặc file `.env` cục bộ của Buổi 08.
+  - Không sửa bất kỳ file nào của `rag_foundation/buoi_05/`, `rag_foundation/buoi_06/`, hoặc `rag_foundation/buoi_07/`.
+  - Không import runtime trực tiếp từ `buoi_07`. Mọi hoạt động của Buổi 08 chạy độc lập trên bản sao nội bộ `rag_foundation/buoi_08/rag.py`.
+  - Không hardcode API key / secrets trong source code, logs hay commit vào git.
+  - Tuyệt đối không log hoặc xuất ra màn hình giá trị bí mật của `GEMINI_API_KEY`.
 
 ## 2. Quan hệ với Buổi 05 và Buổi 07
-- **Buổi 05**: Cung cấp dữ liệu chunks thô đã được tiền xử lý (`fixed-size`, `hierarchical`, `semantic`) tại `buoi_05/output/chunks/`.
-- **Buổi 07**: Cung cấp **Semantic Baseline** (`rag.py`) sử dụng thuần vector search với Google GenAI Embeddings và ChromaDB.
-- **Buổi 08**: Mở rộng thành **Advanced RAG Pipeline**:
-  - Tích hợp **Keyword Search (BM25)** xử lý từ khóa chính xác, số hiệu văn bản, Điều/Khoản.
-  - Tích hợp **Dense Semantic Retrieval** từ ChromaDB persistent storage.
-  - Hợp nhất xếp hạng ứng viên bằng **Reciprocal Rank Fusion (RRF)**.
-  - Tái xếp hạng chính xác bằng **Cross-Encoder Reranker**.
-  - Đánh giá định lượng hiệu năng bằng bộ chỉ số Retrieval & Ranking (Hit@k, MRR@k, Precision@k, Recall@k, MAP@k, NDCG@k).
+- **Buổi 05**: Nguồn cung cấp 9 file chunks JSON chuẩn hóa (510 chunks) theo 3 chiến lược (`fixed-size`, `hierarchical`, `semantic`). Buổi 08 chỉ đọc, không re-chunk, không OCR.
+- **Buổi 07**: Nguồn baseline về Semantic Vector Search (ChromaDB + Gemini Embeddings `gemini-embedding-2` 768d + Generation `gemini-3.5-flash-lite` + Citation Mapping). Buổi 08 dùng làm mốc so sánh trực tiếp để đánh giá mức độ cải thiện của kiến trúc Hybrid & Reranker.
+- **Buổi 08**: Mở rộng RAG thành kiến trúc 2 tầng (Two-stage Retrieval) & Đánh giá định lượng:
+  - Tầng 1: Hybrid Retrieval (BM25 sparse search kết hợp Dense Vector search).
+  - Fusion: Reciprocal Rank Fusion (RRF).
+  - Tầng 2: Re-ranking bằng Cross-Encoder model.
+  - Benchmark: Bộ công cụ đánh giá Information Retrieval (Hit@K, MRR, NDCG).
 
 ## 3. Data Contract
-Mỗi chunk JSON đầu vào bắt buộc phải tuân thủ chuẩn Buổi 07:
-- `chunk_id`: Mã định danh duy nhất của chunk (chuỗi không rỗng).
-- `strategy`: Chiến lược chunking (`fixed-size`, `semantic`, `hierarchical`).
-- `source`: Tên hoặc đường dẫn file tài liệu gốc.
-- `page_start`: Trang bắt đầu (số nguyên >= 1, không nhận boolean).
-- `page_end`: Trang kết thúc (số nguyên >= page_start).
-- `text`: Nội dung văn bản của chunk (chuỗi không rỗng sau khi strip).
+Mỗi chunk JSON đầu vào bắt buộc phải tuân thủ nghiêm ngặt schema 6 trường:
+- `chunk_id` (`str`): Mã định danh duy nhất (không rỗng, không trùng lặp).
+- `strategy` (`str`): Thuộc một trong 3 giá trị: `fixed-size`, `semantic`, `hierarchical`.
+- `source` (`str`): Tên tài liệu nguồn (VD: `TT_39_2016_NHNN.pdf`).
+- `page_start` (`int`): Trang bắt đầu (>= 1, `page_start <= page_end`).
+- `page_end` (`int`): Trang kết thúc (>= 1).
+- `text` (`str`): Nội dung văn bản của chunk (chuỗi không rỗng sau khi trim).
 
 ## 4. BM25 Tokenizer & Retrieval Contract
-- **Tokenizer**:
-  - Bộ tách từ hỗ trợ tiếng Việt: chuyển chữ thường, chuẩn hóa dấu câu, xử lý stop words, bảo toàn số hiệu Điều/Khoản (ví dụ: "Điều 5", "Khoản 2", "Thông tư 39").
-- **BM25 Retrieval**:
-  - Tính toán điểm BM25 (tham số chuẩn $k_1 \in [1.2, 2.0]$, $b \in [0.5, 0.8]$).
-  - Trả về danh sách ứng viên được sắp xếp giảm dần theo điểm BM25.
-  - Mỗi kết quả chứa: `chunk_id`, `score`, `rank`, `source`, `page_start`, `page_end`, `text`.
+- **Preprocessing/Tokenizer**:
+  - Chuẩn hóa văn bản tiếng Việt: Chuyển chữ thường (lowercase), loại bỏ ký tự đặc biệt vô nghĩa, giữ lại các ký hiệu số, Điều, Khoản, Thông tư (VD: `điều 3`, `khoản 1`, `thông tư 39/2016`).
+  - Hỗ trợ tách từ đơn / từ ghép cơ bản, loại bỏ stopwords không mang giá trị ngữ nghĩa pháp lý.
+- **Index Storage**:
+  - Chỉ mục BM25 được lưu bền vững vào thư mục `storage/bm25/` theo từng `strategy`.
+- **Retrieval**:
+  - Nhận câu hỏi `query`, trả về Top-K ứng viên (mặc định K = 10) kèm theo điểm số `bm25_score`.
+  - Phân loại rõ thứ hạng ban đầu (`bm25_rank`: 1..K).
 
 ## 5. Semantic Candidate Contract
-- Sử dụng Google GenAI Embedding API (`gemini-embedding-2`, dimension = 768) và ChromaDB persistent storage (Cosine distance).
-- Trích xuất top-$k_s$ ứng viên vector có khoảng cách nhỏ nhất (tương đồng cao nhất).
-- Mỗi kết quả chứa: `chunk_id`, `distance`, `rank`, `source`, `page_start`, `page_end`, `text`.
+- Kế thừa pipeline Vector Search của `rag.py`:
+  - Sử dụng Gemini Embedding API (`gemini-embedding-2`, dim=768).
+  - Truy vấn ChromaDB Persistent Collection tương ứng với `strategy`.
+  - Lấy Top-K ứng viên (mặc định K = 10) kèm `distance` (cosine distance).
+  - Phân loại rõ thứ hạng ban đầu (`semantic_rank`: 1..K).
 
-## 6. RRF Fusion Contract (Reciprocal Rank Fusion)
-- **Công thức tính điểm**:
-  $$RRF\_Score(d) = \sum_{m \in M} \frac{w_m}{k_{rrf} + r_m(d)}$$
-  Trong đó:
-  - $M = \{BM25, Semantic\}$: Các phương pháp retrieval.
-  - $w_m$: Trọng số của từng phương pháp (mặc định $w_{bm25}=1.0$, $w_{semantic}=1.0$).
-  - $k_{rrf}$: Hằng số làm mượt (mặc định $k_{rrf} = 60$).
-  - $r_m(d)$: Thứ hạng (1-based index) của tài liệu $d$ trong danh sách kết quả của phương pháp $m$. Nếu $d$ không xuất hiện trong top của phương pháp $m$, coi như không đóng góp điểm.
-- Hợp nhất và loại bỏ trùng lặp ứng viên, sắp xếp giảm dần theo $RRF\_Score$.
+## 6. RRF (Reciprocal Rank Fusion) Contract
+- Hợp nhất 2 danh sách ứng viên (BM25 và Semantic) theo thuật toán Reciprocal Rank Fusion:
+  $$\text{RRF\_Score}(d) = \sum_{m \in \{\text{BM25}, \text{Semantic}\}} \frac{1}{k + \text{rank}_m(d)}$$
+  (với hằng số làm mượt mặc định $k = 60$).
+- Giữ lại các metadata gốc của chunk, gán thêm:
+  - `bm25_rank` (nếu có trong top BM25, ngược lại None/vô hạn)
+  - `semantic_rank` (nếu có trong top Semantic, ngược lại None/vô hạn)
+  - `rrf_score` và `rrf_rank` sau khi sắp xếp giảm dần theo điểm RRF.
+- Lấy Top-N ứng viên sau fusion (mặc định N = 10) chuyển tiếp sang tầng Reranker.
 
 ## 7. Cross-Encoder Reranker Contract
-- Nhận danh sách top-$N$ ứng viên từ RRF Fusion ($N \ge Top\_K$).
-- Đánh giá sự liên quan trực tiếp giữa cặp `(query, document_text)`.
-- Chuẩn hóa điểm số rerank về khoảng $[0.0, 1.0]$.
-- Sắp xếp lại danh sách ứng viên theo điểm reranker giảm dần để chọn ra top-$K$ bằng chứng cuối cùng.
+- Mô hình: Sử dụng Cross-Encoder (mặc định `cross-encoder/ms-marco-MiniLM-L-6-v2` hoặc mô hình tương thích đa ngữ/tiếng Việt).
+- Input: Cặp câu `(query, candidate_chunk_text)`.
+- Output: Điểm tương đồng ngữ cảnh trực tiếp `rerank_score` (Logits/Sigmoid score).
+- Sắp xếp lại toàn bộ ứng viên theo thứ tự giảm dần của `rerank_score` và cắt lấy Top-K cuối cùng (mặc định K = 5).
+- Hỗ trợ cờ bật/tắt reranker (`enable_reranker=True/False`) để phân tích tác động độc lập.
 
-## 8. Final Evidence & Citation Contract
-- Bằng chứng cuối cùng (final evidence) phải giữ nguyên vẹn metadata thật (`source`, `page_start`, `page_end`, `chunk_id`).
-- Áp dụng **Confidence Gate** lọc bỏ các bằng chứng có điểm rerank dưới ngưỡng tin cậy tối thiểu.
-- Khi sinh câu trả lời, trích dẫn (citation) bắt buộc phải đối chiếu nhãn `[E1]`, `[E2]` với metadata thực tế, không chấp nhận trích dẫn hallucinated do LLM tự bịa.
+## 8. Final Evidence và Citation Contract
+- **Confidence Gate**:
+  - Kiểm tra ngưỡng tin cậy của ứng viên Top-1 sau reranking.
+  - Nếu điểm tin cậy dưới ngưỡng (hoặc distance quá lớn), kích hoạt fallback `insufficient_evidence` mà không gọi generation API tốn chi phí.
+- **Generation & Citation**:
+  - Gắn nhãn bằng chứng `[E1]`, `[E2]`, ...
+  - LLM chỉ trả lời dựa trên ngữ cảnh cách ly an toàn (`<<< BEGIN UNTRUSTED CONTEXT DATA >>>`).
+  - Ánh xạ nhãn `[E*]` thành trích dẫn minh bạch: `[Nguồn: <source>, tr. <page>, chunk: <chunk_id>]`.
+  - Loại bỏ các trích dẫn ảo hoặc không nằm trong tập bằng chứng được chấp nhận.
 
 ## 9. Pipeline Trace Contract
-Mỗi lượt thực thi Advanced RAG phải ghi nhận đầy đủ trace thông tin:
+Mỗi lượt truy vấn Advanced RAG phải ghi nhận cấu trúc `trace` chi tiết gồm:
 - `query`: Câu hỏi đầu vào.
-- `bm25_candidates`: Top ứng viên từ BM25 kèm rank & score.
-- `semantic_candidates`: Top ứng viên từ Vector search kèm rank & distance.
-- `rrf_candidates`: Top ứng viên sau khi fusion kèm RRF score.
-- `reranked_candidates`: Top ứng viên sau khi rerank kèm điểm và trạng thái accepted/rejected.
-- `generation_input`: Prompt và ngữ cảnh chuyển cho LLM.
-- `latency_ms`: Thời gian thực thi từng chặng (BM25, Semantic, RRF, Rerank, Generation).
+- `strategy`: Chiến lược chunking áp dụng.
+- `bm25_candidates`: Danh sách chunk_id, rank và bm25_score.
+- `semantic_candidates`: Danh sách chunk_id, rank và semantic_distance.
+- `fused_candidates`: Danh sách chunk_id sau RRF kèm `rrf_score`.
+- `reranked_candidates`: Danh sách chunk_id sau Cross-Encoder kèm `rerank_score`.
+- `final_evidences`: Danh sách bằng chứng được chọn kèm cờ chấp thuận (`accepted`).
+- `timings_ms`: Thời gian thực thi chi tiết của từng công đoạn (tokenize, sparse_search, dense_search, rrf, rerank, generation).
 
 ## 10. Evaluation Metrics Contract
-Module đánh giá (`evaluate.py`) thực hiện tính toán định lượng trên tập gold questions (`eval/questions.json`):
-- **Hit@k**: Tỷ lệ câu hỏi có ít nhất một chunk đúng nằm trong top-$k$ ($\in [0.0, 1.0]$).
-- **MRR@k** (Mean Reciprocal Rank): Nghịch đảo vị trí xuất hiện đầu tiên của chunk đúng trong top-$k$.
-- **Precision@k**: Tỷ lệ chunk đúng trong số $k$ chunk được truy xuất.
-- **Recall@k**: Tỷ lệ chunk đúng được truy xuất trên tổng số chunk đúng cần tìm.
-- **MAP@k** (Mean Average Precision): Độ chính xác trung bình có xét đến thứ tự xếp hạng.
-- **NDCG@k** (Normalized Discounted Cumulative Gain): Đánh giá chất lượng xếp hạng có chiết khấu theo vị trí.
+Module `evaluate.py` đo lường hiệu năng truy xuất dựa trên tập `eval/questions.json`:
+- **Hit@K**: Tỷ lệ câu hỏi mà ít nhất 1 chunk liên quan xuất hiện trong Top-K ($K \in \{1, 3, 5\}$).
+- **MRR@K (Mean Reciprocal Rank)**: Trung bình của nghịch đảo vị trí xuất hiện đầu tiên của chunk liên quan.
+- **NDCG@K (Normalized Discounted Cumulative Gain)**: Đánh giá chất lượng xếp hạng có tính đến trọng số vị trí.
+- **Out-of-Scope Detection Accuracy**: Độ chính xác của Confidence Gate trong việc chặn các câu hỏi ngoài phạm vi tài liệu.
+- **Latency (ms)**: P50, P90, P99 thời gian phản hồi.
+- Tự động lưu bảng so sánh Markdown và file JSON vào thư mục `reports/`.
 
 ## 11. Offline Testing Contract
-- 100% unit tests trong `tests/` phải chạy được hoàn toàn **offline**, không yêu cầu kết nối mạng hay API key thật.
-- Sử dụng mock cho Google GenAI API và Cross-Encoder model.
-- Sử dụng thư mục tạm (`tempfile.TemporaryDirectory`) cho ChromaDB storage trong các bài kiểm thử.
+- Mọi bài kiểm thử trong `tests/` phải chạy thành công hoàn toàn **offline**:
+  - Sử dụng Mock cho Gemini API (Embedding & Generation).
+  - Sử dụng Mock / Local Dummy Model cho Cross-Encoder Reranker trong môi trường test nhẹ.
+  - Sử dụng fixture `tests/fixtures/chunks_advanced_sample.json`.
+  - Tạo thư mục Chroma/BM25 tạm thời (`tempfile.TemporaryDirectory`) và tự dọn dẹp sau khi chạy xong.
 
 ## 12. UI Comparison Contract
-- Ứng dụng Streamlit (`app.py`) cung cấp giao diện so sánh trực quan song song (Side-by-Side):
-  - **Baseline RAG (Buổi 07)** vs. **Advanced Hybrid RAG (Buổi 08)**.
-  - Hiển thị bảng so sánh chi tiết: Candidates retrieved, RRF rank, Rerank score, Response quality, Latency và Citations.
+Giao diện Streamlit (`app.py`) hỗ trợ:
+- Chế độ so sánh đối đầu song song (Side-by-side):
+  - Cột trái: Baseline RAG (Semantic Vector Only).
+  - Cột phải: Advanced RAG (Hybrid BM25 + Dense + RRF + Reranker).
+- Xem bảng Trace chi tiết: Trực quan hóa đường đi của từng chunk qua các bộ lọc BM25, Chroma, RRF và Reranker.
+- Hiển thị so sánh câu trả lời tổng hợp và danh sách citations.

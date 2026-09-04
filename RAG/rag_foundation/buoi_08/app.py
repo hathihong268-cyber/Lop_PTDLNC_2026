@@ -1,503 +1,528 @@
 """
-Ứng dụng Web Streamlit - Buổi 08: Advanced RAG vs Semantic Baseline.
-Trực quan hóa Pipeline đa tầng: BM25 Lexical + Dense Semantic + RRF Fusion + Cross-Encoder Reranker.
+Ứng dụng Web Streamlit - Buổi 08: Advanced RAG Studio (Hybrid Search, Reranking & Pipeline Tracing).
+
+Giao diện trực quan hóa toàn diện quy trình Advanced RAG:
+1. Hỏi đáp Advanced RAG (Grounded Generation & Citation Mapping).
+2. So sánh đối đầu 4 chế độ Retrieval (BM25 vs. Semantic vs. Hybrid RRF vs. Cross-Encoder).
+3. Pipeline Trace chi tiết (Metrics flow, latency và giải thích thang đo).
+4. Đánh giá Benchmark & Gold Dataset Inspection.
 """
 
+from pathlib import Path
 import os
 import sys
 import json
 import time
-from pathlib import Path
-import streamlit as st
+from typing import Dict, List, Any, Optional
 
-# Thư mục gốc Buổi 08
+import streamlit as st
+import pandas as pd
+
+# Đảm bảo import được các module từ thư mục Buổi 08
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
 from advanced_rag import (
     load_advanced_config,
     get_advanced_status,
+    load_chunks,
     query_advanced_rag,
     compare_retrieval_modes,
-    build_bm25_retriever,
     ALLOWED_STRATEGIES,
-    DEFAULT_INPUT_DIR,
-    CHROMA_STORAGE_DIR,
-    HF_STORAGE_DIR,
-)
-from rag import load_chunks
-
-# Cấu hình trang Streamlit
-st.set_page_config(
-    page_title="Advanced RAG Workshop - Buổi 08",
-    page_icon="⚡",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    ALLOWED_MODES,
+    DEFAULT_INPUT_DIR
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp
-st.markdown("""
-<style>
-    .metric-card {
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 8px;
-    }
-    .rank-badge {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.85em;
-    }
-    .rank-up { background-color: #d4edda; color: #155724; }
-    .rank-down { background-color: #f8d7da; color: #721c24; }
-    .rank-neutral { background-color: #e2e3e5; color: #383d41; }
-</style>
-""", unsafe_allow_html=True)
+REPORTS_DIR = (BASE_DIR / "reports").resolve()
+EVAL_FILE = (BASE_DIR / "eval" / "questions.json").resolve()
 
 
-# ==============================================================================
-# CACHE RESOURCES & STATE MANAGEMENT
-# ==============================================================================
+# ============================================================================
+# CACHING VÀ SESSION STATE
+# ============================================================================
 
-@st.cache_resource(show_spinner=False)
-def get_cached_bm25(strategy: str):
-    """Cache BM25 index theo từng strategy trong suốt phiên chạy của process"""
-    chunks, _ = load_chunks(DEFAULT_INPUT_DIR, strategy=strategy)
-    retriever = build_bm25_retriever(chunks)
-    return chunks, retriever
-
-
-# Khởi tạo session state
-if "last_query" not in st.session_state:
-    st.session_state["last_query"] = ""
-if "last_result" not in st.session_state:
-    st.session_state["last_result"] = None
-if "last_compare_query" not in st.session_state:
-    st.session_state["last_compare_query"] = ""
-if "last_compare_result" not in st.session_state:
-    st.session_state["last_compare_result"] = None
+@st.cache_data(show_spinner=False)
+def get_cached_chunks(strategy: str, input_dir: Optional[str] = None):
+    """Cache dữ liệu chunks nạp từ đĩa theo từng strategy."""
+    chunks, stats = load_chunks(input_path=input_dir, strategy=strategy)
+    return chunks, stats
 
 
-# ==============================================================================
-# SIDEBAR CONFIGURATION & STATUS INSPECTION
-# ==============================================================================
-
-with st.sidebar:
-    st.title("⚡ Cấu hình Advanced RAG")
-    
-    # Nạp cấu hình từ .env
-    try:
-        cfg = load_advanced_config()
-    except Exception as e:
-        st.error(f"Lỗi nạp .env: {e}")
-        cfg = {
-            "has_api_key": False,
-            "embedding_model": "gemini-embedding-2",
-            "embedding_dim": 768,
-            "generation_model": "gemini-3.5-flash-lite",
-            "max_distance": 0.45,
-            "bm25_candidates": 20,
-            "semantic_candidates": 20,
-            "rerank_candidates": 20,
-            "final_top_k": 5,
-            "rrf_k": 60,
-            "rrf_bm25_weight": 1.0,
-            "rrf_semantic_weight": 1.0,
-            "reranker_model": "BAAI/bge-reranker-v2-m3",
-            "reranker_max_length": 512,
-            "rerank_batch_size": 4,
-            "rerank_min_score": 0.50,
-            "rerank_device": "auto",
-        }
-
-    strategy = st.selectbox(
-        "Chiến lược chia chunk (Strategy):",
-        options=sorted(list(ALLOWED_STRATEGIES)),
-        index=sorted(list(ALLOWED_STRATEGIES)).index("hierarchical") if "hierarchical" in ALLOWED_STRATEGIES else 0
-    )
-
-    selected_mode = st.selectbox(
-        "Chế độ truy xuất (Retrieval Mode):",
-        options=["hybrid_rerank", "hybrid", "semantic", "bm25"],
-        index=0,
-        help="hybrid_rerank là chế độ mặc định đầy đủ nhất của Advanced RAG"
-    )
-
-    final_top_k = st.slider(
-        "Số lượng Evidence tối đa (Final Top-K):",
-        min_value=1,
-        max_value=15,
-        value=cfg.get("final_top_k", 5)
-    )
-
-    st.divider()
-    st.subheader("🔍 Trạng thái Hệ thống (Read-Only)")
-
-    try:
-        sys_status = get_advanced_status(strategy=strategy, config=cfg)
-        st.write(f"**Tập Chunk ({strategy}):** {sys_status['corpus_size']} chunks")
-        st.write(f"**Chroma Collection:** `{sys_status['semantic_collection_name']}`")
-        if sys_status["collection_exists"]:
-            st.success(f"Chroma DB: {sys_status['record_count']} records")
-        else:
-            st.warning("Chroma DB: Chưa index vector")
-
-        st.write(f"**Gemini API Key:** {'✅ Đã cấu hình' if sys_status['has_api_key'] else '❌ Thiếu API Key'}")
-        st.write(f"**Reranker Model:** `{sys_status['reranker_model']}`")
-        st.write(f"**Reranker Weights:** {'✅ Đã có trong cache' if sys_status['reranker_cached'] else '⏳ Chưa tải (tải khi gọi)'}")
-    except Exception as e:
-        st.error(f"Lỗi kiểm tra trạng thái: {e}")
-
-    with st.expander("⚙️ Tham số nâng cao (RRF & Reranker)"):
-        st.write(f"• **BM25 Candidates ($K_1$):** {cfg.get('bm25_candidates')}")
-        st.write(f"• **Semantic Candidates ($K_2$):** {cfg.get('semantic_candidates')}")
-        st.write(f"• **RRF Constant ($k$):** {cfg.get('rrf_k')}")
-        st.write(f"• **RRF Weights:** BM25={cfg.get('rrf_bm25_weight')}, Semantic={cfg.get('rrf_semantic_weight')}")
-        st.write(f"• **Rerank Candidates:** {cfg.get('rerank_candidates')}")
-        st.write(f"• **Rerank Min Score Gate:** {cfg.get('rerank_min_score')}")
-        st.write(f"• **Semantic Max Distance Gate:** {cfg.get('max_distance')}")
-        st.write(f"• **Rerank Device:** `{cfg.get('rerank_device')}`")
-
-
-# ==============================================================================
-# MAIN PAGE HEADER & TABS
-# ==============================================================================
-
-st.title("⚡ Advanced RAG: Hybrid Search & Multilingual Reranking")
-st.caption("Workshop Buổi 08 — Kiến trúc RAG cấp sản phẩm: BM25 Okapi + Dense Vector + Reciprocal Rank Fusion + BGE Reranker v2")
-
-tab1, tab2, tab3, tab4 = st.tabs([
-    "💬 Hỏi đáp Advanced RAG",
-    "⚖️ So sánh Retrieval (Side-by-Side)",
-    "🔍 Pipeline Trace & Latency",
-    "📊 Đánh giá Benchmark"
-])
-
-
-# ==============================================================================
-# TAB 1: HỎI ĐÁP ADVANCED RAG (ANSWER PIPELINE)
-# ==============================================================================
-
-with tab1:
-    st.subheader("Hỏi đáp văn bản pháp lý với Grounding & Citations")
-    
-    col_input, col_btn = st.columns([5, 1])
-    with col_input:
-        default_q = st.session_state["last_query"] if st.session_state["last_query"] else "Điều 7 quy định về những nội dung gì?"
-        query_text = st.text_input("Nhập câu hỏi pháp lý tiếng Việt:", value=default_q, key="tab1_question")
-    with col_btn:
-        st.write("")
-        st.write("")
-        submit_btn = st.button("🚀 Gửi câu hỏi", type="primary", use_container_width=True)
-
-    if submit_btn and query_text.strip():
-        st.session_state["last_query"] = query_text.strip()
-        with st.spinner("Đang thực thi quy trình Advanced RAG đa tầng..."):
-            try:
-                # Nạp BM25 cached cho strategy
-                cached_chunks, cached_bm25 = get_cached_bm25(strategy)
-                
-                cfg_exec = dict(cfg)
-                cfg_exec["final_top_k"] = final_top_k
-                
-                res = query_advanced_rag(
-                    question=query_text.strip(),
-                    mode=selected_mode,
-                    strategy=strategy,
-                    top_k=final_top_k,
-                    config=cfg_exec,
-                    chunks=cached_chunks,
-                    custom_retriever=cached_bm25
-                )
-                st.session_state["last_result"] = res
-            except Exception as e:
-                st.error(f"Đã xảy ra lỗi trong quá trình truy vấn: {e}")
-                st.session_state["last_result"] = None
-
-    # Hiển thị kết quả từ session state
-    result = st.session_state.get("last_result")
-    if result:
-        st.divider()
-        status_val = result.get("status")
-        
-        if status_val == "answered":
-            st.success(f"✅ Trạng thái: **Đã trả lời thành công** (Mode: `{result['mode']}` | Tổng thời gian: {result['trace']['latency_ms']['total']} ms)")
-            st.markdown("### 📝 Câu trả lời:")
-            st.markdown(result["answer"])
-
-            if result.get("citations"):
-                st.markdown("#### 📌 Trích dẫn nguồn tài liệu:")
-                c_cols = st.columns(len(result["citations"])) if len(result["citations"]) <= 4 else [st]
-                for idx, c in enumerate(result["citations"]):
-                    p_str = f"tr. {c['page_start']}" if c['page_start'] == c['page_end'] else f"tr. {c['page_start']}-{c['page_end']}"
-                    st.info(f"**{c['label']}**: {c['source']} ({p_str}) — ID: `{c['chunk_id']}`")
-
-        elif status_val == "insufficient_evidence":
-            st.warning("⚠️ Trạng thái: **Không đủ bằng chứng (Insufficient Evidence)**")
-            st.info("Không có đoạn văn bản nào vượt qua ngưỡng kiểm định chất lượng (Confidence Gate). Hệ thống từ chối sinh câu trả lời để phòng tránh ảo giác (Hallucination).")
-            if result.get("warnings"):
-                for w in result["warnings"]:
-                    st.caption(f"Chi tiết: {w}")
-
-        elif status_val == "retrieval_only":
-            st.warning("ℹ️ Trạng thái: **Chỉ hoàn tất Truy xuất (Retrieval Only)**")
-            st.info(result.get("answer", "Đã truy xuất được nguồn nhưng chưa thể tạo câu trả lời tổng hợp."))
-            if result.get("warnings"):
-                for w in result["warnings"]:
-                    st.caption(f"Cảnh báo: {w}")
-
-        elif status_val == "reranker_unavailable":
-            st.error("❌ Trạng thái: **Mô hình Reranker chưa sẵn sàng (Reranker Unavailable)**")
-            st.info("""
-            Mô hình Cross-Encoder Reranker (`BAAI/bge-reranker-v2-m3`) chưa được tải về máy hoặc gặp sự cố.
-            
-            **Hướng dẫn khắc phục:**
-            1. Chạy lệnh chẩn đoán từ terminal để tải model:
-               ```bash
-               python advanced_rag.py rerank --strategy hierarchical --question "kiểm tra reranker"
-               ```
-            2. Hoặc chuyển sang chế độ `hybrid` hoặc `semantic` ở sidebar nếu bạn chưa muốn tải reranker model.
-            """)
-            if result.get("warnings"):
-                for w in result["warnings"]:
-                    st.caption(f"Chi tiết lỗi: {w}")
-
-        # Hiển thị các Evidence cards
-        if result.get("evidence"):
-            st.markdown("### 🗂️ Danh sách Bằng chứng (Evidence Chunks):")
-            for idx, ev in enumerate(result["evidence"], start=1):
-                p_str = f"tr. {ev['page_start']}" if ev['page_start'] == ev['page_end'] else f"tr. {ev['page_start']}-{ev['page_end']}"
-                acc_badge = "✅ Đạt gate" if ev.get("accepted") else "❌ Không đạt gate"
-                
-                with st.expander(f"Evidence #{idx} — [{acc_badge}] — {ev['source']} ({p_str}) | ID: `{ev['chunk_id']}`", expanded=(idx <= 2)):
-                    c1, c2, c3, c4 = st.columns(4)
-                    with c1:
-                        b_rank = f"#{ev['bm25_rank']}" if ev.get('bm25_rank') else "N/A"
-                        b_score = f"{ev['bm25_score']:.4f}" if ev.get('bm25_score') is not None else "N/A"
-                        st.metric("BM25 Rank / Score", f"{b_rank} ({b_score})")
-                    with c2:
-                        s_rank = f"#{ev['semantic_rank']}" if ev.get('semantic_rank') else "N/A"
-                        s_dist = f"{ev['semantic_distance']:.4f}" if ev.get('semantic_distance') is not None else "N/A"
-                        st.metric("Semantic Rank / Dist", f"{s_rank} (dist={s_dist})")
-                    with c3:
-                        h_rank = f"#{ev['fused_rank']}" if ev.get('fused_rank') else "N/A"
-                        h_score = f"{ev['rrf_score']:.5f}" if ev.get('rrf_score') is not None else "N/A"
-                        st.metric("RRF Fused Rank / Score", f"{h_rank} ({h_score})")
-                    with c4:
-                        r_rank = f"#{ev['rerank_rank']}" if ev.get('rerank_rank') else "N/A"
-                        r_score = f"{ev['rerank_score']:.4f}" if ev.get('rerank_score') is not None else "N/A"
-                        chg = ev.get('rank_change')
-                        chg_str = f"+{chg}" if chg and chg > 0 else str(chg)
-                        st.metric("Rerank Rank / Score", f"{r_rank} ({r_score})", delta=chg_str if chg is not None else None)
-
-                    st.markdown(f"**Nội dung trích dẫn:**\n> {ev['text']}")
-
-
-# ==============================================================================
-# TAB 2: SO SÁNH RETRIEVAL (SIDE-BY-SIDE WITHOUT GENERATION)
-# ==============================================================================
-
-with tab2:
-    st.subheader("So sánh trực quan 4 Chế độ Truy xuất (Không gọi LLM)")
-    st.caption("Xem xét sự thay đổi thứ hạng, các chunk được thêm mới, bị loại bỏ hoặc thay đổi vị trí qua từng giai đoạn.")
-
-    col_cq, col_cbtn = st.columns([5, 1])
-    with col_cq:
-        default_comp_q = st.session_state["last_compare_query"] if st.session_state["last_compare_query"] else "Điều 7 quy định về những nội dung gì?"
-        comp_query_text = st.text_input("Nhập câu hỏi để so sánh 4 chế độ retrieval:", value=default_comp_q, key="tab2_question")
-    with col_cbtn:
-        st.write("")
-        st.write("")
-        compare_btn = st.button("⚖️ Chạy so sánh", type="primary", use_container_width=True)
-
-    if compare_btn and comp_query_text.strip():
-        st.session_state["last_compare_query"] = comp_query_text.strip()
-        with st.spinner("Đang chạy so sánh 4 phương thức truy xuất..."):
-            try:
-                cached_chunks, cached_bm25 = get_cached_bm25(strategy)
-                comp_res = compare_retrieval_modes(
-                    question=comp_query_text.strip(),
-                    strategy=strategy,
-                    config=cfg,
-                    chunks=cached_chunks,
-                    custom_retriever=cached_bm25
-                )
-                st.session_state["last_compare_result"] = comp_res
-            except Exception as e:
-                st.error(f"Lỗi so sánh: {e}")
-                st.session_state["last_compare_result"] = None
-
-    comp_result = st.session_state.get("last_compare_result")
-    if comp_result:
-        st.divider()
-        st.markdown("### 📊 Bảng đối chiếu thứ hạng tổng hợp:")
-        
-        table_rows = []
-        for r in comp_result["comparison_rows"]:
-            rrk_str = f"#{r['rerank_rank']}" if r['rerank_rank'] else "-"
-            hyb_str = f"#{r['hybrid_rank']}" if r['hybrid_rank'] else "-"
-            sem_str = f"#{r['semantic_rank']}" if r['semantic_rank'] else "-"
-            b25_str = f"#{r['bm25_rank']}" if r['bm25_rank'] else "-"
-            chg_val = r['rank_change']
-            chg_display = f"+{chg_val}" if (chg_val is not None and chg_val > 0) else (str(chg_val) if chg_val is not None else "-")
-            
-            p_str = f"tr. {r['page_start']}" if r['page_start'] == r['page_end'] else f"tr. {r['page_start']}-{r['page_end']}"
-            table_rows.append({
-                "Chunk ID": r['chunk_id'],
-                "Nguồn": f"{r['source']} ({p_str})",
-                "BM25 Rank": b25_str,
-                "Semantic Rank": sem_str,
-                "RRF Fused Rank": hyb_str,
-                "Rerank Rank": rrk_str,
-                "Độ dịch chuyển (Rank Change)": chg_display,
-                "Các Mode xuất hiện": ", ".join(r['modes_present'])
-            })
-        st.dataframe(table_rows, use_container_width=True)
-
-        st.markdown("### 🔲 So sánh 4 Cột Kết quả Top-K Cạnh nhau:")
-        col_m1, col_m2, col_m3, col_m4 = st.columns(4)
-
-        with col_m1:
-            st.markdown(f"#### 1. BM25 Okapi ({comp_result['latency_ms']['bm25']} ms)")
-            bm25_chunks = [r for r in comp_result["comparison_rows"] if r["bm25_rank"] is not None]
-            bm25_chunks.sort(key=lambda x: x["bm25_rank"])
-            for item in bm25_chunks[:final_top_k]:
-                st.info(f"**Rank #{item['bm25_rank']}**\nID: `{item['chunk_id']}`\n{item['source']}")
-
-        with col_m2:
-            st.markdown(f"#### 2. Dense Semantic ({comp_result['latency_ms']['semantic']} ms)")
-            sem_chunks = [r for r in comp_result["comparison_rows"] if r["semantic_rank"] is not None]
-            sem_chunks.sort(key=lambda x: x["semantic_rank"])
-            for item in sem_chunks[:final_top_k]:
-                st.info(f"**Rank #{item['semantic_rank']}**\nID: `{item['chunk_id']}`\n{item['source']}")
-
-        with col_m3:
-            st.markdown(f"#### 3. Hybrid RRF ({comp_result['latency_ms']['hybrid']} ms)")
-            hyb_chunks = [r for r in comp_result["comparison_rows"] if r["hybrid_rank"] is not None]
-            hyb_chunks.sort(key=lambda x: x["hybrid_rank"])
-            for item in hyb_chunks[:final_top_k]:
-                st.info(f"**Fused #{item['hybrid_rank']}**\nID: `{item['chunk_id']}`\n{item['source']}")
-
-        with col_m4:
-            st.markdown(f"#### 4. Hybrid + Rerank ({comp_result['latency_ms']['hybrid_rerank']} ms)")
-            rrk_chunks = [r for r in comp_result["comparison_rows"] if r["rerank_rank"] is not None]
-            rrk_chunks.sort(key=lambda x: x["rerank_rank"])
-            for item in rrk_chunks[:final_top_k]:
-                chg = item['rank_change']
-                delta_lbl = f"(Dịch chuyển: +{chg})" if (chg and chg > 0) else (f"(Dịch chuyển: {chg})" if chg is not None else "")
-                st.success(f"**Rerank #{item['rerank_rank']}** {delta_lbl}\nID: `{item['chunk_id']}`\n{item['source']}")
-
-
-# ==============================================================================
-# TAB 3: PIPELINE TRACE & LATENCY
-# ==============================================================================
-
-with tab3:
-    st.subheader("🔍 Phân tích Pipeline Trace & Độ trễ (Latency)")
-    st.caption("Theo dõi số lượng ứng viên qua từng tầng lọc và thời gian thực thi chi tiết.")
-
-    if result and "trace" in result:
-        t = result["trace"]
-        
-        st.markdown("### 🪜 Phễu Ứng viên qua các tầng lọc:")
-        m1, m2, m3, m4, m5 = st.columns(5)
-        with m1:
-            st.metric("1. BM25 Candidates", f"{t['bm25_candidates']} chunks")
-        with m2:
-            st.metric("2. Semantic Candidates", f"{t['semantic_candidates']} chunks")
-        with m3:
-            st.metric("3. Union (Overlap)", f"{t['union']} chunks", delta=f"Trùng {t['overlap']}")
-        with m4:
-            st.metric("4. Đưa vào Rerank", f"{t['reranked']} chunks")
-        with m5:
-            st.metric("5. Đạt Gate (Accepted)", f"{t['accepted']} chunks")
-
-        st.markdown("### ⏱️ Phân rã Thời gian Thực thi (Latency Breakdown):")
-        lat = t["latency_ms"]
-        l1, l2, l3, l4, l5, l6 = st.columns(6)
-        with l1:
-            st.metric("BM25", f"{lat.get('bm25', 0)} ms")
-        with l2:
-            st.metric("Semantic", f"{lat.get('semantic', 0)} ms")
-        with l3:
-            st.metric("RRF Fusion", f"{lat.get('fusion', 0)} ms")
-        with l4:
-            st.metric("Rerank", f"{lat.get('rerank', 0)} ms")
-        with l5:
-            st.metric("Generation", f"{lat.get('generation', 0)} ms")
-        with l6:
-            st.metric("Tổng Pipeline", f"{lat.get('total', 0)} ms")
-
-    else:
-        st.info("Hãy thực hiện một câu hỏi tại Tab 1 để hiển thị đầy đủ Pipeline Trace của câu hỏi đó.")
-
-    st.divider()
-    st.markdown("### 📖 Hướng dẫn Đọc hiểu Chỉ số:")
-    c_info1, c_info2 = st.columns(2)
-    with c_info1:
-        st.markdown("""
-        * **BM25 Score**: Điểm số tần suất từ khóa Okapi. Điểm số **càng cao càng tốt** (không bị chặn trên).
-        * **Cosine Distance**: Khoảng cách hình học trong không gian vector. Khoảng cách **càng thấp càng tương đồng** (0.0 là trùng khớp hoàn hảo).
-        """)
-    with c_info2:
-        st.markdown("""
-        * **RRF Score**: Điểm hợp nhất thứ hạng nghịch đảo $\\frac{w}{k + rank}$. Điểm **càng cao càng tốt**.
-        * **Rerank Score**: Điểm tương quan qua hàm $\\text{Sigmoid}(\\text{logit}) \\in [0, 1]$. **Điểm càng cao càng tốt** (*Lưu ý: Không phải là xác suất đúng tuyệt đối*).
-        """)
-
-
-# ==============================================================================
-# TAB 4: ĐÁNH GIÁ BENCHMARK (EVALUATION REPORT)
-# ==============================================================================
-
-with tab4:
-    st.subheader("📊 Báo cáo Đánh giá Hiệu năng Định lượng")
-    st.caption("Tổng hợp kết quả kiểm thử trên bộ câu hỏi chuẩn (Ground Truth Benchmark).")
-
-    # Kiểm tra trạng thái tập câu hỏi chuẩn
-    questions_file = BASE_DIR / "eval" / "questions.json"
-    if questions_file.exists():
+def load_eval_questions_data() -> List[Dict[str, Any]]:
+    """Đọc bộ câu hỏi benchmark từ eval/questions.json."""
+    if EVAL_FILE.exists():
         try:
-            with open(questions_file, "r", encoding="utf-8") as f:
-                q_data = json.load(f)
-            unreviewed = sum(1 for q in q_data if q.get("needs_human_review", False))
-            if unreviewed > 0:
-                st.warning(f"⚠️ Bộ câu hỏi chuẩn (`eval/questions.json`) có **{unreviewed} câu hỏi đang được gắn cờ `needs_human_review=true`**. Kết quả đánh giá chỉ mang tính chất tham khảo cho đến khi được chuyên gia thẩm định hoàn tất.")
+            with open(EVAL_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
         except Exception:
-            pass
+            return []
+    return []
 
-    # Quét các file báo cáo trong thư mục reports/
-    reports_dir = BASE_DIR / "reports"
-    report_files = list(reports_dir.glob("*.json")) if reports_dir.exists() else []
 
-    if not report_files:
-        st.info("""
-        Chưa tìm thấy file báo cáo kết quả nào trong thư mục `reports/`.
-        
-        **Để sinh báo cáo đánh giá tự động:**
-        1. Mở terminal và thực thi module `evaluate.py`:
-           ```bash
-           python evaluate.py --strategy hierarchical
-           ```
-        2. Sau khi chạy xong, tải lại trang này để xem các biểu đồ và bảng chỉ số Hit@K, MRR@K, nDCG@K.
-        """)
-    else:
-        selected_report_file = st.selectbox(
-            "Chọn file báo cáo để xem chi tiết:",
-            options=[f.name for f in report_files]
+def load_available_reports() -> List[Path]:
+    """Tìm danh sách các file báo cáo JSON trong thư mục reports/."""
+    if REPORTS_DIR.exists():
+        return sorted(list(REPORTS_DIR.glob("*.json")), reverse=True)
+    return []
+
+
+# ============================================================================
+# MAIN APPLICATION
+# ============================================================================
+
+def main():
+    st.set_page_config(
+        page_title="Advanced RAG Studio - Buổi 08",
+        page_icon="⚖️",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+
+    # CSS tùy chỉnh giao diện chuyên nghiệp
+    st.markdown("""
+        <style>
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 0.2rem;
+        }
+        .sub-title {
+            font-size: 1.05rem;
+            color: #64748B;
+            margin-bottom: 1.5rem;
+        }
+        .metric-box {
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .evidence-card {
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+            background-color: #FFFFFF;
+        }
+        .evidence-card.accepted {
+            border-left: 5px solid #10B981;
+        }
+        .evidence-card.rejected {
+            border-left: 5px solid #EF4444;
+            background-color: #FFF5F5;
+        }
+        .badge-accepted {
+            background-color: #D1FAE5;
+            color: #065F46;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .badge-rejected {
+            background-color: #FEE2E2;
+            color: #991B1B;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .badge-mode {
+            background-color: #E0E7FF;
+            color: #3730A3;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Nạp cấu hình hiện tại
+    cfg = load_advanced_config()
+
+    # ========================================================================
+    # SIDEBAR: CẤU HÌNH & TRẠNG THÁI HỆ THỐNG
+    # ========================================================================
+    with st.sidebar:
+        st.header("⚙️ Cấu Hình RAG")
+
+        selected_strategy = st.selectbox(
+            "Chiến lược Chunking (Strategy):",
+            options=sorted(list(ALLOWED_STRATEGIES)),
+            index=sorted(list(ALLOWED_STRATEGIES)).index("hierarchical")
         )
-        try:
-            with open(reports_dir / selected_report_file, "r", encoding="utf-8") as f:
-                rep_data = json.load(f)
-            
-            st.markdown(f"**Chiến lược:** `{rep_data.get('strategy', 'N/A')}` | **Thời gian đánh giá:** `{rep_data.get('timestamp', 'N/A')}`")
-            if "metrics" in rep_data:
-                st.dataframe(rep_data["metrics"], use_container_width=True)
-            if "latency_stats" in rep_data:
-                st.write("**Thống kê độ trễ:**", rep_data["latency_stats"])
-        except Exception as e:
-            st.error(f"Lỗi đọc file báo cáo: {e}")
+
+        selected_mode = st.selectbox(
+            "Chế độ Retrieval (Mode):",
+            options=["hybrid_rerank", "hybrid", "semantic", "bm25"],
+            index=0,
+            help="hybrid_rerank: Two-stage retrieval với Cross-Encoder (mặc định)."
+        )
+
+        final_top_k = st.slider("Final Top-K:", min_value=1, max_value=15, value=cfg.get("final_top_k", 5))
+
+        with st.expander("🔧 Tham Số Chi Tiết (Advanced)", expanded=False):
+            bm25_cand_k = st.number_input("BM25 Candidate K:", min_value=1, max_value=50, value=cfg.get("bm25_candidates", 20))
+            semantic_cand_k = st.number_input("Semantic Candidate K:", min_value=1, max_value=50, value=cfg.get("semantic_candidates", 20))
+            rrf_k = st.number_input("RRF Smoothing K:", min_value=1, max_value=100, value=cfg.get("rrf_k", 60))
+            w_bm25 = st.slider("Trọng số BM25 (w_bm25):", min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+            w_sem = st.slider("Trọng số Semantic (w_sem):", min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+            rerank_min_score = st.slider("Rerank Min Score:", min_value=0.0, max_value=1.0, value=cfg.get("rerank_min_score", 0.50), step=0.05)
+
+        # Trạng thái hệ thống (Read-Only)
+        st.divider()
+        st.subheader("📡 Trạng Thái Hệ Thống")
+
+        status_info = get_advanced_status(strategy=selected_strategy)
+
+        if status_info["has_api_key"]:
+            st.success("🔑 Gemini API Key: **Đã cấu hình**")
+        else:
+            st.error("🔑 Gemini API Key: **Chưa có (.env)**")
+
+        if status_info["collection_exists"]:
+            st.success(f"🗄️ Chroma Index: **{status_info['record_count']} records**")
+        else:
+            st.warning("🗄️ Chroma Index: **Chưa index**")
+
+        st.info(f"📚 BM25 Corpus: **{status_info['corpus_size']} chunks**")
+        st.caption(f"🤖 Reranker: `{status_info['reranker_model']}`")
+        if status_info["reranker_cached"]:
+            st.caption("💾 Reranker Cache: `Đã có cache cục bộ`")
+        else:
+            st.caption("⏳ Reranker Cache: `Chưa cache (sẽ tải khi chạy)`")
+
+    # ========================================================================
+    # MAIN CONTENT: TABS GIAO DIỆN
+    # ========================================================================
+    st.markdown('<div class="main-title">⚖️ Advanced RAG Studio — Buổi 08</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Hệ thống hỏi đáp pháp lý nâng cao kết hợp Lexical (BM25), Dense Semantic, RRF Fusion & Cross-Encoder Reranking.</div>', unsafe_allow_html=True)
+
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "💬 1. Hỏi đáp Advanced RAG",
+        "📊 2. So sánh Retrieval",
+        "⏱️ 3. Pipeline Trace",
+        "📈 4. Đánh giá (Evaluation)"
+    ])
+
+    # ------------------------------------------------------------------------
+    # TAB 1: HỎI ĐÁP ADVANCED RAG
+    # ------------------------------------------------------------------------
+    with tab1:
+        st.subheader("Hỏi đáp với Grounding & Citation Mapping")
+
+        # Gợi ý câu hỏi mẫu từ eval/questions.json
+        sample_questions = [
+            "Cho vay theo quy định của Ngân hàng Nhà nước được định nghĩa như thế nào?",
+            "Khách hàng cần đáp ứng những điều kiện gì để được tổ chức tín dụng xem xét cho vay vốn?",
+            "Thời hạn cho vay giữa tổ chức tín dụng và khách hàng được xác định dựa trên những căn cứ nào?",
+            "Trường hợp nào áp dụng mức trần lãi suất cho vay ngắn hạn do Thống đốc NHNN quy định?",
+            "Tổ chức tín dụng xem xét cơ cấu lại thời hạn trả nợ theo những điều kiện nào?",
+            "Quy định về lắp đặt hệ thống chống sét và an toàn điện trong phòng cháy chữa cháy tòa nhà văn phòng?"
+        ]
+
+        preset_q = st.selectbox("Chọn câu hỏi mẫu hoặc tự nhập bên dưới:", options=["<Tự nhập câu hỏi>"] + sample_questions)
+        default_val = "" if preset_q == "<Tự nhập câu hỏi>" else preset_q
+
+        user_query = st.text_area("Nội dung câu hỏi:", value=default_val, height=85, placeholder="Nhập câu hỏi quy định tài chính - ngân hàng tại đây...")
+
+        col_btn1, col_btn2 = st.columns([1, 4])
+        with col_btn1:
+            run_query = st.button("🚀 Gửi câu hỏi", type="primary", use_container_width=True)
+
+        if run_query and user_query.strip():
+            with st.spinner("Đang thực hiện truy vấn qua quy trình Advanced RAG..."):
+                try:
+                    # Nạp config động từ UI
+                    dynamic_cfg = dict(cfg)
+                    dynamic_cfg["final_top_k"] = final_top_k
+                    dynamic_cfg["bm25_candidates"] = bm25_cand_k
+                    dynamic_cfg["semantic_candidates"] = semantic_cand_k
+                    dynamic_cfg["rrf_k"] = rrf_k
+                    dynamic_cfg["rrf_bm25_weight"] = w_bm25
+                    dynamic_cfg["rrf_semantic_weight"] = w_sem
+                    dynamic_cfg["rerank_min_score"] = rerank_min_score
+
+                    res = query_advanced_rag(
+                        question=user_query.strip(),
+                        mode=selected_mode,
+                        strategy=selected_strategy,
+                        top_k=final_top_k,
+                        config=dynamic_cfg
+                    )
+                    st.session_state["last_query_result"] = res
+
+                except Exception as e:
+                    st.error(f"Lỗi truy vấn: {e}")
+
+        # Hiển thị kết quả truy vấn gần nhất
+        if "last_query_result" in st.session_state:
+            res = st.session_state["last_query_result"]
+
+            st.divider()
+
+            # Status Badge
+            status_map = {
+                "answered": ("✅ Trả lời thành công (Grounded Answer)", "success"),
+                "insufficient_evidence": ("⚠️ Không đủ bằng chứng đạt ngưỡng tin cậy (Insufficient Evidence)", "warning"),
+                "retrieval_only": ("🔍 Chỉ truy xuất nguồn, chưa sinh câu trả lời (Retrieval Only)", "info"),
+                "reranker_unavailable": ("❌ Mô hình Reranker không khả dụng (Reranker Unavailable)", "error")
+            }
+            title, alert_type = status_map.get(res["status"], (res["status"], "info"))
+
+            if alert_type == "success":
+                st.success(f"**Trạng thái**: {title} | **Mode**: `{res['mode']}`")
+            elif alert_type == "warning":
+                st.warning(f"**Trạng thái**: {title} | **Mode**: `{res['mode']}`")
+            elif alert_type == "error":
+                st.error(f"**Trạng thái**: {title} | **Mode**: `{res['mode']}`")
+                st.info("💡 Hướng dẫn: Đảm bảo máy có kết nối Internet để tải mô hình `BAAI/bge-reranker-v2-m3` hoặc kiểm tra thư viện `torch`, `transformers`.")
+            else:
+                st.info(f"**Trạng thái**: {title} | **Mode**: `{res['mode']}`")
+
+            # Câu trả lời & Trích dẫn
+            st.markdown("### 📝 Câu trả lời tổng hợp")
+            st.markdown(res["answer"])
+
+            if res.get("citations"):
+                st.markdown("#### 📚 Nguồn trích dẫn (Citations)")
+                for cit in res["citations"]:
+                    st.markdown(f"- **{cit['label']}**: `{cit['source']}` (Trang {cit['page_start']}-{cit['page_end']}) — *Chunk ID: `{cit['chunk_id']}`*")
+
+            if res.get("warnings"):
+                with st.expander("⚠️ Cảnh báo trong quá trình xử lý"):
+                    for w in res["warnings"]:
+                        st.write(f"- {w}")
+
+            # Danh sách Evidence Cards
+            st.markdown("### 📑 Bằng chứng truy xuất (Evidence Cards)")
+            for ev in res.get("evidence", []):
+                card_class = "accepted" if ev["accepted"] else "rejected"
+                badge_html = '<span class="badge-accepted">ĐẠT CHUẨN</span>' if ev["accepted"] else '<span class="badge-rejected">BỊ LOẠI</span>'
+
+                scores_parts = []
+                if ev.get("rerank_score") is not None:
+                    scores_parts.append(f"Rerank Score: **{ev['rerank_score']:.4f}** (Rank #{ev['rerank_rank']}, Chg: `{ev['rank_change']:+d}`)")
+                if ev.get("rrf_score") is not None:
+                    scores_parts.append(f"RRF Score: **{ev['rrf_score']:.6f}** (Fused #{ev['fused_rank']})")
+                if ev.get("semantic_distance") is not None:
+                    scores_parts.append(f"Semantic Dist: **{ev['semantic_distance']:.4f}** (Rank #{ev['semantic_rank']})")
+                if ev.get("bm25_score") is not None:
+                    scores_parts.append(f"BM25 Score: **{ev['bm25_score']:.4f}** (Rank #{ev['bm25_rank']})")
+
+                scores_text = " | ".join(scores_parts)
+
+                with st.container():
+                    st.markdown(f"""
+                    <div class="evidence-card {card_class}">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <strong>[{ev['evidence_id']}] {ev['source']} (tr. {ev['page_start']}-{ev['page_end']})</strong>
+                            {badge_html}
+                        </div>
+                        <div style="font-size: 0.85rem; color: #475569; margin-bottom: 8px;">
+                            <code>ID: {ev['chunk_id']}</code> | {scores_text}
+                        </div>
+                        <div style="font-size: 0.95rem; line-height: 1.5; color: #1E293B;">
+                            {ev['text']}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+    # ------------------------------------------------------------------------
+    # TAB 2: SO SÁNH RETRIEVAL
+    # ------------------------------------------------------------------------
+    with tab2:
+        st.subheader("So Sánh Đối Đầu 4 Chế Độ Retrieval")
+        st.caption("Chạy đồng thời cùng một câu hỏi qua cả 4 chế độ: BM25, Semantic, Hybrid RRF và Hybrid + Reranker (TUYỆT ĐỐI KHÔNG gọi LLM Generation).")
+
+        cmp_query = st.text_input("Câu hỏi cần so sánh:", value=default_val or "Điều 7 quy định gì về điều kiện vay vốn?", key="cmp_query")
+        run_cmp = st.button("⚡ Chạy So Sánh Đối Đầu", type="primary")
+
+        if run_cmp and cmp_query.strip():
+            with st.spinner("Đang chạy đối đầu 4 nhánh retrieval..."):
+                try:
+                    dynamic_cfg = dict(cfg)
+                    dynamic_cfg["final_top_k"] = final_top_k
+                    dynamic_cfg["bm25_candidates"] = bm25_cand_k
+                    dynamic_cfg["semantic_candidates"] = semantic_cand_k
+                    dynamic_cfg["rrf_k"] = rrf_k
+                    dynamic_cfg["rrf_bm25_weight"] = w_bm25
+                    dynamic_cfg["rrf_semantic_weight"] = w_sem
+
+                    cmp_res = compare_retrieval_modes(
+                        question=cmp_query.strip(),
+                        strategy=selected_strategy,
+                        top_k=final_top_k,
+                        config=dynamic_cfg
+                    )
+                    st.session_state["last_compare_result"] = cmp_res
+                except Exception as e:
+                    st.error(f"Lỗi so sánh retrieval: {e}")
+
+        if "last_compare_result" in st.session_state:
+            cmp_res = st.session_state["last_compare_result"]
+            counts = cmp_res["mode_counts"]
+            lat = cmp_res["latency_ms"]
+
+            st.divider()
+
+            # Thống kê tổng quan
+            m1, m2, m3, m4, m5 = st.columns(5)
+            m1.metric("BM25 Top-K", f"{counts['bm25']}", f"{lat['bm25']} ms")
+            m2.metric("Semantic Top-K", f"{counts['semantic']}", f"{lat['semantic']} ms")
+            m3.metric("Hybrid RRF", f"{counts['hybrid']}", f"{lat['hybrid_fusion']} ms")
+            m4.metric("Rerank Top-K", f"{counts['hybrid_rerank']}", f"{lat['rerank']} ms")
+            m5.metric("Tổng Unique", f"{counts['union_distinct']}", f"Tổng {lat['total_comparison']} ms")
+
+            # Bảng so sánh tổng hợp
+            st.markdown("### 📋 Bảng Thứ Hạng Tổng Hợp")
+            df_rows = []
+            for r in cmp_res["comparison_rows"]:
+                b_r = f"#{r['bm25_rank']}" if r['bm25_rank'] else "-"
+                s_r = f"#{r['semantic_rank']}" if r['semantic_rank'] else "-"
+                h_r = f"#{r['hybrid_rank']}" if r['hybrid_rank'] else "-"
+                re_r = f"#{r['rerank_rank']}" if r['rerank_rank'] else "-"
+                chg = f"{r['rank_change']:+d}" if r['rank_change'] is not None else "-"
+                modes_str = " + ".join(r["modes_present"])
+
+                df_rows.append({
+                    "Chunk ID": r["chunk_id"],
+                    "BM25": b_r,
+                    "Semantic": s_r,
+                    "Hybrid RRF": h_r,
+                    "Rerank": re_r,
+                    "Rank Change": chg,
+                    "Xuất hiện tại": modes_str,
+                    "Nguồn": r["source"],
+                    "Trang": f"{r['page_start']}-{r['page_end']}"
+                })
+
+            st.dataframe(pd.DataFrame(df_rows), use_container_width=True, hide_index=True)
+
+            # 4 Cột hiển thị chi tiết
+            st.markdown("### 🔍 So Sánh Chi Tiết Từng Nhánh (Side-by-Side)")
+            c1, c2, c3, c4 = st.columns(4)
+
+            with c1:
+                st.markdown("#### 1. BM25 Sparse")
+                b_items = [r for r in cmp_res["comparison_rows"] if r["bm25_rank"] is not None]
+                b_items.sort(key=lambda x: x["bm25_rank"])
+                for it in b_items:
+                    st.info(f"**#{it['bm25_rank']}** Score: `{it['bm25_score']:.4f}`\n\n`{it['chunk_id']}`\n\n_{it['text'][:90]}..._")
+
+            with c2:
+                st.markdown("#### 2. Semantic Dense")
+                s_items = [r for r in cmp_res["comparison_rows"] if r["semantic_rank"] is not None]
+                s_items.sort(key=lambda x: x["semantic_rank"])
+                for it in s_items:
+                    st.info(f"**#{it['semantic_rank']}** Dist: `{it['semantic_distance']:.4f}`\n\n`{it['chunk_id']}`\n\n_{it['text'][:90]}..._")
+
+            with c3:
+                st.markdown("#### 3. Hybrid RRF")
+                h_items = [r for r in cmp_res["comparison_rows"] if r["hybrid_rank"] is not None]
+                h_items.sort(key=lambda x: x["hybrid_rank"])
+                for it in h_items:
+                    st.success(f"**#{it['hybrid_rank']}** RRF: `{it['rrf_score']:.6f}`\n\n`{it['chunk_id']}`\n\n_{it['text'][:90]}..._")
+
+            with c4:
+                st.markdown("#### 4. Cross-Encoder")
+                r_items = [r for r in cmp_res["comparison_rows"] if r["rerank_rank"] is not None]
+                r_items.sort(key=lambda x: x["rerank_rank"])
+                for it in r_items:
+                    chg_text = f"({it['rank_change']:+d})" if it['rank_change'] is not None else ""
+                    st.success(f"**#{it['rerank_rank']}** Score: `{it['rerank_score']:.4f}` {chg_text}\n\n`{it['chunk_id']}`\n\n_{it['text'][:90]}..._")
+
+    # ------------------------------------------------------------------------
+    # TAB 3: PIPELINE TRACE
+    # ------------------------------------------------------------------------
+    with tab3:
+        st.subheader("Phân Tích Pipeline Trace Nhiều Tầng")
+
+        if "last_query_result" in st.session_state:
+            trace = st.session_state["last_query_result"].get("trace", {})
+            lat = trace.get("latency_ms", {})
+
+            # Flow Cards
+            st.markdown("### 🔄 Dòng Chảy Ứng Viên (Candidate Funnel)")
+            f1, f2, f3, f4, f5 = st.columns(5)
+            f1.metric("1. BM25 Candidates", f"{trace.get('bm25_candidates', 0)}")
+            f2.metric("2. Semantic Candidates", f"{trace.get('semantic_candidates', 0)}")
+            f3.metric("3. Union / Overlap", f"{trace.get('union', 0)} / {trace.get('overlap', 0)}")
+            f4.metric("4. Reranked", f"{trace.get('reranked', 0)}")
+            f5.metric("5. Accepted Evidence", f"{trace.get('accepted', 0)}")
+
+            # Latency Breakdown
+            st.markdown("### ⏱️ Phân Rã Thời Gian Thực Thi (Latency Breakdown)")
+            lat_df = pd.DataFrame([
+                {"Giai đoạn": "1. BM25 Sparse Search", "Thời gian (ms)": lat.get("bm25", 0.0)},
+                {"Giai đoạn": "2. Semantic Dense Search", "Thời gian (ms)": lat.get("semantic", 0.0)},
+                {"Giai đoạn": "3. RRF Fusion", "Thời gian (ms)": lat.get("fusion", 0.0)},
+                {"Giai đoạn": "4. Cross-Encoder Rerank", "Thời gian (ms)": lat.get("rerank", 0.0)},
+                {"Giai đoạn": "5. LLM Grounded Generation", "Thời gian (ms)": lat.get("generation", 0.0)},
+                {"Giai đoạn": "👉 Tổng Pipeline", "Thời gian (ms)": lat.get("total", 0.0)},
+            ])
+            st.dataframe(lat_df, use_container_width=True, hide_index=True)
+
+        else:
+            st.info("💡 Hãy thực hiện một câu hỏi ở Tab 1 hoặc chạy So sánh ở Tab 2 để quan sát Pipeline Trace thực tế.")
+
+        # Hướng dẫn hiểu các thang đo
+        st.divider()
+        st.markdown("### 📖 Hướng Dẫn Ý Nghĩa & Thang Đo Điểm Số")
+        st.markdown(r"""
+        - **BM25 Score** ($[0, +\infty)$): Điểm khớp từ khóa theo tần suất từ và độ dài văn bản. Điểm càng cao càng liên quan.
+        - **Cosine Distance** ($[0, 2]$): Khoảng cách ngữ nghĩa vector trong ChromaDB. Giá trị **càng thấp càng gần nghĩa** ($0.0$ là hoàn toàn trùng khớp).
+        - **RRF Score**: Điểm tổng hợp nghịch đảo thứ hạng $1/(k + \text{rank})$. Điểm càng cao thứ bậc càng cao.
+        - **Cross-Encoder Score** ($\in [0, 1]$): Điểm chuẩn hóa Sigmoid của mô hình Cross-Encoder. **Lưu ý: Đây chỉ là điểm tương quan ngữ cảnh của mô hình, KHÔNG phải là xác suất chính xác tuyệt đối.**
+        """)
+
+    # ------------------------------------------------------------------------
+    # TAB 4: ĐÁNH GIÁ (EVALUATION)
+    # ------------------------------------------------------------------------
+    with tab4:
+        st.subheader("Báo Cáo Benchmark & Đánh Giá Định Lượng")
+
+        # Cảnh báo bộ câu hỏi Gold
+        st.warning("⚠️ **Lưu ý quan trọng**: Bộ câu hỏi benchmark (`eval/questions.json`) hiện có cờ `needs_human_review: true`, chưa được thẩm định bởi chuyên gia pháp lý. Các kết quả mang tính chất tham khảo thực nghiệm.")
+
+        # Đọc báo cáo trong reports/
+        reports = load_available_reports()
+
+        if not reports:
+            st.info("ℹ️ Chưa tìm thấy báo cáo benchmark nào trong thư mục `reports/`. Hãy chạy module `evaluate.py` để sinh báo cáo thực nghiệm.")
+        else:
+            selected_rep_path = st.selectbox("Chọn báo cáo benchmark để xem:", options=reports, format_func=lambda x: x.name)
+            try:
+                with open(selected_rep_path, "r", encoding="utf-8") as f:
+                    rep_data = json.load(f)
+
+                st.markdown(f"#### 📊 Dữ liệu báo cáo: `{selected_rep_path.name}`")
+                st.json(rep_data)
+            except Exception as e:
+                st.error(f"Lỗi đọc file báo cáo: {e}")
+
+        # Trình duyệt bộ câu hỏi đánh giá
+        st.divider()
+        st.markdown("### 🎯 Danh Sách Câu Hỏi Benchmark Chuẩn (`eval/questions.json`)")
+        eval_questions = load_eval_questions_data()
+
+        if eval_questions:
+            q_rows = []
+            for q in eval_questions:
+                q_rows.append({
+                    "ID": q.get("query_id"),
+                    "Câu hỏi": q.get("question"),
+                    "Scope": q.get("scope"),
+                    "Chunks liên quan": ", ".join(q.get("relevant_chunk_ids", [])),
+                    "Needs Human Review": str(q.get("needs_human_review"))
+                })
+            st.dataframe(pd.DataFrame(q_rows), use_container_width=True, hide_index=True)
+        else:
+            st.write("Không tìm thấy dữ liệu trong `eval/questions.json`.")
+
+
+if __name__ == "__main__":
+    main()

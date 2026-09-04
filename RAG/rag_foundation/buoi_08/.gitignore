@@ -2,6 +2,9 @@
 __pycache__/
 *.pyc
 storage/chroma/
-storage/huggingface/
-reports/*.json
+storage/bm25/
+storage/*.pkl
+storage/*.json
 .streamlit/
+reports/*.json
+reports/*.csv

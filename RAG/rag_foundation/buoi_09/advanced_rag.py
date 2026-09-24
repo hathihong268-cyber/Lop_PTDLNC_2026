@@ -727,8 +727,6 @@ def compute_rerank_scores(
     batch_size: int = 4,
     score_fn: Callable[[str, list[str]], list[float]] = None
 ) -> list[tuple[float, float]]:
-    import torch
-
     if score_fn is not None:
         raw_scores = score_fn(query, texts)
         results = []
@@ -737,6 +735,8 @@ def compute_rerank_scores(
             sig = 1.0 / (1.0 + math.exp(-s_float))
             results.append((round(s_float, 4), round(sig, 4)))
         return results
+
+    import torch
 
     if tokenizer is None or model is None:
         raise RuntimeError("reranker_unavailable: Tokenizer và Model chưa được cung cấp.")

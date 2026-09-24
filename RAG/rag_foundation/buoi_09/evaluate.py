@@ -41,14 +41,32 @@ QUESTIONS_FILE = BASE_DIR / "eval" / "questions.json"
 REPORTS_DIR = BASE_DIR / "reports"
 
 
-def load_eval_questions(file_path: Path = QUESTIONS_FILE) -> list[dict]:
+def load_eval_questions(file_path: Path = QUESTIONS_FILE, parents_by_id: dict = None) -> list[dict]:
     """
     Nạp danh sách câu hỏi đánh giá kèm nhãn liên quan (ground truth relevance).
+    Mỗi item phải có đầy đủ:
+    - question_id, question, question_type, relevant_child_ids, relevant_parent_ids, needs_human_review, notes.
+    - Nếu parents_by_id được cung cấp, xác thực tất cả parent IDs; stale IDs sẽ gây lỗi.
     """
     if not file_path.exists():
         raise FileNotFoundError(f"Không tìm thấy file câu hỏi benchmark: {file_path}")
     with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+    if not isinstance(data, list):
+        raise ValueError(f"File '{file_path.name}' phải là danh sách (JSON array) các câu hỏi.")
+
+    for idx, item in enumerate(data, start=1):
+        for req_field in ["question_id", "question", "question_type", "relevant_child_ids", "relevant_parent_ids"]:
+            if req_field not in item:
+                raise ValueError(f"Câu hỏi số {idx} thiếu trường bắt buộc '{req_field}': {item}")
+        if parents_by_id is not None:
+            for pid in item.get("relevant_parent_ids", []):
+                if pid not in parents_by_id:
+                    raise ValueError(
+                        f"stale_parent_id: Parent ID '{pid}' trong câu hỏi '{item.get('question_id')}' "
+                        f"không tồn tại trong hierarchy store hiện tại. Yêu cầu đồng bộ lại nhãn."
+                    )
+    return data
 
 
 def calculate_mrr_at_k(ranked_ids: list[str], gold_ids: set[str], k: int = 5) -> float:
@@ -106,7 +124,9 @@ def evaluate_single_mode(
     """
     Đánh giá một chế độ RAG trên toàn bộ tập câu hỏi:
     - Chạy ở tầng Retrieval-Only (KHÔNG gọi answer generation).
-    - Tính toán chi tiết các metric cho từng câu hỏi và tổng hợp toàn mode.
+    - Tính toán chi tiết các metric cho từng câu hỏi và tổng hợp toàn mode:
+      Child Recall@K, Parent Recall@K, MRR@K, nDCG@K, unique parents/sources,
+      query count, child union count, context chars, expansion factor, mean/p50 latency.
     """
     if config is None:
         config = load_buoi_09_config()
@@ -121,6 +141,10 @@ def evaluate_single_mode(
     latencies = []
     context_chars_list = []
     expansion_factors = []
+    unique_parents_counts = []
+    unique_sources_counts = []
+    query_counts = []
+    child_union_counts = []
 
     for q_item in questions:
         qid = q_item["question_id"]
@@ -167,7 +191,7 @@ def evaluate_single_mode(
                             mapped_parents.append(p_id)
             ranked_parent_ids = mapped_parents
 
-        # Tính toán các chỉ số
+        # Tính toán các chỉ số relevance
         p_recall = calculate_recall_at_k(ranked_parent_ids, gold_parent_ids, k=k_eval)
         c_recall = calculate_recall_at_k(ranked_child_ids, gold_child_ids, k=k_eval)
         
@@ -177,10 +201,16 @@ def evaluate_single_mode(
         mrr = calculate_mrr_at_k(eval_ids, eval_golds, k=k_eval)
         ndcg = calculate_ndcg_at_k(eval_ids, eval_golds, k=k_eval)
 
-        # Tính tổng số ký tự ngữ cảnh
+        # Tính tổng số ký tự ngữ cảnh & expansion factor
         ctx_chars = sum(len(e.get("text", "")) for e in accepted_ev)
         child_chars = sum(len(c.get("text", "")) for c in res.get("child_hits", []))
         exp_factor = round(ctx_chars / max(child_chars, 1), 2) if is_parent_mode else 1.0
+
+        # Unique relevant parents và sources
+        unique_parents = list(dict.fromkeys(ranked_parent_ids))
+        unique_sources = list(dict.fromkeys(e.get("source", "") for e in accepted_ev if e.get("source")))
+        q_count = len(res.get("query_set", {}).get("queries", [])) if res.get("query_set") else (config.get("multi_query_count", 3) + 1 if "multi" in mode else 1)
+        child_union = len(res.get("child_hits", []))
 
         child_recalls.append(c_recall)
         parent_recalls.append(p_recall)
@@ -189,6 +219,10 @@ def evaluate_single_mode(
         latencies.append(elapsed_ms)
         context_chars_list.append(ctx_chars)
         expansion_factors.append(exp_factor)
+        unique_parents_counts.append(len(unique_parents))
+        unique_sources_counts.append(len(unique_sources))
+        query_counts.append(q_count)
+        child_union_counts.append(child_union)
 
         per_question_results.append({
             "question_id": qid,
@@ -196,12 +230,18 @@ def evaluate_single_mode(
             "question_type": q_type,
             "status": res["status"],
             "retrieved_parents": ranked_parent_ids,
+            "unique_parents_count": len(unique_parents),
+            "unique_sources": unique_sources,
+            "unique_sources_count": len(unique_sources),
+            "query_count": q_count,
+            "child_union_count": child_union,
             "retrieved_children_count": len(ranked_child_ids),
             "parent_recall_at_k": round(p_recall, 4),
             "child_recall_at_k": round(c_recall, 4),
             "mrr_at_k": round(mrr, 4),
             "ndcg_at_k": round(ndcg, 4),
             "context_chars": ctx_chars,
+            "expansion_factor": exp_factor,
             "latency_ms": elapsed_ms,
             "warnings": res.get("warnings", [])
         })
@@ -213,6 +253,10 @@ def evaluate_single_mode(
         "mean_child_recall_at_k": round(statistics.mean(child_recalls), 4) if child_recalls else 0.0,
         "mean_mrr_at_k": round(statistics.mean(mrrs), 4) if mrrs else 0.0,
         "mean_ndcg_at_k": round(statistics.mean(ndcgs), 4) if ndcgs else 0.0,
+        "mean_unique_parents_retrieved": round(statistics.mean(unique_parents_counts), 2) if unique_parents_counts else 0.0,
+        "mean_unique_sources_retrieved": round(statistics.mean(unique_sources_counts), 2) if unique_sources_counts else 0.0,
+        "mean_query_count": round(statistics.mean(query_counts), 1) if query_counts else 1.0,
+        "mean_child_union_count": round(statistics.mean(child_union_counts), 1) if child_union_counts else 0.0,
         "mean_context_chars": round(statistics.mean(context_chars_list), 1) if context_chars_list else 0,
         "mean_expansion_factor": round(statistics.mean(expansion_factors), 2) if expansion_factors else 1.0,
         "mean_latency_ms": round(statistics.mean(latencies), 2) if latencies else 0.0,
@@ -238,16 +282,20 @@ def run_full_evaluation(
     - Cập nhật reports/latest_report.json.
     """
     config = load_buoi_09_config()
-    questions = load_eval_questions(questions_file)
 
+    reports_dir = Path(reports_dir)
     reports_dir.mkdir(parents=True, exist_ok=True)
 
-    # Nạp Hierarchy Registry để mapping
+    # Nạp Hierarchy Registry để mapping và kiểm tra tính toàn vẹn
     children_by_id = {}
+    parents_by_id = {}
     try:
-        _, children_by_id, manifest_data = load_hierarchy_store(storage_dir=HIERARCHY_STORAGE_DIR)
+        parents_by_id, children_by_id, manifest_data = load_hierarchy_store(storage_dir=HIERARCHY_STORAGE_DIR)
     except Exception:
         pass
+
+    # Nạp và xác thực câu hỏi (stale IDs phải fail nếu store có sẵn)
+    questions = load_eval_questions(questions_file, parents_by_id=parents_by_id if parents_by_id else None)
 
     timestamp_str = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d_%H%M%S")
 
@@ -302,11 +350,87 @@ def run_full_evaluation(
 
 
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Buổi 09 RAG Evaluation Engine (Retrieval-Only Benchmark)")
+    parser.add_argument("--mock", action="store_true", help="Chạy đánh giá benchmark offline với mock retriever và score_fn")
+    parser.add_argument("--questions", type=str, default=str(QUESTIONS_FILE), help="Đường dẫn file câu hỏi benchmark")
+    parser.add_argument("--reports-dir", type=str, default=str(REPORTS_DIR), help="Đường dẫn thư mục lưu trữ báo cáo")
+    args = parser.parse_args()
+
     print("=========================================================================================")
     print("CHƯƠNG TRÌNH ĐÁNH GIÁ VÀ ĐỐI CHUẨN HIỆU NĂNG RAG (Buổi 09 Evaluator)")
     print("=========================================================================================")
+
+    q_file = Path(args.questions)
+    rep_dir = Path(args.reports_dir)
+
+    custom_hybrid = None
+    custom_score = None
+    custom_gen = None
+
+    if args.mock:
+        print("[CHẾ ĐỘ MOCK OFFLINE]: Sử dụng mock retriever và deterministic score_fn.")
+
+        # Nạp children từ hierarchy store nếu có sẵn
+        loaded_children = []
+        try:
+            _, children_dict, _ = load_hierarchy_store(storage_dir=HIERARCHY_STORAGE_DIR)
+            loaded_children = list(children_dict.values())
+        except Exception:
+            pass
+
+        def mock_hybrid(q: str) -> list[dict]:
+            # Trả về các child chunk đại diện từ store
+            if loaded_children:
+                selected = loaded_children[:5]
+                return [
+                    {
+                        "child_id": c["child_id"],
+                        "chunk_id": c["child_id"],
+                        "text": c["text"][:200],
+                        "source": c["source"],
+                        "page_start": c["page_start"],
+                        "page_end": c["page_end"],
+                        "fused_rank": idx + 1
+                    }
+                    for idx, c in enumerate(selected)
+                ]
+            return [
+                {
+                    "child_id": "TT_39_2016_NHNN:hierarchical:0050",
+                    "chunk_id": "TT_39_2016_NHNN:hierarchical:0050",
+                    "text": "Điều 8 sample text",
+                    "source": "TT_39_2016_NHNN.pdf",
+                    "page_start": 4,
+                    "page_end": 5,
+                    "fused_rank": 1
+                }
+            ]
+
+        def mock_score(q: str, texts: list[str]) -> list[float]:
+            return [1.5 for _ in texts]
+
+        def mock_gen(q: str) -> str:
+            return json.dumps({
+                "queries": [
+                    {"text": f"{q} (biến thể pháp lý)", "focus": "legal_focus"},
+                    {"text": f"{q} (thuật ngữ chuyên môn)", "focus": "terminology"}
+                ]
+            })
+
+        custom_hybrid = mock_hybrid
+        custom_score = mock_score
+        custom_gen = mock_gen
+
     try:
-        report = run_full_evaluation()
+        report = run_full_evaluation(
+            questions_file=q_file,
+            reports_dir=rep_dir,
+            custom_hybrid_fn=custom_hybrid,
+            query_generator_fn=custom_gen,
+            score_fn=custom_score
+        )
         print(f"Thời điểm đánh giá (UTC) : {report['timestamp_utc']}")
         print(f"Số lượng câu hỏi benchmark: {report['questions_count']}")
         print("-" * 105)
@@ -316,7 +440,7 @@ def main():
             print(f"{m_name:<16} | {m_data['mean_parent_recall_at_k']:<16.2%} | {m_data['mean_child_recall_at_k']:<16.2%} | {m_data['mean_mrr_at_k']:<8.4f} | {m_data['mean_ndcg_at_k']:<8.4f} | {m_data['p50_latency_ms']:<9.1f} ms | {m_data['mean_context_chars']:<14.1f}")
         print("-" * 105)
         print("LƯU Ý: Đánh giá hoàn toàn ở tầng Retrieval & Reranking; KHÔNG gọi Gemini Generation API.")
-        print(f"Báo cáo đã được lưu trữ tại: reports/latest_report.json")
+        print(f"Báo cáo đã được lưu trữ tại: {rep_dir / 'latest_report.json'}")
     except Exception as e:
         print(f"LỖI EVALUATION: {e}", file=sys.stderr)
         sys.exit(1)

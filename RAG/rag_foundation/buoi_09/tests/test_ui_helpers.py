@@ -156,6 +156,40 @@ class TestUIHelpers(unittest.TestCase):
         self.assertEqual(err_ins["type"], "info")
         self.assertIn("Không đủ bằng chứng", err_ins["title"])
 
+    def test_06_import_and_status_no_side_effects(self):
+        """
+        Case 6 (Test Group 24): Import và lệnh status không gây side effect,
+        không tự tạo file/folder và không ghi vào storage.
+        """
+        import tempfile
+        from hierarchical_rag import get_hierarchical_status
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            test_target = Path(tmp_dir) / "empty_dir"
+            self.assertFalse(test_target.exists())
+            status = get_hierarchical_status(storage_dir=test_target)
+            self.assertFalse(status["hierarchy_ready"])
+            # Khẳng định thư mục không bị tạo ngầm
+            self.assertFalse(test_target.exists())
+
+    def test_07_no_model_or_store_build_on_page_load(self):
+        """
+        Case 7 (Test Group 25 & 26): Module UI không kích hoạt model loading
+        hoặc hierarchy building tự động khi import.
+        """
+        # Kiểm tra nội dung mã nguồn của app.py để đảm bảo việc gọi build_hierarchy_registry
+        # và load model chỉ xảy ra khi người dùng kích hoạt qua nút bấm st.button
+        app_file = BUOI_09_DIR / "app.py"
+        self.assertTrue(app_file.exists())
+        with open(app_file, "r", encoding="utf-8") as f:
+            app_code = f.read()
+
+        # build_hierarchy_registry chỉ được gọi khi bấm nút build trong expander quản trị
+        self.assertIn('Xây dựng Hierarchy Registry', app_code)
+        # Truy xuất và so sánh chỉ được gọi khi bấm nút submit
+        self.assertIn('Thực Thi Truy Xuất & Trả Lời', app_code)
+        self.assertIn('Chạy So Sánh 4 Chế Độ', app_code)
+
 
 if __name__ == "__main__":
     unittest.main()

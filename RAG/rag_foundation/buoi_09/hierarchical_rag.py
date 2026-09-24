@@ -2383,7 +2383,7 @@ def compare_hierarchical_rag(
 
         if top1_item:
             top1_score = top1_item.get("parent_rerank_score", top1_item.get("rerank_score", 0.0))
-            top1_id = top1_item.get("parent_id", top1_item.get("chunk_id", "N/A"))
+            top1_id = top1_item.get("parent_id") or top1_item.get("chunk_id") or top1_item.get("child_id") or "N/A"
             top1_source = top1_item.get("source", "N/A")
             st = top1_item.get("structural_path", {})
             top1_law = f"Điều {st.get('article')}" if st.get("article") else "Văn bản mở đầu"

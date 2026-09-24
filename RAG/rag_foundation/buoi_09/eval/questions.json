@@ -76,5 +76,70 @@
     "relevant_parent_ids": [],
     "needs_human_review": true,
     "notes": "Câu hỏi nằm ngoài phạm vi tài liệu (out-of-scope), hệ thống phải từ chối hoặc trả về rỗng."
+  },
+  {
+    "question_id": "Q06",
+    "question": "Thời hạn cho vay được xác định căn cứ vào những yếu tố nào theo Điều 11 Thông tư 39/2016?",
+    "question_type": "exact",
+    "relevant_child_ids": [
+      "TT_39_2016_NHNN:hierarchical:0062",
+      "TT_39_2016_NHNN:hierarchical:0063"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN:d11:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi exact tra cứu Điều 11 Thông tư 39/2016 về thời hạn cho vay."
+  },
+  {
+    "question_id": "Q07",
+    "question": "Ngân hàng và người vay vốn thỏa thuận về lãi suất vay và đồng tiền trả nợ thế nào?",
+    "question_type": "paraphrase",
+    "relevant_child_ids": [
+      "TT_39_2016_NHNN:hierarchical:0064",
+      "TT_39_2016_NHNN:hierarchical:0065"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN:d12:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi paraphrase về lãi suất cho vay và đồng tiền trả nợ theo Điều 12 Thông tư 39/2016."
+  },
+  {
+    "question_id": "Q08",
+    "question": "Quy định về thẩm định tín dụng và cho vay bằng phương tiện điện tử gồm những điều kiện gì?",
+    "question_type": "multi_aspect",
+    "relevant_child_ids": [
+      "TT_06_2023_NHNN:hierarchical:0042",
+      "TT_06_2023_NHNN:hierarchical:0043"
+    ],
+    "relevant_parent_ids": [
+      "TT_06_2023_NHNN:d32a:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi multi-aspect về hoạt động cho vay điện tử bổ sung tại Điều 32a Thông tư 06/2023."
+  },
+  {
+    "question_id": "Q09",
+    "question": "Phạm vi điều chỉnh và nguyên tắc áp dụng của Thông tư 02/2023 về hỗ trợ khách hàng gặp khó khăn?",
+    "question_type": "hierarchy_context",
+    "relevant_child_ids": [
+      "TT_02_2023_NHNN:hierarchical:0004"
+    ],
+    "relevant_parent_ids": [
+      "TT_02_2023_NHNN:d01:w01",
+      "TT_02_2023_NHNN:d02:w01"
+    ],
+    "needs_human_review": true,
+    "notes": "Câu hỏi hierarchy context liên kết Điều 1 (phạm vi) và Điều 2 (nguyên tắc) Thông tư 02/2023."
+  },
+  {
+    "question_id": "Q10",
+    "question": "Thủ tục mở tài khoản thanh toán cá nhân tại ngân hàng thương mại cần những giấy tờ gì?",
+    "question_type": "out_of_scope",
+    "relevant_child_ids": [],
+    "relevant_parent_ids": [],
+    "needs_human_review": true,
+    "notes": "Câu hỏi out-of-scope về thủ tục mở tài khoản thanh toán không thuộc phạm vi Thông tư 39/2016, 06/2023, 02/2023."
   }
 ]

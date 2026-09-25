@@ -11,14 +11,24 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 import numpy as np
 import pandas as pd
-import torch
-import torch.nn.functional as F
-from transformers import AutoTokenizer, AutoModel
+
+try:
+    import torch
+    import torch.nn.functional as F
+    from transformers import AutoTokenizer, AutoModel
+    TORCH_AVAILABLE = True
+except ImportError:
+    torch = None
+    F = None
+    AutoTokenizer = None
+    AutoModel = None
+    TORCH_AVAILABLE = False
 
 from src.citation import format_citation
 
 MODEL_NAME = "thuannc/vi-distilled-msmarco-MiniLM-L12-cos-v5"
 EMBEDDING_DIM = 384
+
 
 
 class DenseRetriever:
@@ -49,7 +59,7 @@ class DenseRetriever:
         self.chunk_ids = [c["chunk_id"] for c in self.chunks]
 
         # Quản lý Model & Tokenizer (Lazy loading)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if TORCH_AVAILABLE else "cpu"
         self._tokenizer = None
         self._model = None
 

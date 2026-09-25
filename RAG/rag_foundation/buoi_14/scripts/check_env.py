@@ -29,12 +29,20 @@ import neo4j
 print(f"      ✓ neo4j: {neo4j.__version__}")
 
 print("[3/4] Kiểm tra sentence-transformers & transformers...")
-import sentence_transformers
-import transformers
-import torch
-print(f"      ✓ sentence-transformers: {sentence_transformers.__version__}")
-print(f"      ✓ transformers: {transformers.__version__}")
-print(f"      ✓ torch: {torch.__version__} (CUDA available: {torch.cuda.is_available()})")
+try:
+    import sentence_transformers
+    print(f"      ✓ sentence-transformers: {sentence_transformers.__version__}")
+except ImportError:
+    print("      ℹ sentence-transformers: Chưa cài đặt (Sử dụng cache / BM25)")
+
+try:
+    import transformers
+    import torch
+    print(f"      ✓ transformers: {transformers.__version__}")
+    print(f"      ✓ torch: {torch.__version__} (CUDA available: {torch.cuda.is_available()})")
+except ImportError:
+    print("      ℹ torch / transformers: Chưa cài đặt (Sử dụng cache / BM25)")
+
 
 print("[4/4] Kiểm tra streamlit...")
 import streamlit as st

@@ -9,8 +9,15 @@ import math
 import time
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+try:
+    import torch
+    from transformers import AutoTokenizer, AutoModelForSequenceClassification
+    TORCH_AVAILABLE = True
+except ImportError:
+    torch = None
+    AutoTokenizer = None
+    AutoModelForSequenceClassification = None
+    TORCH_AVAILABLE = False
 
 MODEL_NAME = "BAAI/bge-reranker-base"
 
@@ -33,13 +40,17 @@ class CrossEncoderReranker:
         self.max_length = max_length
         self.batch_size = batch_size
 
-        if device == "auto":
-            self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if TORCH_AVAILABLE:
+            if device == "auto":
+                self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            else:
+                self.device = torch.device(device)
         else:
-            self.device = torch.device(device)
+            self.device = "cpu"
 
         self._tokenizer = None
         self._model = None
+
 
     def _load_model(self):
         """Lazy loading: Chỉ tải mô hình vào RAM khi thực sự bắt đầu rerank."""

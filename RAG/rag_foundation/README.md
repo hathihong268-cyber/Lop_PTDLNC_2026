@@ -18,6 +18,7 @@ Thư mục lưu trữ mã nguồn, bài thực hành và tài liệu nghiên c�
 | **Buổi 12** | Metadata Enrichment & Knowledge Graph | Pipeline 9 bước làm giàu metadata văn bản pháp quy ngân hàng với Gemini & Neo4j. | ✅ Hoàn thành |
 | **Buổi 13** | Wiki Risk Graph (Vibe Coding) | Xây dựng Wiki đồ thị rủi ro với Obsidian Vault, Graph View và Neo4j Cypher. | ✅ Hoàn thành |
 | **Buổi 14** | Hybrid Search + Reranking + Mini KG | Nâng cấp RAG với BM25, Dense Vector, RRF Fusion, Cross-Encoder Reranker và Mini KG Neo4j. | ✅ Hoàn thành |
+| **Buổi 15** | Role-Based Access Control (RBAC) | Cài đặt kiểm soát truy cập phân quyền mức dữ liệu và tích hợp Secure Retrieval Pipeline. | ✅ Hoàn thành |
 
 ---
 
@@ -41,4 +42,12 @@ Thư mục lưu trữ mã nguồn, bài thực hành và tài liệu nghiên c�
 - Benchmark định lượng trên 12 câu hỏi vàng: Nâng MRR từ 0.4611 lên 0.8083 và Hit@1 lên 75.0%.
 - Mini Knowledge Graph với 15 `:VanBan`, 720 `:DieuKhoan`, 720 `[:CONTAINS]`, 705 `[:NEXT]` và 8 quan hệ pháp lý liên văn bản trên Neo4j.
 - Giao diện Streamlit Dashboard đa năng tích hợp trích xuất gợi ý quan hệ đồ thị (Graph Hints).
+
+### 📌 [Buổi 15: Kiểm Soát Truy Cập RBAC Ở Mức Dữ Liệu & Retrieval Pipeline](buoi_14/Cac%20lenh%20chay%20buoi_15.txt)
+- Thiết lập 5 vai trò phân quyền: `Admin`, `HR_Manager`, `Risk_Officer`, `Employee`, `Guest`.
+- Gán thẻ bảo mật `allowed_roles` tự động cho 720 chunks (`chunks_secure.csv`) và đồng bộ lên Node `:VanBan`, `:DieuKhoan` trong Neo4j.
+- Secure Retrieval Pipeline đa tầng (BM25, Dense, Hybrid, Reranker, Graph Hints) đảm bảo 100% kết quả và ứng viên được lọc quyền truy cập trước khi xếp hạng.
+- Bộ kiểm định bảo mật tự động `security_audit.py` đạt 100% Pass Rate (0 data leakage).
+- Ứng dụng Streamlit RBAC `app_secure.py` hỗ trợ đóng vai (Impersonate Role) và mô phỏng so sánh đa vai trò.
+
 

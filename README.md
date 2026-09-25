@@ -19,7 +19,8 @@ Lop_PTDLNC_2026/
 │       ├── buoi_11/     # RAG Evaluation & Đánh giá tự động với LLM-as-a-Judge
 │       ├── buoi_12/     # Chuẩn hóa, Làm giàu Metadata & Xây dựng Đồ thị Tri thức (9 Bước)
 │       ├── buoi_13/     # Wiki Risk Graph (Vibe Coding với Obsidian & Neo4j)
-│       └── buoi_14/     # Hybrid Search + Reranking + Mini Knowledge Graph
+│       ├── buoi_14/     # Hybrid Search + Reranking + Mini Knowledge Graph
+│       └── buoi_15/     # (Triển khai tại buoi_14) Role-Based Access Control (RBAC) & Secure Retrieval
 └── README.md
 `
 
@@ -45,3 +46,10 @@ Lop_PTDLNC_2026/
 - Benchmark định lượng trên 12 câu hỏi vàng: Nâng MRR từ 0.4611 lên 0.8083 và Hit@1 lên 75.0%.
 - Mini Knowledge Graph với 15 :VanBan, 720 :DieuKhoan, 720 [:CONTAINS], 705 [:NEXT] và 8 quan hệ pháp lý liên văn bản trên Neo4j.
 - Giao diện Streamlit Dashboard đa năng tích hợp trích xuất gợi ý quan hệ đồ thị (Graph Hints).
+
+### 🔹 [Buổi 15: Phân Quyền RBAC Mức Dữ Liệu & Secure Retrieval Pipeline](RAG/rag_foundation/buoi_14/Cac%20lenh%20chay%20buoi_15.txt)
+- Thiết kế 5 vai trò nghiệp vụ: Admin, HR_Manager, Risk_Officer, Employee, Guest.
+- Gán thẻ bảo mật llowed_roles tự động cho 720 chunks (chunks_secure.csv) và cập nhật lên Node :VanBan, :DieuKhoan trong Neo4j.
+- Pre-filtering và Post-filtering đảm bảo 100% ứng viên đưa sang Cross-Encoder Reranker đều thuộc quyền truy cập của người dùng.
+- Bộ kiểm định an toàn tự động security_audit.py đạt 100% Pass Rate trên 6 kịch bản rò rỉ dữ liệu.
+- Ứng dụng Streamlit RBAC pp_secure.py với tính năng đóng vai người dùng và so sánh kết quả đa vai trò.

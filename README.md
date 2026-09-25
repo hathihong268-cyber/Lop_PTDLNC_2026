@@ -18,7 +18,8 @@ Lop_PTDLNC_2026/
 │       ├── buoi_10/     # Knowledge Graph RAG & Trực quan hóa Neo4j
 │       ├── buoi_11/     # RAG Evaluation & Đánh giá tự động với LLM-as-a-Judge
 │       ├── buoi_12/     # Chuẩn hóa, Làm giàu Metadata & Xây dựng Đồ thị Tri thức (9 Bước)
-│       └── buoi_13/     # Wiki Risk Graph (Vibe Coding với Obsidian & Neo4j)
+│       ├── buoi_13/     # Wiki Risk Graph (Vibe Coding với Obsidian & Neo4j)
+│       └── buoi_14/     # Hybrid Search + Reranking + Mini Knowledge Graph
 └── README.md
 `
 
@@ -37,3 +38,10 @@ Lop_PTDLNC_2026/
 - Chuẩn hóa 34 thực thể (RuiRo, KiemSoat, SuKienRuiRo) và 22 liên kết hạt nhân (MITIGATES, OBSERVED_AS).
 - Khởi tạo Vault Obsidian 35 trang với liên kết 2 chiều và cấu hình Graph View.
 - Báo cáo kiểm định toàn vẹn 0 lỗi gãy link và tích hợp đồng bộ dữ liệu vào Neo4j.
+
+### 🔹 [Buổi 14: Nâng Cấp RAG Với Hybrid Search + Reranking & Mini Knowledge Graph](RAG/rag_foundation/buoi_14/README.md)
+- Chuẩn hóa corpus 720 chunks từ 15 văn bản pháp quy ngân hàng.
+- Hợp nhất 4 tầng retrieval: BM25 (Lexical) + Dense (Vector Embedding) + Hybrid RRF + Cross-Encoder Reranker (ge-reranker-base).
+- Benchmark định lượng trên 12 câu hỏi vàng: Nâng MRR từ 0.4611 lên 0.8083 và Hit@1 lên 75.0%.
+- Mini Knowledge Graph với 15 :VanBan, 720 :DieuKhoan, 720 [:CONTAINS], 705 [:NEXT] và 8 quan hệ pháp lý liên văn bản trên Neo4j.
+- Giao diện Streamlit Dashboard đa năng tích hợp trích xuất gợi ý quan hệ đồ thị (Graph Hints).

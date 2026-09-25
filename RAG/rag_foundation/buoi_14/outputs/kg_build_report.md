@@ -36,4 +36,5 @@
 ---
 
 ## 4. Các Truy Vấn Khám Phá Mẫu (Demo Cypher)
-Xem chi tiết và thực thi tại file [demo_queries.cypher](file:///c:/Users/admins/Desktop/05_m%E1%BA%ABu/Rag_thuchanh/RAG/rag_foundation/buoi_14/cypher/demo_queries.cypher).
+Xem chi tiết và thực thi tại file [demo_queries.cypher](file:///d:/Lop%20PTDLNC%202026/RAG/rag_foundation/buoi_14/cypher/demo_queries.cypher).
+

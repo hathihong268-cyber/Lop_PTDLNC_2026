@@ -160,3 +160,14 @@ Các truy vấn được lưu sẵn trong [`cypher/demo_queries.cypher`](file://
   WHERE coalesce(r.verification_status, 'PROPOSED') <> 'VERIFIED'
   RETURN s.id, type(r), t.id, r.confidence, r.verification_status;
   ```
+
+---
+
+## 🎯 7. Tiêu Chí Đạt & Kết Quả Kiểm Thử Toàn Vẹn
+
+Dự án đã vượt qua 100% các tiêu chí kiểm thử kỹ thuật theo báo cáo `outputs/wiki_validation_report.md`:
+- ✅ **Đọc đúng 4 file seed**: Không sót dòng, kiểm tra toàn vẹn khóa chính và tham chiếu.
+- ✅ **Bảo toàn dữ liệu nguồn**: Giữ nguyên `evidence_quote`, `confidence`, `verification_status` và mã tham chiếu `owner_unit_id`, `owner_role_id` (không tự bịa tên).
+- ✅ **Wiki Obsidian hoàn chỉnh**: 35 tệp Markdown với 112 liên kết hai chiều hoạt động chuẩn xác, 0 broken link, 0 orphan page.
+- ✅ **Neo4j Production-Ready**: Hỗ trợ nạp an toàn bằng Parameterized Cypher & MERGE, bảo mật biến môi trường `.env`, cung cấp đầy đủ truy vấn đa tầng từ Query A đến F.
+

@@ -1,0 +1,92 @@
+[
+  {
+    "chunk_id": "TT_39_2016_NHNN:hierarchical:0010",
+    "strategy": "hierarchical",
+    "source": "TT_39_2016_NHNN.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "Điều 7. Điều kiện vay vốn\nTổ chức tín dụng xem xét, quyết định cho vay khi khách hàng có đủ các điều kiện sau đây:\n1. Khách hàng là pháp nhân có năng lực pháp luật dân sự theo quy định của pháp luật. Khách hàng là cá nhân từ đủ 18 tuổi trở lên có năng lực hành vi dân sự đầy đủ theo quy định của pháp luật hoặc từ đủ 15 tuổi đến chưa đủ 18 tuổi không bị mất hoặc hạn chế năng lực hành vi dân sự theo quy định của pháp luật.",
+    "structure": {
+      "chapter": "Chương I: QUY ĐỊNH CHUNG",
+      "article": "Điều 7. Điều kiện vay vốn",
+      "clause": "1. Khách hàng là pháp nhân có năng lực pháp luật dân sự theo quy định của pháp luật..."
+    }
+  },
+  {
+    "chunk_id": "TT_39_2016_NHNN:hierarchical:0011",
+    "strategy": "hierarchical",
+    "source": "TT_39_2016_NHNN.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "2. Nhu cầu vay vốn để sử dụng vào mục đích hợp pháp.",
+    "structure": {
+      "clause": "2. Nhu cầu vay vốn để sử dụng vào mục đích hợp pháp."
+    }
+  },
+  {
+    "chunk_id": "TT_39_2016_NHNN:hierarchical:0012",
+    "strategy": "hierarchical",
+    "source": "TT_39_2016_NHNN.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "3. Có phương án sử dụng vốn khả thi.",
+    "structure": {
+      "clause": "3. Có phương án sử dụng vốn khả thi."
+    }
+  },
+  {
+    "chunk_id": "TT_39_2016_NHNN:hierarchical:0013",
+    "strategy": "hierarchical",
+    "source": "TT_39_2016_NHNN.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "4. Có khả năng tài chính để trả nợ.",
+    "structure": {
+      "clause": "4. Có khả năng tài chính để trả nợ."
+    }
+  },
+  {
+    "chunk_id": "TT_02_2023_NHNN:hierarchical:0005",
+    "strategy": "hierarchical",
+    "source": "TT_02_2023_NHNN.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "text": "Điều 4. Cơ cấu lại thời hạn trả nợ\nTổ chức tín dụng, chi nhánh ngân hàng nước ngoài được xem xét quyết định cơ cấu lại thời hạn trả nợ đối với số dư nợ gốc và/hoặc lãi của khoản nợ trên cơ sở đề nghị của khách hàng, khả năng tài chính của tổ chức tín dụng, chi nhánh ngân hàng nước ngoài và đáp ứng các quy định sau đây:",
+    "structure": {
+      "article": "Điều 4. Cơ cấu lại thời hạn trả nợ"
+    }
+  },
+  {
+    "chunk_id": "TT_02_2023_NHNN:hierarchical:0006",
+    "strategy": "hierarchical",
+    "source": "TT_02_2023_NHNN.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "text": "1. Dư nợ gốc phát sinh trước ngày Thông tư này có hiệu lực thi hành và từ hoạt động cho vay, cho thuê tài chính.",
+    "structure": {
+      "clause": "1. Dư nợ gốc phát sinh trước ngày Thông tư này có hiệu lực thi hành và từ hoạt động cho vay, cho thuê tài chính."
+    }
+  },
+  {
+    "chunk_id": "TT_02_2023_NHNN:hierarchical:0007",
+    "strategy": "hierarchical",
+    "source": "TT_02_2023_NHNN.pdf",
+    "page_start": 3,
+    "page_end": 3,
+    "text": "2. Phát sinh nghĩa vụ trả nợ gốc và/hoặc lãi trong khoảng thời gian từ ngày Thông tư này có hiệu lực thi hành đến hết ngày 30 tháng 6 năm 2024.",
+    "structure": {
+      "clause": "2. Phát sinh nghĩa vụ trả nợ gốc và/hoặc lãi trong khoảng thời gian từ ngày Thông tư này có hiệu lực thi hành đến hết ngày 30 tháng 6 năm 2024."
+    }
+  },
+  {
+    "chunk_id": "TT_06_2023_NHNN:hierarchical:0006",
+    "strategy": "hierarchical",
+    "source": "TT_06_2023_NHNN.pdf",
+    "page_start": 2,
+    "page_end": 3,
+    "text": "2. Sửa đổi, bổ sung Điều 8 như sau:\n“Điều 8. Những nhu cầu vốn không được cho vay\nTổ chức tín dụng không được cho vay đối với các nhu cầu vốn:\n1. Để thực hiện các hoạt động đầu tư kinh doanh thuộc ngành, nghề cấm đầu tư kinh doanh theo quy định của Luật Đầu tư.\n2. Để thanh toán các chi phí, đáp ứng các nhu cầu vốn của hoạt động đầu tư kinh doanh thuộc ngành, nghề cấm đầu tư kinh doanh.”",
+    "structure": {
+      "clause": "2. Sửa đổi, bổ sung Điều 8 như sau:"
+    }
+  }
+]

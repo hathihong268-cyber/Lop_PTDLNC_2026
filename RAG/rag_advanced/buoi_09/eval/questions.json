@@ -1,0 +1,51 @@
+[
+  {
+    "query_id": "Q01",
+    "question": "Khách hàng cần đáp ứng những điều kiện gì để được tổ chức tín dụng xem xét cho vay vốn?",
+    "relevant_chunk_ids": [
+      "TT_39_2016_NHNN:hierarchical:0010",
+      "TT_39_2016_NHNN:hierarchical:0011",
+      "TT_39_2016_NHNN:hierarchical:0012",
+      "TT_39_2016_NHNN:hierarchical:0013"
+    ],
+    "relevant_parent_ids": [
+      "TT_39_2016_NHNN.pdf::Dieu_7"
+    ],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q02",
+    "question": "Điều kiện để khoản nợ được tổ chức tín dụng cơ cấu lại thời hạn trả nợ theo Thông tư 02/2023?",
+    "relevant_chunk_ids": [
+      "TT_02_2023_NHNN:hierarchical:0005",
+      "TT_02_2023_NHNN:hierarchical:0006",
+      "TT_02_2023_NHNN:hierarchical:0007"
+    ],
+    "relevant_parent_ids": [
+      "TT_02_2023_NHNN.pdf::Dieu_4"
+    ],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q03",
+    "question": "Những nhu cầu vốn nào tổ chức tín dụng không được cho vay theo quy định mới?",
+    "relevant_chunk_ids": [
+      "TT_06_2023_NHNN:hierarchical:0006"
+    ],
+    "relevant_parent_ids": [
+      "TT_06_2023_NHNN.pdf::Dieu_1"
+    ],
+    "scope": "in_scope",
+    "needs_human_review": true
+  },
+  {
+    "query_id": "Q04",
+    "question": "Quy định về phòng cháy chữa cháy tại trụ sở chi nhánh ngân hàng thương mại?",
+    "relevant_chunk_ids": [],
+    "relevant_parent_ids": [],
+    "scope": "out_of_scope",
+    "needs_human_review": true
+  }
+]

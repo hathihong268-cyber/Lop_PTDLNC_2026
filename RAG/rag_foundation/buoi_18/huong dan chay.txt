@@ -41,13 +41,13 @@ AI COMPLIANCE CHECKER & AI AUDIT CHECKLIST GENERATOR - AGRIBANK
    git push origin main
 
 ================================================================================
-TỔNG HỢP DANH MỤC TỆP KẾT XUẤT (OUTPUTS) TRONG buoi_17/outputs/
+TỔNG HỢP DANH MỤC TỆP KẾT XUẤT (OUTPUTS) TRONG buoi_18/outputs/
 ================================================================================
 - outputs/b18_data_catalog.md              : Báo cáo cataloging dữ liệu 10 domain
 - outputs/compliance_conflicts.csv         : Dữ liệu mâu thuẫn quy định UC3 (14 cột)
 - outputs/compliance_conflict_report.md    : Báo cáo phân tích mâu thuẫn UC3
 - outputs/audit_checklist_results.csv      : Báo cáo danh mục Checklist UC4 (11 cột)
-- outputs/audit_checklist_report.md       : Báo cáo chi tiết Checklist UC4
+- outputs/audit_checklist_report.md        : Báo cáo chi tiết Checklist UC4
 - outputs/security_test_b18_report.md      : Báo cáo 7 bài kiểm thử bảo mật (7/7 PASS)
 - outputs/final_validation_b18_report.md   : Báo cáo nghiệm thu (SYSTEM READY FOR DEMO: YES)
 - outputs/audit_log.jsonl                  : Nhật ký kiểm toán hệ thống JSON Lines

@@ -4,7 +4,7 @@
 ---
 
 ## 1. Tổng quan Đợt Kiểm tra (Inspection Summary)
-- **Ngày thực hiện**: 2026-08-26 22:41:40
+- **Ngày thực hiện**: 2026-10-01 15:09:22
 - **Số cặp văn bản được kiểm tra**: 3 cặp
 - **Số mâu thuẫn / chênh lệch phát hiện**: 3 mâu thuẫn
 - **Cơ chế Bảo mật & Kiểm soát**: Tự động gán `review_status = "NEEDS_HUMAN_REVIEW"` cho toàn bộ phát hiện.
@@ -15,16 +15,16 @@
 
 | Conflict ID | Domain | Văn bản A | Văn bản B | Loại Xung đột | Severity | Guardrail Status |
 |---|---|---|---|---|---|---|
-| `CFL-EDDF08` | An toàn kho quỹ & Tiền mặt | `100/QĐ-NHNO-AT` | `01/2014/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
-| `CFL-25B0EE` | CAR & Quản lý rủi ro | `250/QĐ-NHNO-QLRR` | `41/2016/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
-| `CFL-3A4044` | Hoạt động Tín dụng & Ủy quyền | `315/QC-NHNO-TD` | `43/2024/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
+| `CFL-D7F74C` | An toàn kho quỹ & Tiền mặt | `100/QĐ-NHNO-AT` | `01/2014/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
+| `CFL-B5BE6C` | CAR & Quản lý rủi ro | `250/QĐ-NHNO-QLRR` | `41/2016/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
+| `CFL-9D45BD` | Hoạt động Tín dụng & Ủy quyền | `315/QC-NHNO-TD` | `43/2024/TT-NHNN` | `Hạn mức/ngưỡng` | 🔴 HIGH | `NEEDS_HUMAN_REVIEW` |
 
 ---
 
 ## 3. Chi tiết Phân tích Xung đột (Detailed Conflict Findings)
 
 
-### 1. Conflict ID: `CFL-EDDF08` - Domain: **An toàn kho quỹ & Tiền mặt**
+### 1. Conflict ID: `CFL-D7F74C` - Domain: **An toàn kho quỹ & Tiền mặt**
 - **Văn bản A (Nội bộ)**: `100/QĐ-NHNO-AT` - [100/QĐ-NHNO-AT - Quy định nội bộ số 100/QĐ-NHNO-AT | Điều 12 | doc_agr_kq01_02]
 - **Văn bản B (Đối chiếu)**: `01/2014/TT-NHNN` - [01/2014/TT-NHNN - Thông tư số 01/2014/TT-NHNN | Điều 50 | doc_44209_dieu_50]
 - **Phân loại Xung đột**: `Hạn mức/ngưỡng`
@@ -35,7 +35,7 @@
 
 ---
 
-### 2. Conflict ID: `CFL-25B0EE` - Domain: **CAR & Quản lý rủi ro**
+### 2. Conflict ID: `CFL-B5BE6C` - Domain: **CAR & Quản lý rủi ro**
 - **Văn bản A (Nội bộ)**: `250/QĐ-NHNO-QLRR` - [250/QĐ-NHNO-QLRR - Quy định nội bộ số 250/QĐ-NHNO-QLRR | Điều 5 | doc_agr_rr02_01]
 - **Văn bản B (Đối chiếu)**: `41/2016/TT-NHNN` - [41/2016/TT-NHNN - Thông tư số 41/2016/TT-NHNN | Điều 3 | doc_117310_dieu_3]
 - **Phân loại Xung đột**: `Hạn mức/ngưỡng`
@@ -46,7 +46,7 @@
 
 ---
 
-### 3. Conflict ID: `CFL-3A4044` - Domain: **Hoạt động Tín dụng & Ủy quyền**
+### 3. Conflict ID: `CFL-9D45BD` - Domain: **Hoạt động Tín dụng & Ủy quyền**
 - **Văn bản A (Nội bộ)**: `315/QC-NHNO-TD` - [315/QC-NHNO-TD - Quy chế tín dụng nội bộ số 315/QC-NHNO-TD | Điều 8 | doc_agr_td03_01]
 - **Văn bản B (Đối chiếu)**: `43/2024/TT-NHNN` - [43/2024/TT-NHNN - Thông tư số 43/2024/TT-NHNN | Điều 2 | doc_169221_dieu_2]
 - **Phân loại Xung đột**: `Hạn mức/ngưỡng`

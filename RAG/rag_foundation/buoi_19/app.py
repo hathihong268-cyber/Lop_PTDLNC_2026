@@ -17,23 +17,24 @@ from dotenv import load_dotenv
 
 # Set Page Config
 st.set_page_config(
-    page_title="AGRIBANK AI COMPLIANCE & AUDIT SYSTEM — BUỔI 18",
-    page_icon="🛡️",
+    page_title="AGRIBANK AI COMPLIANCE & AUDIT SYSTEM — BUỔI 19",
+    page_icon="🐳",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # Base Paths
-BUOI_17_DIR = Path(__file__).resolve().parent
-if str(BUOI_17_DIR) not in sys.path:
-    sys.path.insert(0, str(BUOI_17_DIR))
+BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
-load_dotenv(BUOI_17_DIR / ".env")
+load_dotenv(BASE_DIR / ".env")
 
 # Import Core Engines
 from scripts.compliance_checker import ComplianceCheckerEngine, CSV_OUTPUT_PATH as UC3_CSV_PATH, REPORT_OUTPUT_PATH as UC3_MD_PATH
 from scripts.audit_checklist_gen import AuditChecklistGeneratorEngine, CSV_OUTPUT_PATH as UC4_CSV_PATH, REPORT_OUTPUT_PATH as UC4_MD_PATH
 from scripts.audit_logger import AuditLogger, DEFAULT_AUDIT_LOG_PATH
+from scripts.ollama_adapter import OllamaClient
 
 # Cache System Engines
 @st.cache_resource
@@ -48,9 +49,14 @@ def get_checklist_generator():
 def get_audit_logger():
     return AuditLogger()
 
+@st.cache_resource
+def get_ollama_client():
+    return OllamaClient()
+
 compliance_engine = get_compliance_checker()
 checklist_engine = get_checklist_generator()
 audit_logger = get_audit_logger()
+ollama_client = get_ollama_client()
 
 # Initialize Session States for interactive approvals
 if "uc3_results" not in st.session_state:
@@ -64,11 +70,11 @@ if "uc4_items" not in st.session_state:
 # ------------------------------------------------------------------------------
 st.warning("⚠️ **Demo sản phẩm AI Kiểm toán - Kết quả gợi ý cần kiểm toán viên xác minh trước khi ban hành.**")
 
-st.title("🛡️ AGRIBANK AI COMPLIANCE & AUDIT SYSTEM — BUỔI 18")
-st.caption("Ứng dụng AI So sánh chéo Quy định Tuân thủ (UC3) & Tự động Sinh Checklist Kiểm toán (UC4) tích hợp RBAC Audit Trail")
+st.title("🐳 AGRIBANK AI COMPLIANCE & AUDIT SYSTEM — BUỔI 19")
+st.caption("Đóng gói Local AI System với Docker, Ollama (Model Qwen3:0.6B) & Streamlit Dashboard — Hoàn toàn Offline & Bảo mật tuyệt đối")
 
 # ------------------------------------------------------------------------------
-# SIDEBAR: NGƯỜI DÙNG & TÌNH TRẠNG DỮ LIỆU
+# SIDEBAR: NGƯỜI DÙNG, PROVIDER & TÌNH TRẠNG DỮ LIỆU
 # ------------------------------------------------------------------------------
 st.sidebar.header("🔐 Cấu hình Người dùng Demo")
 
@@ -77,10 +83,26 @@ role_options = ["Admin", "Risk_Manager", "KiemToanVien", "Staff", "HR"]
 selected_role = st.sidebar.selectbox("Vai trò (User Role)", role_options, index=0)
 
 st.sidebar.divider()
+st.sidebar.header("🤖 Cấu hình AI Provider (Dual Switch)")
+
+provider = os.getenv("LLM_PROVIDER", "ollama").lower()
+ollama_model = os.getenv("OLLAMA_MODEL", "qwen3:0.6b")
+gemini_model = os.getenv("LLM_MODEL", "gemini-2.5-flash")
+
+if provider == "ollama":
+    health = ollama_client.check_health()
+    if health["online"]:
+        st.sidebar.success(f"🟢 **Provider**: Local Ollama (Online)\n\n**Model**: `{ollama_model}`")
+    else:
+        st.sidebar.info(f"🟡 **Provider**: Local Ollama (Air-gapped Mode)\n\n**Model**: `{ollama_model}`\n\n*(Sẵn sàng Fallback Rule Engine)*")
+else:
+    st.sidebar.success(f"☁️ **Provider**: Cloud Gemini API\n\n**Model**: `{gemini_model}`")
+
+st.sidebar.divider()
 st.sidebar.header("🌐 Trạng thái Kết nối Dữ liệu")
 
-path_internal = BUOI_17_DIR / "data" / "agribank_internal_policies.csv"
-path_combined = BUOI_17_DIR / "data" / "chunks_combined_secure.csv"
+path_internal = BASE_DIR / "data" / "agribank_internal_policies.csv"
+path_combined = BASE_DIR / "data" / "chunks_combined_secure.csv"
 
 if path_internal.exists():
     df_int = pd.read_csv(path_internal)

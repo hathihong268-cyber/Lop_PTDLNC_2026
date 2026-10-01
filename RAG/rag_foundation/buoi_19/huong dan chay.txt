@@ -1,0 +1,53 @@
+================================================================================
+HƯỚNG DẪN CÁC LỆNH CHẠY DỰ ÁN BUỔI 19
+ĐÓNG GÓI LOCAL AI SYSTEM VỚI DOCKER, OLLAMA (QWEN3:0.6B) & STREAMLIT DASHBOARD
+================================================================================
+
+1. DI CHUYỂN VÀO THƯ MỤC DỰ ÁN BUỔI 19:
+   cd "d:\Lop PTDLNC 2026\RAG\rag_foundation\buoi_19"
+
+2. KÍCH HOẠT MÔI TRƯỜNG PYTHON & THIẾT LẬP ENCODING UTF-8:
+   - PowerShell:
+     $env:PYTHONUTF8=1
+   - Command Prompt (CMD):
+     set PYTHONUTF8=1
+
+3. CHẠY GIAO DIỆN WEB STREAMLIT DASHBOARD (UC3, UC4, AUDIT TRAIL):
+   streamlit run app.py --server.port 8501
+   (Truy cập ứng dụng trên trình duyệt web tại địa chỉ: http://localhost:8501)
+
+4. KIỂM THỬ MODULE OLLAMA ADAPTER CLIENT (DUAL-PROVIDER SWITCH):
+   python scripts/ollama_adapter.py
+
+5. CHẠY CÁC CORE BACKEND ENGINES (UC3 & UC4) TƯƠNG THÍCH LOCAL MODEL:
+   python scripts/compliance_checker.py
+   python scripts/audit_checklist_gen.py
+
+6. KIỂM TRA ĐÓNG GÓI DOCKER & CONTAINERIZATION:
+   docker compose config
+   docker compose up -d --build
+   docker exec agribank-ollama-server ollama run qwen3:0.6b "Xin chào"
+   docker compose ps
+
+7. CHẠY BỘ KIỂM THỬ BẢO MẬT & GUARDRAIL 6 BÀI TEST:
+   python scripts/security_tests_b19.py
+
+8. CHẠY NGHIỆM THU TOÀN BỘ DỰ ÁN BUỔI 19 (DOCKER & LOCAL AI VALIDATION):
+   python scripts/verify_b19_docker.py
+
+9. LỆNH ĐỒNG BỘ MÃ NGUỒN VÀ BÁO CÁO LÊN GITHUB:
+   git add .
+   git commit -m "Hoan thanh va nghiem thu Buoi 19: Dong goi Local AI System voi Docker, Ollama (Qwen3:0.6B) & Streamlit Dashboard"
+   git push origin main
+
+================================================================================
+TỔNG HỢP DANH MỤC TỆP KẾT XUẤT (OUTPUTS) TRONG buoi_19/outputs/
+================================================================================
+- outputs/compliance_conflicts.csv         : Dữ liệu xung đột quy định UC3
+- outputs/compliance_conflict_report.md    : Báo cáo phân tích xung đột quy định UC3
+- outputs/audit_checklist_results.csv      : Báo cáo danh mục Checklist UC4
+- outputs/audit_checklist_report.md        : Báo cáo chi tiết Checklist UC4
+- outputs/b19_security_test_report.md      : Báo cáo 6 bài kiểm thử bảo mật (6/6 PASS)
+- outputs/b19_docker_acceptance_report.md  : Báo cáo nghiệm thu Docker (READY: YES)
+- outputs/audit_log.jsonl                  : Nhật ký kiểm toán hệ thống JSON Lines
+================================================================================

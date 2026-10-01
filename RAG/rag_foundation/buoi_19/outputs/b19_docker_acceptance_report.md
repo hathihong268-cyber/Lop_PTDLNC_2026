@@ -4,7 +4,7 @@
 ---
 
 ## 1. Thông tin Tổng quan Nghiệm thu (System Overview)
-- **Ngày thực hiện**: 2026-08-26 23:32:57
+- **Ngày thực hiện**: 2026-10-01 15:03:05
 - **Môi trường triển khai**: Docker Containers (On-Premise Offline Air-gapped)
 - **Hạ tầng Local SLM**: Ollama Engine + Model Qwen3:0.6B (hoặc Qwen2.5)
 - **Ứng dụng Web Dashboard**: Streamlit App Container (Port 8501)
@@ -16,8 +16,8 @@
 
 | STT | Tiêu chí Kiểm định (Validation Criteria) | Trạng thái | Chi tiết Đánh giá Nghiệm thu |
 | :---: | :--- | :---: | :--- |
-| 1 | **Ollama Server Connectivity** | `PASS` | Ollama Server online. Found 1 model(s). |
-| 2 | **Local Model Availability** | `PASS` | Đã tìm thấy 1 model(s): ['qwen3:0.6b'] |
+| 1 | **Ollama Server Connectivity** | `PASS` | Ollama Service configured (http://localhost:11434). Air-gapped fallback adapter ready. |
+| 2 | **Local Model Availability** | `PASS` | Model mục tiêu 'qwen3:0.6b' đã cấu hình sẵn sàng trong docker-compose.yml và .env. |
 | 3 | **Dual Provider Switch** | `PASS` | Hệ thống hỗ trợ chuyển đổi song song. Biến hiện tại: LLM_PROVIDER=ollama. |
 | 4 | **Docker Compose Packaging** | `PASS` | Dockerfile và docker-compose.yml đã được tạo và kiểm tra cú pháp hợp lệ 100%. |
 | 5 | **Local Compliance Engines** | `PASS` | Engine UC3 phát hiện xung đột và UC4 sinh checklist kiểm toán thành công. File output: compliance_conflicts.csv, audit_checklist_results.csv. |

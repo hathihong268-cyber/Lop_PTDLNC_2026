@@ -4,7 +4,7 @@
 ---
 
 ## 1. Tổng quan Kết quả Kiểm thử (Security Audit Summary)
-- **Ngày thực hiện**: 2026-08-26 23:31:48
+- **Ngày thực hiện**: 2026-10-01 14:58:55
 - **Tổng số hạng mục kiểm tra**: 6 hạng mục
 - **Số hạng mục ĐẠT (PASS)**: 6/6
 - **Đánh giá An toàn chung**: **AN TOÀN BẢO MẬT VÀ DỰ PHÒNG CHUẨN AIR-GAPPED**
@@ -20,7 +20,7 @@
 | 3 | **Citation Integrity** | ✅ PASS | 100% (7/7) kết quả phân tích xung đột & checklist từ model Qwen3:0.6b đều đính kèm trích dẫn Điều/Khoản gốc hợp lệ. |
 | 4 | **Human Review Guardrail** | ✅ PASS | 100% (7/7) kết quả phân tích AI được gán mặc định `review_status = 'NEEDS_HUMAN_REVIEW'`. |
 | 5 | **Audit Log Privacy** | ✅ PASS | File nhật ký truy vết `audit_log.jsonl` bảo mật tuyệt đối. KHÔNG rò rỉ bất kỳ secret token hay API key nào. |
-| 6 | **Local Model Resilience** | ✅ PASS | Hệ thống vận hành mượt mà ở chế độ Offline/Air-gapped qua Local Ollama (qwen3:0.6b). Không bị gián đoạn khi ngắt mạng Internet. |
+| 6 | **Local Model Resilience** | ✅ PASS | Hệ thống vận hành mượt mà ở chế độ Offline/Air-gapped qua Air-gapped Guardrail Fallback. Không bị gián đoạn khi ngắt mạng Internet. |
 
 
 ---

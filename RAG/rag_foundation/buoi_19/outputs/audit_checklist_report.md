@@ -4,7 +4,7 @@
 ---
 
 ## 1. Tổng quan Đợt Sinh Checklist (Summary)
-- **Ngày thực hiện**: 2026-08-26 22:41:53
+- **Ngày thực hiện**: 2026-10-01 14:58:28
 - **Tổng số mục Checklist đã sinh**: 4 mục
 - **Các Domain được kiểm tra**: An toàn kho quỹ & Vận chuyển tiền, Bảo mật CNTT & AI
 - **Ràng buộc Trích dẫn (Citation Guardrail)**: Gắn kèm 100% Citation thật
